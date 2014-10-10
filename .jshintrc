@@ -1,0 +1,71 @@
+{
+    // Enforcing options
+    "bitwise"       : true,         // Warn when using bitwise operators, most of the time it is a typo
+    "camelcase"     : true,         // Force all variable names to use either camelCase style or UPPER_CASE with underscores.
+    "curly"         : true,         // Always put curly braces around blocks in loops and conditionals
+    "eqeqeq"        : true,         // Always compare using === and !==
+    "forin"         : true,         // Force the use of hasOwnProperty() checks when iterating object properties
+    "freeze"        : true,         // Prohibit overwriting prototypes of native objects like Array
+    "immed"         : true,         // Prohibits the use of immediate function invocations without wrapping them in parentheses
+    "indent"        : 4,            // Tab width for the code
+    "latedef"       : true,         // Prohibit the use of a variable before it was defined
+    "newcap"        : true,         // Force constructor methods to start with a capital
+    "noarg"         : true,         // Prohibit the use of arguments.caller and arguments.callee
+    "noempty"       : false,        // Do not warn about empty blocks of code
+    "nonbsp"        : true,         // Warn about "non-breaking whitespace" characters, could be Mac specific
+    "nonew"         : true,         // Prohibit the use of constructor functions for side-effects
+    "plusplus"      : false,        // Allow the use of unary increment and decrement operators
+    "quotmark"      : true,         // Force a consistent use of quote marks but do not enforce single or double quotes
+    "undef"         : true,         // Warn about the use of undeclared variables, handy for finding typos
+    "unused"        : "vars",       // Warn about unused variables, but not about unused params as methods might get an event param and that would trigger a warning
+    "strict"        : true,         // Force all methods to run in ECMAScript 5's strict mode
+    "maxcomplexity" : 10,           // Warn when the cyclomatic complexity of the code becomes more than 10
+    "maxdepth"      : 3,            // Warn when a method has more than 3 nested blocks
+
+    // Relaxing options
+    "asi"           : false,        // Always warn about missing semicolons
+    "boss"          : false,        // Always warn when assigning where a comparison is expected
+    "debug"         : false,        // Always warn about debugger statements
+    "eqnull"        : true,         // Do not warn when using == or != to check for null, this also checks for undefined in the same statement
+    "esnext"        : false,        // Give warning when using ECMAScript 6 syntax
+    "evil"          : false,        // Always warn when using eval
+    "expr"          : false,        // Always warn when expressions are used where an assignement or function call is expected
+    "funcscope"     : false,        // Always warn when using variables outside of the control structures they were defined in
+    "globalstrict"  : false,        // Always warn when using a global use strict
+    "iterator"      : false,        // Always warn when using the __iterator__ property
+    "lastsemic"     : false,        // Always warn when missing the semicolon in a one-line block
+    "laxbreak"      : false,        // Always warn about possibly unsafe line breaks
+    "laxcomma"      : false,        // Always warn when using the comma-first code style
+    "loopfunc"      : false,        // Always warn when declaring functions inside loops
+    "maxerr"        : 50,           // The max number of errors JSHint will generate before giving up
+    "multistr"      : false,        // Always warn when using multi-line strings
+    "notypeof"      : false,        // Always warn when using invalid typeof operator values
+    "proto"         : false,        // Always warn when using the __proto__ property
+    "scripturl"     : false,        // Always warn when using script-targeted URLs
+    "shadow"        : false,        // Always warn when declaring a variable that is already defined in the outer scope
+    "sub"           : true,         // Do not warn when using obj['prop'] instead of obj.prop
+    "supernew"      : false,        // Always warn when using "weird" constructions
+    "validthis"     : false,        // Always warn about possible strict violations with the usage of this
+
+    // Environments
+    "browser"       : true,         // Define globals exposed by modern browsers like document and navigator
+    "couch"         : false,        // Do not define globals exposed by CouchDB
+    "devel"         : false,        // Do not define globals usually used for debugging (console, alert, etc)
+    "dojo"          : false,        // Do not define globals exposed by Dojo Toolkit
+    "jquery"        : false,        // Do not define globals exposed by jQuery
+    "mootools"      : false,        // Do not define globals exposed by MooTools
+    "node"          : false,        // Do not assume the code will be running within Node.js runtime environment
+    "nonstandard"   : false,        // Do not define non-standard but widely adopted globals like escape and unescape
+    "prototypejs"   : false,        // Do not define globals exposed by PrototypeJS
+    "rhino"         : false,        // Do not assume the code will be running within Rhino runtime environment
+    "worker"        : false,        // Do not assume the code will be running within a Web Worker environment
+    "wsh"           : false,        // Do not define globals available when running as a script for Windows Shell Host
+    "yui"           : false,        // Do not define globals exposed by YUI
+
+    // Globals
+    "predef"          : [
+        "define",
+        "module",
+        "require"
+    ]
+}

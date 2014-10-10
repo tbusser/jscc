@@ -1,0 +1,5 @@
+@if (staticTarget == 1) {
+	<script charset="utf-8" data-main="static/js/App-built.js" src="static/js/vendor/require.js"></script>
+} else {
+	<script charset="utf-8" data-main="static/js/App.js" src="static/js/vendor/require.js"></script>
+}

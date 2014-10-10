@@ -1,0 +1,36 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#TABLE
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+table {
+	border: 1px solid lightgrey;
+	border-collapse: collapse;
+	font-size: .875em;
+	table-layout: fixed;
+	width: 100%;
+}
+
+td {
+	border: 1px solid lightgrey;
+	text-align: center;
+
+	&.no-support {
+		background-color: red;
+		color: white;
+	}
+
+	&.full-support {
+		background-color: green;
+		color: white;
+	}
+
+	&.has-polyfill {
+		background-color: orange;
+		color: white;
+	}
+}
+
+th {
+	background-color: lightgrey;
+	border: 1px solid darkgrey;
+	color: #333;
+}

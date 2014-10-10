@@ -1,0 +1,66 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#FORM
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+form {
+	button {
+		background-color: lightblue;
+		border: 3px solid #fff;
+		box-shadow: 0 0 1px #000;
+		cursor: pointer;
+		font: inherit;
+		padding: .5em 1em;
+		transition: box-shadow .2s ease-out, background-color .2s ease-out;
+
+		&:hover {
+			background-color: darken(lightblue, 10%);
+			box-shadow: 0 0 3px #000;
+		}
+
+		&:focus {
+			box-shadow: 0 0 5px #ff9200;
+			outline: none;
+		}
+	}
+
+	fieldset {
+		border: none;
+		padding: 0;
+	}
+
+	textarea {
+		border: 3px solid lightgrey;
+		display: block;
+		font: 14px/1.2 Monaco, Consolas, "Lucida Console", monospace;
+		resize: vertical;
+		padding: .5em;
+		width: 100%;
+	}
+
+	input {
+		display: block;
+
+		&[type="file"] {
+			height: 0;
+			width: 0;
+
+			&:focus {
+				outline: none;
+			}
+		}
+	}
+
+	label {
+		display: block;
+
+		.underline {
+			border-bottom: 2px solid lightgrey;
+		}
+	}
+
+	fieldset + button,
+	label + label,
+	label + button,
+	label + fieldset {
+		margin-top: 1em;
+	}
+}

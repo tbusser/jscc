@@ -1,0 +1,5 @@
+generateBefore:
+  - 'clean:generateBefore'
+generateAfter:
+  - 'requirejs:generateAfter'
+  - 'clean:generateAfter'

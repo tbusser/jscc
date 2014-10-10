@@ -1,0 +1,94 @@
+{
+	"data":{
+		"obj-create": {
+			"title":"Object.create()",
+			"description":"The create function creates a new object with a specified prototype.",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create",
+					"title":"Object.create() reference",
+					"type":"poly"
+				}
+			],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"y"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n","5":"y"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"n","11":"n","11.1":"n"},
+				"and_chr":{},
+				"and_ff":{"32":"u"},
+				"ie_mob":{},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"obj-defineproperty": {
+			"title":"Object.defineProperty",
+			"description":"The defineProperty function is used to add an own property and/or update the attributes of an existing own property of an object.",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty",
+					"title":"Object.defineProperty() reference",
+					"type":"info"
+				}
+			],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"y #1"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n","5":"y #2"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"n","11":"n","11.1":"n"},
+				"and_chr":{"37":"y"},
+				"and_ff":{"32":"y"},
+				"ie_mob":{"10":"y"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{
+				"1":"In Internet Explorer 8 Object.defineProperty only accepts DOM objects",
+				"2":"In some versions of Safari 5, Object.defineProperty does not work with DOM objects."
+			}
+		},
+		"obj-defineproperties": {
+			"title":"Object.defineProperties",
+			"description":"The defineProperties function is used to add own properties and/or update the attributes of existing own properties of an object.",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties",
+					"title":"Object.defineProperties() reference",
+					"type":"info"
+				}
+			],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"n","11":"n","11.1":"n"},
+				"and_chr":{"37":"y"},
+				"and_ff":{"32":"y"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		}
+	}
+}

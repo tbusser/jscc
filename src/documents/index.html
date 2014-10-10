@@ -1,0 +1,36 @@
+---
+layout: default
+title: JS Compatibility Checker
+---
+<div class="top-container">
+	<h1><span>JavaScript Compatibility Checker</span></h1>
+
+	<article id="code-input">
+		<h2>Provide some code to check</h2>
+		<form id="form_id" action="index.html" method="post">
+			<label for="txaCode">
+				Paste your JavaScript code here:
+				<textarea name="txaCode" rows="8" cols="40"></textarea>
+			</label>
+			<fieldset id="file-selector">
+				<label class="drop-target" for="file-upload">
+					Click here to upload a JavaScript file, or drop the file here.
+				</label>
+				<input type="file" id="file-upload" name="some_name" value="">
+			</fieldset>
+			<button type="button">Check it!</button>
+		</form>
+	</article>
+</div>
+
+<article id="widget-report" class="middle-container hidden">
+	<h2>Report</h2>
+	<div id="report-output">
+	</div
+</article>
+
+<article class="bottom-container" id="">
+	<h2>Logging</h2>
+	<ol class="notifications">
+	</ol>
+</article>

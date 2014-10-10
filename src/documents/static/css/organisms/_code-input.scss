@@ -1,0 +1,32 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#CODE-INPUT
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+#code-input {
+	position: relative;
+
+	.drop-target {
+		border: 3px dashed lightgrey;
+		padding: 1.5em 0;
+		text-align: center;
+
+		&:hover {
+			text-decoration: underline;
+		}
+
+		&.on-drag {
+			background-color: lightyellow;
+			text-decoration: none;
+		}
+
+		& + label {
+			margin-top: 1em;
+		}
+	}
+
+	button {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		min-width: 10em;
+	}
+}
