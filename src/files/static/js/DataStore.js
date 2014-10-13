@@ -250,7 +250,6 @@
 		// Process the data from the additional.json file
 		_processAdditionalData(_sources['static/data/additional.json'].data);
 		_normalizeBrowserSupport();
-		console.log(_features);
 	}
 
 	function _normalizeBrowserSupport() {
