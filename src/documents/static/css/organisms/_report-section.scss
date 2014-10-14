@@ -1,0 +1,73 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#REPORT-SECTION
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+@keyframes flash {
+	0%   { background-color: transparent; color: inherit;}
+	50%  { background-color: $color-border; color: #000; }
+	100% { background-color: transparent; color: inherit; }
+}
+
+.report-section {
+	padding: 1em 0 2em;
+
+	h3 {
+		a {
+			color: inherit;
+			position: relative;
+			text-decoration: none;
+
+			&:after {
+				@include icon($icon-chain);
+				font-size: .75em;
+				margin-left: .5em;
+			}
+		}
+
+		& + p {
+			margin-top: .5em;
+		}
+	}
+
+	.inline-code {
+		background-color: lightyellow;
+		padding: 0 .25em;
+	}
+
+	&:nth-child(even) {
+		background-color: $color-base-light; //#e3e7e7; //rgba(#93A1A1, .25);
+		border-color: $color-border;
+		border-style: solid;
+		border-width: 1px 0;
+		color: #4b4b4b;
+		margin-left: -2em;
+		margin-right: -2em;
+		padding-left: 2em;
+		padding-right: 2em;
+	}
+
+	& + & {
+		margin-top: 0em;
+	}
+}
+
+.report-notes {
+	p {
+		margin: 0;
+
+		& + p {
+			margin-top: 1em;
+		}
+	}
+
+	h4 {
+
+		& + ol,
+		& + p {
+			margin-top: 0;
+		}
+	}
+
+	li:target {
+		animation: flash 1s;
+	}
+}

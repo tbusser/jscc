@@ -1,0 +1,18 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#VARIABLES
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+$font-heading: Courier, monospace; //"Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace; //Monaco, Courier, monospace;
+$font-code: Monaco, Consolas, "Lucida Console", monospace;
+$font-icons: Icomoon;
+
+$color-border: #586e75;
+$color-border-light: lighten($color-border, 30%);
+
+$color-base-light: #fdf6e3;
+$color-background-light: lighten($color-border, 50%);
+$color-background-medium: lighten($color-border, 40%);
+
+$color-accent-blue: #268bd2;
+$color-accent-yellow: #b58900;
+
+$size-max-width: 80em;

@@ -2,6 +2,7 @@
 	#TABLE
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
 table {
+	background-color: #fff;
 	border: 1px solid lightgrey;
 	border-collapse: collapse;
 	font-size: .875em;
@@ -33,4 +34,11 @@ th {
 	background-color: lightgrey;
 	border: 1px solid darkgrey;
 	color: #333;
+}
+
+td,
+th {
+	&.hide {
+		display: none;
+	}
 }

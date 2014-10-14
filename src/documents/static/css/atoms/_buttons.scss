@@ -1,0 +1,20 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#BUTTONS
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+%base-button {
+	background: #fff;
+	border: none;
+	font: inherit;
+	text-decoration: none;
+}
+
+.button {
+	@extend %base-button;
+
+
+	&.config {
+		&:before {
+			@include icon($icon-gear)
+		}
+	}
+}

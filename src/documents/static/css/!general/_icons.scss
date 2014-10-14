@@ -1,0 +1,15 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#ICONS
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+$icon-chain: '\f0c1';
+$icon-gear : '\f013';
+
+@mixin icon($char) {
+	content: $char;
+	font-family: $font-icons;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	speak: none;
+	text-transform: none;
+}

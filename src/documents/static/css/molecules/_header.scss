@@ -1,0 +1,36 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#HEADER
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+.site-header {
+	background-color: #fff;
+	box-shadow: 0 0 5px #000;
+	position: relative;
+	z-index: 1;
+
+	.large-text {
+		display: block;
+		float: left;
+		font-size: 1.75em;
+		line-height: 1.25;
+	}
+
+	.small-container {
+		display: inline-block;
+		float: left;
+		line-height: 1;
+		margin-left: .5em;
+		max-width: 10em;
+	}
+
+	h1 {
+		font-family: $font-code;
+		margin: 0;
+		padding: .25em 0;
+
+		&:after {
+			clear: both;
+			content: '';
+			display: table;
+		}
+	}
+}

@@ -2,7 +2,7 @@
 	#MAIN
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
 body {
-	background-color: lightgrey;
+	background-color: #fff; // $color-base-light;
 	color: #4b4b4b;
 	font: 16px/1.5 Arial, sans-serif;
 	margin: 0;
@@ -11,16 +11,28 @@ body {
 }
 
 main {
-	margin: 4em 4em 0;
-	max-width: 80em;
+	//margin: 4em auto 0;
+	//max-width: 80em;
 }
 
 footer {
 	bottom: 1.5em;
-	padding-left: 4em;
+	left: 0;
 	position: absolute;
+	right: 0;
 }
 
+.container-light {
+	background-color: $color-background-light;
+}
+.container-medium {
+	background-color: $color-background-medium;
+}
+.container-base {
+	background-color: $color-accent-blue; //$color-base-light;
+}
+
+/*
 %container {
 	background-color: #fff;
 	padding: 2em;
@@ -33,7 +45,7 @@ footer {
 }
 
 .bottom-container {
-	border-color: darkgrey;
+	border-color: $color-border;
 	border-radius: 0 0 1em 1em;
 	border-style: solid;
 	border-width: .5em 1px 1px;
@@ -41,10 +53,11 @@ footer {
 }
 
 .middle-container {
-	border-color: darkgrey;
+	border-color: $color-border;
 	border-style: solid;
 	border-width: .5em 1px;
 	box-shadow: .5em 0 1em rgba(0,0,0,.2), -.5em 0 1em rgba(0,0,0,.2);
+	position: relative;
 
 	& + .bottom-container {
 		margin-top: 1em;
@@ -53,7 +66,7 @@ footer {
 
 
 .top-container {
-	border-color: darkgrey;
+	border-color: $color-border;
 	border-radius: 1em 1em 0 0;
 	border-style: solid;
 	border-width: 1px 1px .5em;
@@ -62,4 +75,10 @@ footer {
 	& + .middle-container {
 		margin-top: 1em;
 	}
+}*/
+
+.size-constraint {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: $size-max-width;
 }

@@ -57,9 +57,10 @@
 		return result;
 	}
 
-	var exports = function(element, overrides) {
+	var exports = function(element, overrides, agents) {
 		this._element = element;
 		this._options = mergeOptions(overrides);
+		this._agents = agents;
 	};
 
 	exports.options = {
@@ -104,17 +105,25 @@
 		}
 	}
 
-	function _renderCategory(category, target, options) {
+	function _renderCategory(category, target, options, agents, browserFilter) {
 		var section = document.createElement('section'),
 		    title = document.createElement('h3'),
 		    desc = document.createElement('p'),
 		    table = document.createElement('table');
 
 		// Set the texts for title and the description
-		title.textContent = category.title;
+		if (category.spec !== '') {
+			var link = document.createElement('a');
+			link.textContent = category.title;
+			link.setAttribute('href', category.spec);
+			title.appendChild(link);
+		} else {
+			title.textContent = category.title;
+		}
 		desc.textContent = category.description;
 
 		// Add the elements to the section
+		section.classList.add('report-section');
 		section.appendChild(title);
 		section.appendChild(desc);
 
@@ -124,9 +133,18 @@
 		iterate(category.stats, function(browser, values) {
 			var result = _checkBrowser(browser, values),
 			    headerCell = document.createElement('th'),
-			    valueCell = document.createElement('td');
+			    valueCell = document.createElement('td'),
+			    isVisible = browserFilter[browser];
 
-			headerCell.textContent = browser;
+			if (agents) {
+				headerCell.textContent = agents[browser].browser;
+				if (!isVisible) {
+					headerCell.classList.add('hide');
+				}
+			} else {
+				headerCell.textContent = browser;
+			}
+			headerCell.setAttribute('data-browser', browser);
 			headerRow.appendChild(headerCell);
 			if (values.length === 1) {
 				valueCell.setAttribute('rowspan', category.maxRowCount);
@@ -138,6 +156,13 @@
 					valueCell.classList.add('no-support');
 				} else {
 					valueCell.textContent = values[0].fromVersion + ' / ' + values[0].support;
+					if (values[0].support === 'p') {
+						valueCell.classList.add('has-polyfill');
+					}
+				}
+				valueCell.setAttribute('data-browser', browser);
+				if (!isVisible) {
+					valueCell.classList.add('hide');
 				}
 				valueRows[0].appendChild(valueCell);
 			} else {
@@ -160,6 +185,10 @@
 					}
 					if (index === (ubound - 1) && index < category.maxRowCount) {
 						cell.setAttribute('rowspan', category.maxRowCount - index);
+					}
+					cell.setAttribute('data-browser', browser);
+					if (!isVisible) {
+						cell.classList.add('hide');
 					}
 					valueRows[index].appendChild(cell);
 				}
@@ -197,6 +226,13 @@
 		// table.appendChild(valueRow);
 		section.appendChild(table);
 
+		if (category.notes != null) {
+			var notes = document.createElement('section');
+			notes.classList.add('report-notes');
+			notes.innerHTML = category.notes;
+			section.appendChild(notes);
+		}
+
 		// Add the section to the review
 		target.appendChild(section);
 	}
@@ -217,7 +253,7 @@
 	}
 
 	exports.prototype = {
-		buildReport: function(data) {
+		buildReport: function(data, browserFilter) {
 			// Make sure there is an element specified to render the report in
 			if (this._element == null) {
 				 return;
@@ -245,8 +281,28 @@
 			for (var index = 0, ubound = data.length; index < ubound; index++) {
 				var item = data[index];
 				// Render a report item for the feature
-				_renderCategory(item, this._element, this._options);
+				_renderCategory(item, this._element, this._options, this._agents, browserFilter);
 			}
+		},
+
+		filterBrowsers: function(browserFilter) {
+			// Iterate over the objects in the filter. Each should be a key which
+			// is the name of the user agent and a boolean value.
+			iterate(browserFilter, function(agent, isVisible) {
+				// Get all the elements for the current user agent
+				var elements = document.querySelectorAll('[data-browser="' + agent + '"]');
+
+				// Loop over the returned elements
+				for (var index = 0, ubound = elements.length; index < ubound; index++) {
+					// Check if this user agent should be visible and set/remove
+					// the hide class accordingly
+					if (isVisible) {
+						elements[index].classList.remove('hide');
+					} else {
+						elements[index].classList.add('hide');
+					}
+				}
+			});
 		}
 	};
 

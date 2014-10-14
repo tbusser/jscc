@@ -2,20 +2,21 @@
 	#CODE-INPUT
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
 #code-input {
+	padding: 1em 0;
 	position: relative;
 
 	.drop-target {
-		border: 3px dashed lightgrey;
+		border: 3px dashed $color-border-light; // lightgrey;
 		padding: 1.5em 0;
 		text-align: center;
+		transition: background-color .3s ease-out, border-color .3s ease-out;
 
-		&:hover {
+		&:hover,
+		&.ondrag {
+			background-color: $color-base-light;
+			border-color: $color-border;
+			color: #2b2b2;
 			text-decoration: underline;
-		}
-
-		&.on-drag {
-			background-color: lightyellow;
-			text-decoration: none;
 		}
 
 		& + label {

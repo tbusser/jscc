@@ -17,12 +17,11 @@
 		</style>
 	</head>
 	<body>
+		@partial('components/header')
 		<main>
 			@html.raw(content)
 		</main>
-		<footer>
-			Compatibility data from <a href="http://caniuse.com">Can I Use</a>.
-		</footer>
+		@partial('components/footer')
 		@partial('document/behaviour')
 	</body>
 </html>
