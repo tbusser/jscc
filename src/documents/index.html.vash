@@ -2,22 +2,25 @@
 layout: default
 title: JS Compatibility Checker
 ---
-<div class="container-light">
+<div class="container-blue">
 	<div class="size-constraint">
 		@partial('components/code-input')
 	</div>
 </div>
 
-<div class="container-base">
+<div class="container-white">
 	<article id="widget-report" class="size-constraint hidden">
-		<h2>
-			Compatibility Report
-		</h2>
-		<button data-sh-trigger="comprep" class="button config" type="button">Show/Hide configuration settings</button>
+		<header>
+			<h2>
+				Compatibility Report
+			</h2>
+			<button data-sh-trigger="comprep" class="button config" type="button"><span class="visually-hidden">Show/Hide settings</span>config <span class="visually-hidden">settings</span></button>
+		</header>
 		<article data-sh-container="comprep" id="browser-filter">
 			<div data-sh-content="comprep">
+				<input type="checkbox" id="localstorage-consent">
 				<label for="localstorage-consent">
-					<input type="checkbox" id="localstorage-consent" name="some_name" value="">Store changes made to the configuration in my local storage so they're persisted between visits.
+					Store changes made to the configuration in my local storage so they're persisted between visits.
 				</label>
 				<h3>Show the following browsers in the report:</h3>
 				<div class="filters">
@@ -42,9 +45,5 @@ title: JS Compatibility Checker
 </div>
 
 <div class="container-medium">
-	<article class="bottom-container size-constraint" id="log-output">
-		<h2>Logging</h2>
-		<ol class="notifications">
-		</ol>
-	</article>
+	@partial('components/logger')
 </div>

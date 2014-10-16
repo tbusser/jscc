@@ -1,10 +1,16 @@
 /*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
-	#LOGGER
+	#FOOTER
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
-.logging-widget {
-	@extend .widget-container;
+.site-footer {
+	bottom: 0;
+	color: #fff;
+	height: 4.5em;
+	left: 0;
+	padding-top: 1.5em;
+	position: absolute;
+	right: 0;
 
-	.notifications {
-		background-color: #fff;
+	a {
+		color: inherit;
 	}
 }

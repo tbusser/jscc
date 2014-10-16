@@ -12,12 +12,6 @@ h1 {
 	}
 }
 
-h2,
-h3,
-h4 {
-	color: $color-accent-blue;
-}
-
 h2 {
 	margin-bottom: .25em;
 	margin-top: 0;
@@ -25,6 +19,7 @@ h2 {
 
 h3,
 h4 {
+	color: #333;
 	margin-bottom: 0;
 
 	& + p {

@@ -1,11 +1,12 @@
-<article id="code-input">
+<article id="code-input" class="input-widget">
 	<h2>Please provide some JavaScript to check</h2>
 	<form id="form_id" action="index.html" method="post">
 		<label for="txaCode">
 			<span>Paste your JavaScript code here:</span>
-			<textarea name="txaCode" rows="8" cols="40" placeholder="Paste your JavaScript code here"></textarea>
+			<textarea id="txaCode" rows="8" cols="40" placeholder="Paste your JavaScript code here"></textarea>
 		</label>
 		<fieldset id="file-selector">
+			<legend class="visually-hidden">Upload a JavaScript file</legend>
 			<label class="drop-target" for="file-upload">
 				Click here to upload a JavaScript file, or drop the file here.
 			</label>

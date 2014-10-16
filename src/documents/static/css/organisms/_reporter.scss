@@ -2,11 +2,23 @@
 	REPORTER
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
 #widget-report {
-	color: #fff;
-	padding: 1em 0;
+	@extend .widget-container;
 
-	h2,
-	h3 {
-		color: inherit;
+	header {
+		h2,
+		button {
+			float: left;
+		}
+
+		button {
+			line-height: 2.4;
+			margin-left: 1em;
+		}
+
+		&:after {
+			clear: both;
+			content: '';
+			display: table;
+		}
 	}
 }

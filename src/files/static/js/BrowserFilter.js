@@ -97,6 +97,7 @@
 			    label = document.createElement('label'),
 			    textNode = document.createTextNode(agentData.browser);
 
+			checkBox.setAttribute('id', 'chkbox_bf_' + agent);
 			checkBox.setAttribute('type', 'checkbox');
 			checkBox.setAttribute('data-browser', agent);
 			if (options.browsersToShow[agent]) {
@@ -104,7 +105,9 @@
 			} else if (options.browsersToShow[agent === undefined]) {
 				options.browsersToShow[agent] = false;
 			}
-			label.appendChild(checkBox);
+			label.setAttribute('for', 'chkbox_bf_' + agent);
+			label.classList.add('toggle-button');
+			item.appendChild(checkBox);
 			label.appendChild(textNode);
 			item.appendChild(label);
 			if (agentData.type === 'mobile') {

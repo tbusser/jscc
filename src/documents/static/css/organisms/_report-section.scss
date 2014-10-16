@@ -12,7 +12,7 @@
 
 	h3 {
 		a {
-			color: inherit;
+			color: #002B36;
 			position: relative;
 			text-decoration: none;
 
@@ -34,11 +34,11 @@
 	}
 
 	&:nth-child(even) {
-		background-color: $color-base-light; //#e3e7e7; //rgba(#93A1A1, .25);
+		background-color: rgba(0,0,0,.125);  // $color-base-light; //#e3e7e7; //rgba(#93A1A1, .25);
 		border-color: $color-border;
 		border-style: solid;
 		border-width: 1px 0;
-		color: #4b4b4b;
+		// color: #4b4b4b;
 		margin-left: -2em;
 		margin-right: -2em;
 		padding-left: 2em;
@@ -60,6 +60,7 @@
 	}
 
 	h4 {
+		color: #000608;
 
 		& + ol,
 		& + p {

@@ -1,10 +1,7 @@
 /*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
-	#LOGGER
+	#CONTAINERS
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
-.logging-widget {
-	@extend .widget-container;
-
-	.notifications {
-		background-color: #fff;
-	}
+.widget-container {
+	padding: 1.5em 1em;
+	position: relative;
 }

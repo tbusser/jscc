@@ -2,7 +2,7 @@
 	#MAIN
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
 body {
-	background-color: #fff; // $color-base-light;
+	background-color: dimgrey; // #fff; // $color-base-light;
 	color: #4b4b4b;
 	font: 16px/1.5 Arial, sans-serif;
 	margin: 0;
@@ -15,23 +15,34 @@ main {
 	//max-width: 80em;
 }
 
-footer {
-	bottom: 1.5em;
-	left: 0;
-	position: absolute;
-	right: 0;
+.container-blue {
+	background-color: #00a0d6;
+	color: #333;
+
+	h2 {
+		color: inherit;
+	}
 }
 
+.container-white {
+	background-color: #fff;
+	color: #4b4b4b;
+
+	h2 {
+		color: #333;
+	}
+}
+
+
 .container-light {
-	background-color: $color-background-light;
+	background-color: #e4e9eb; //$color-background-light;
 }
 .container-medium {
 	background-color: $color-background-medium;
 }
 .container-base {
-	background-color: $color-accent-blue; //$color-base-light;
+	background-color: slategrey // $color-accent-blue;
 }
-
 /*
 %container {
 	background-color: #fff;

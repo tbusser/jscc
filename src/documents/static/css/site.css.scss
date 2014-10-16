@@ -10,10 +10,12 @@ autoprefix: true
 @import "!general/main";
 
 @import "atoms/buttons";
+@import "atoms/containers";
 @import "atoms/form";
 @import "atoms/headings";
 @import "atoms/table";
 
+@import "molecules/footer";
 @import "molecules/header";
 @import "molecules/notifications";
 @import "molecules/show-hide";

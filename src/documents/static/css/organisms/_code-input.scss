@@ -1,21 +1,21 @@
 /*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
 	#CODE-INPUT
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
-#code-input {
-	padding: 1em 0;
-	position: relative;
+.input-widget {
+	@extend .widget-container;
 
 	.drop-target {
-		border: 3px dashed $color-border-light; // lightgrey;
+		border: 3px dashed $color-border; // lightgrey;
+		background-color: #fff;
 		padding: 1.5em 0;
 		text-align: center;
-		transition: background-color .3s ease-out, border-color .3s ease-out;
+		transition: background-color .3s ease-out, border-color .3s ease-out, color .3s ease-out;
 
 		&:hover,
 		&.ondrag {
 			background-color: $color-base-light;
-			border-color: $color-border;
-			color: #2b2b2;
+			border-color: $color-border-dark;
+			color: $color-border-dark;
 			text-decoration: underline;
 		}
 
@@ -25,9 +25,15 @@
 	}
 
 	button {
+		background-color: $color-grey-light;
+		color: inherit;
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
 		min-width: 10em;
+
+		&:hover {
+			background-color: darken($color-grey-light, 10%);
+		}
 	}
 }
