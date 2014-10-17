@@ -11,6 +11,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -41,6 +42,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"y #1"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -74,6 +76,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -104,6 +107,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
 				"firefox":{"2":"n","3":"n"},
@@ -134,6 +138,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{"2":"p","3":"p","3.5":"p","3.6":"p"},
@@ -164,6 +169,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -194,6 +200,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -224,6 +231,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -254,6 +262,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -284,6 +293,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -314,6 +324,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -344,6 +355,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"y #1"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -376,6 +388,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -406,6 +419,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{"2":"p"},
@@ -436,6 +450,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{"2":"p"},
@@ -466,6 +481,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{"2":"p","3":"p","3.5":"p","3.6":"p"},
@@ -496,6 +512,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{"2":"p","3":"p","3.5":"p","3.6":"p"},
@@ -526,6 +543,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{"2":"p","3":"p"},
@@ -561,6 +579,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{},
@@ -596,6 +615,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{},
@@ -631,6 +651,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{},
@@ -666,6 +687,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{},
@@ -701,6 +723,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{},
@@ -736,6 +759,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{},
@@ -771,6 +795,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{},
@@ -806,6 +831,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{},
@@ -841,6 +867,7 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
 				"firefox":{},
@@ -876,6 +903,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"n","9":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},

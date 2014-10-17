@@ -34,7 +34,7 @@
 	}
 
 	&:nth-child(even) {
-		background-color: rgba(0,0,0,.125);  // $color-base-light; //#e3e7e7; //rgba(#93A1A1, .25);
+		background-color: rgba(0,0,0,.05);  // $color-base-light; //#e3e7e7; //rgba(#93A1A1, .25);
 		border-color: $color-border;
 		border-style: solid;
 		border-width: 1px 0;
@@ -68,7 +68,45 @@
 		}
 	}
 
+	ol {
+		margin: 0;
+	}
+
 	li:target {
 		animation: flash 1s;
+	}
+}
+
+.support-section {
+	margin-left: 1em;
+
+	h4 {
+		color: #000608;
+		margin-bottom: .25em;
+	}
+
+	ol {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		//justify-content: space-between;
+		margin: 0;
+		padding: 0;
+
+		&:after {
+			clear: both;
+			content: '';
+			display: table;
+		}
+	}
+
+	li {
+		border: 1px solid #ccc;
+		float: left;
+		font-size: .825em;
+		margin-bottom: .5em;
+		margin-right: .5em;
+		min-width: 16em;
+		padding: .25em .5em;
 	}
 }

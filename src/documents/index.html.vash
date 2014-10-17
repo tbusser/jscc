@@ -22,7 +22,7 @@ title: JS Compatibility Checker
 				<label for="localstorage-consent">
 					Store changes made to the configuration in my local storage so they're persisted between visits.
 				</label>
-				<h3>Show the following browsers in the report:</h3>
+				<h3>Show the following browsers in the report</h3>
 				<div class="filters">
 					<div>
 						<h4>Desktop browsers</h4>
@@ -36,6 +36,31 @@ title: JS Compatibility Checker
 
 						</ul>
 					</div>
+				</div>
+				<h3>Show these support categories in the report</h3>
+				<div class="filters">
+					<ul>
+						<li>
+							<input type="checkbox" id="chkbox_sf_unknown">
+							<label for="chkbox_sf_unknown" class="toggle-button">Unknown support</label>
+						</li>
+						<li>
+							<input type="checkbox" id="chkbox_sf_no">
+							<label for="chkbox_sf_no" class="toggle-button">No support</label>
+						</li>
+						<li>
+							<input type="checkbox" id="chkbox_sf_poly">
+							<label for="chkbox_sf_poly" class="toggle-button">Polyfill support</label>
+						</li>
+						<li>
+							<input type="checkbox" id="chkbox_sf_poly">
+							<label for="chkbox_sf_poly" class="toggle-button">Partial support</label>
+						</li>
+						<li>
+							<input type="checkbox" id="chkbox_sf_full">
+							<label for="chkbox_sf_full" class="toggle-button">Full support</label>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</article>

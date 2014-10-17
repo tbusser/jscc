@@ -1,8 +1,11 @@
 /*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
 	#ICONS
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
-$icon-chain: '\f0c1';
-$icon-gear : '\f013';
+$icon-chain         : '\f08e';
+$icon-gear          : '\f013';
+$icon-check         : '\f00c';
+$icon-cross         : '\f00d';
+$icon-chevron-right : '\f054';
 
 @mixin icon($char) {
 	content: $char;

@@ -31,6 +31,21 @@
 		margin-left: auto;
 		margin-right: auto;
 		min-width: 10em;
+		padding-right: 3em;
+		position: relative;
+
+		&:after {
+			@include icon($icon-chevron-right);
+			bottom: 0;
+			font-size: 1.25em;
+			height: 1em;
+			line-height: 1;
+			margin: auto 0;
+			position: absolute;
+			right: .75em;
+			text-shadow: 0 1px 0 #fff, 0 -1px 0 #000;
+			top: 0;
+		}
 
 		&:hover {
 			background-color: darken($color-grey-light, 10%);

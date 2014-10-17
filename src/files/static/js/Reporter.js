@@ -64,7 +64,9 @@
 	};
 
 	exports.options = {
-		showFullySupported : true
+		groupVersions      : true,
+		showFullySupported : true,
+		supportOrder       : ['u', 'n', 'p', 'a', 'x', 'd', 'y']
 	};
 
 	function _checkBrowser(browser, versions) {
@@ -237,6 +239,163 @@
 		target.appendChild(section);
 	}
 
+	function _createCategoryContainer(category) {
+		var section = document.createElement('section'),
+		    title = document.createElement('h3'),
+		    desc = document.createElement('p');
+
+		// Set the texts for title and the description
+		if (category.spec !== '') {
+			var link = document.createElement('a');
+			link.textContent = category.title;
+			link.setAttribute('href', category.spec);
+			title.appendChild(link);
+		} else {
+			title.textContent = category.title;
+		}
+		desc.textContent = category.description;
+
+		// Add the elements to the section
+		section.classList.add('report-section');
+		section.appendChild(title);
+		section.appendChild(desc);
+
+		return section;
+	}
+
+	function _createNotes(notes) {
+		if (notes == null) {
+			return;
+		}
+
+		var section = document.createElement('section');
+		section.classList.add('report-notes');
+		section.innerHTML = notes;
+
+		return section;
+	}
+
+	function _createSupportSection(supportValue) {
+		var section = document.createElement('section'),
+		    list = document.createElement('ol'),
+		    title = document.createElement('h4');
+
+		section.classList.add('support-section');
+
+		switch (supportValue) {
+		case 'n':
+			title.appendChild(document.createTextNode('No support'));
+			break;
+		case 'y':
+			title.appendChild(document.createTextNode('Full support'));
+			break;
+		case 'p':
+			title.appendChild(document.createTextNode('Support through polyfill'));
+			break;
+		case 'u':
+			title.appendChild(document.createTextNode('Unknown support'));
+			break;
+		default:
+			title.appendChild(document.createTextNode('SUPPORT VALUE:' + supportValue));
+		}
+		section.setAttribute('data-support', supportValue);
+		section.appendChild(title);
+		section.appendChild(list);
+
+		return {
+			section : section,
+			list    : list,
+			count   : 0,
+			usage   : 0
+		};
+	}
+
+	function _renderBrowsers(list, browser, agents, supportObject, collate, browserFilter) {
+		var item,
+		    agentName = agents[browser].browser,
+		    index,
+		    ubound,
+		    isVisible = browserFilter[browser];
+
+		if (collate) {
+			item = document.createElement('li');
+			if (supportObject.fromVersion === supportObject.toVersion) {
+				item.appendChild(document.createTextNode(agentName + ' ' + supportObject.fromVersion));
+			} else {
+				item.appendChild(document.createTextNode(agentName + ' ' + supportObject.fromVersion + ' to ' + supportObject.toVersion));
+			}
+			item.setAttribute('data-browser', browser);
+			if (!isVisible) {
+				item.classList.add('hidden');
+			}
+			list.appendChild(item);
+		} else {
+			for (index = 0, ubound = supportObject.versions.length; index < ubound; index++) {
+				item = document.createElement('li');
+				item.appendChild(document.createTextNode(agentName + ' ' + supportObject.versions[index]));
+				item.setAttribute('data-browser', browser);
+				if (!isVisible) {
+					item.classList.add('hidden');
+				}
+				list.appendChild(item);
+			}
+		}
+		var usage = 0,
+		    currentAgent = agents[browser];
+
+		for (index = 0, ubound = supportObject.versions.length; index < ubound; index++) {
+			if (!isNaN(currentAgent.usage_global[supportObject.versions[index]])) {
+				usage += currentAgent.usage_global[supportObject.versions[index]];
+			}
+		}
+
+		return usage;
+	}
+
+	function _renderCategoryExt(category, target, options, agents, browserFilter) {
+		var section = _createCategoryContainer(category),
+		    notes = _createNotes(category.notes),
+		    supportSections = {},
+		    index,
+		    ubound;
+
+		// Iterate over the user agents for the current category
+		iterate(category.stats, function(browser, supportObjects) {
+			// Loop over the support blocks
+			for (index = 0, ubound = supportObjects.length; index < ubound; index++) {
+				var supportObject = supportObjects[index],
+				    supportValue = supportObject.support.substr(0, 1).toLowerCase();
+
+				if (supportSections[supportValue] == null) {
+					supportSections[supportValue] = _createSupportSection(supportValue);
+				}
+
+				var list = supportSections[supportValue].list;
+
+				supportSections[supportValue].usage += _renderBrowsers(list, browser, agents, supportObject, options.groupVersions, browserFilter);
+			}
+		});
+
+		for (index = 0, ubound = options.supportOrder.length; index < ubound; index++) {
+			var value = options.supportOrder[index];
+			if (supportSections[value] != null) {
+				var title = supportSections[value].section.querySelector('h4');
+				if (title != null) {
+					title.appendChild(document.createTextNode(' (' + supportSections[value].usage.toFixed(1) + '% global usage)'));
+				}
+				section.appendChild(supportSections[value].section);
+			}
+		}
+
+		// Check if there is a section with notes for the category
+		if (notes != null) {
+			// Add the notes section to the category section
+			section.appendChild(notes);
+		}
+		// Add the category section to the document
+		target.appendChild(section);
+	}
+
 	function _renderNoProblems(target) {
 		var section = document.createElement('section'),
 			title = document.createElement('h3'),
@@ -281,7 +440,7 @@
 			for (var index = 0, ubound = data.length; index < ubound; index++) {
 				var item = data[index];
 				// Render a report item for the feature
-				_renderCategory(item, this._element, this._options, this._agents, browserFilter);
+				_renderCategoryExt(item, this._element, this._options, this._agents, browserFilter);
 			}
 		},
 
@@ -297,9 +456,9 @@
 					// Check if this user agent should be visible and set/remove
 					// the hide class accordingly
 					if (isVisible) {
-						elements[index].classList.remove('hide');
+						elements[index].classList.remove('hidden');
 					} else {
-						elements[index].classList.add('hide');
+						elements[index].classList.add('hidden');
 					}
 				}
 			});

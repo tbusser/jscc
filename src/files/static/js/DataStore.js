@@ -137,6 +137,57 @@
 		}
 	}
 
+	function _createSupportObject(versionInfo) {
+		var result = {};
+		result.versions = [];
+
+		result.fromVersion = versionInfo.version;
+		result.versions.push(versionInfo.version);
+		result.containsCurrentVersion = versionInfo.era === 0;
+		result.support = versionInfo.support;
+
+		return result;
+	}
+
+	/**
+	* Load the JSON files containing the compatibility data.
+	*/
+	function _loadData() {
+		_isReady = false;
+		_attempts++;
+		iterate(_sources, function(key) {
+			if (_sources[key] == null) {
+				_callCount++;
+				var ajax = new Ajax({
+					callbackOnSuccess : _onAjaxSuccess,
+					callbackOnError   : _onAjaxError
+				});
+				Intermediary.publish('notification:info', {
+					level   : 9,
+					message : 'Downloading compatibility data from "' + key + '" (attempt ' + _attempts + ').'
+				});
+
+				ajax.makeRequest(key);
+			}
+		});
+	}
+
+	function _md2html(markdown) {
+		if (markdown == null) {
+			return null;
+		}
+
+		markdown = markdown.replace(/\[(.*?)]\((.*?)\)/g, function(match, description, url) {
+			return '<a href="' + url + '">' + description + '</a>';
+		});
+
+		markdown = markdown.replace(/`(.*?)`/g, function(match, note) {
+			return '<code class="inline-code">' + note + '</code>';
+		});
+
+		return markdown;
+	}
+
 	function _normalizeAgents(supportObj, agents) {
 		// Initialize the result var
 		var merge = {};
@@ -156,6 +207,103 @@
 			}
 		});
 		return merge;
+	}
+
+	function _normalizeBrowserSupport() {
+		// Iterate over all features that can be detected
+		iterate(_features, function(feature, data) {
+			// Iterate over all user agents
+			var maxRowCount = 0;
+			iterate(data.stats, function(agent, support) {
+				var normalized = [],
+					current,
+					previousItem;
+				// Iterate over each version of the user agent
+				iterate(support, function(key, value) {
+					if (current == null) {
+						current = _createSupportObject(value);
+					} else if (value.support !== current.support) {
+						current.toVersion = previousItem.version;
+						normalized.push(current);
+						current = _createSupportObject(value);
+					} else {
+						current.versions.push(value.version);
+					}
+					previousItem = value;
+				});
+				current.toVersion = previousItem.version;
+				normalized.push(current);
+
+				data.stats[agent] = normalized;
+				if (normalized.length > maxRowCount) {
+					maxRowCount = normalized.length;
+				}
+			});
+			_features[feature].maxRowCount = maxRowCount;
+		});
+	}
+
+	function _normalizeData() {
+		// Initialize the object to hold the data
+		_features = {};
+		_caseCount = 0;
+
+		// Keep the agents information
+		_agents = _sources['static/data/caniuse2.json'].agents;
+		// Process the data from can I use
+		_processCanIUseData(_sources['static/data/caniuse2.json'].data);
+		// Process the data from the additional.json file
+		_processAdditionalData(_sources['static/data/additional.json'].data);
+		_normalizeBrowserSupport();
+	}
+
+	function _normalizeNotes(categoryKey, note, notesByNum) {
+		// notesByNum is an object so we can't query how many childeren it has,
+		// by creating the list object and iterating over the notesByNum object
+		// we can create the list that should be shown for the category and
+		// later we can check if the list has children.
+		var list = document.createElement('ol');
+		iterate(notesByNum, function(key, value) {
+			var item = document.createElement('li');
+			item.innerHTML = _md2html(value);
+			item.setAttribute('id', 'note_' + categoryKey + '_' + key);
+			list.appendChild(item);
+		});
+
+		// Check if there are notes by number or if there is a single note
+		if (list.children.length === 0 && note === '') {
+			// No notes of any kind, return null
+			return null;
+		}
+
+		// There is some sort of note, create a section to hold it and give it a
+		// title
+		var section = document.createElement('section'),
+			noteTitle = document.createElement('h4');
+
+		// Give the title a text to display
+		noteTitle.textContent = 'Notes';
+		// Add the title to the section
+		section.appendChild(noteTitle);
+		// Check if the note property has a string
+		if (note !== '') {
+			var paragraphs = note.match(/(^(.*?)(?:\n|\r))|((?:\n|\r)(.*?)(?:\n|\r)|(?:\n|\r)(.*?)$|^(.*?)$)/g);
+			for (var index = 0, ubound = paragraphs.length; index < ubound; index++) {
+				if (paragraphs[index] != null && paragraphs[index] !== '' && paragraphs[index].replace(/\s/g, '').length !== 0) {
+					var p = document.createElement('p');
+					p.innerHTML = _md2html(paragraphs[index]);
+					section.appendChild(p);
+				}
+			}
+		}
+		// Check if the list has children
+		if (list.children.length > 0) {
+			// The list has items, add the list to the section
+			section.appendChild(list);
+		}
+		// Return the innerHTML of the section, this will be the content to be
+		// shown in the report
+		return section.innerHTML;
 	}
 
 	function _normalizeVersions(category, agents) {
@@ -263,147 +411,15 @@
 		}
 	}
 
-	function _md2html(markdown) {
-		if (markdown == null) {
-			return null;
-		}
-
-		markdown = markdown.replace(/\[(.*?)]\((.*?)\)/g, function(match, description, url) {
-			return '<a href="' + url + '">' + description + '</a>';
-		});
-
-		markdown = markdown.replace(/`(.*?)`/g, function(match, note) {
-			return '<code class="inline-code">' + note + '</code>';
-		});
-
-		return markdown;
-	}
-
-
-	function _normalizeData() {
-		// Initialize the object to hold the data
-		_features = {};
-		_caseCount = 0;
-
-		// Keep the agents information
-		_agents = _initAgentVisibilty(_sources['static/data/caniuse2.json'].agents);
-		console.log(_agents);
-		// Process the data from can I use
-		_processCanIUseData(_sources['static/data/caniuse2.json'].data);
-		// Process the data from the additional.json file
-		_processAdditionalData(_sources['static/data/additional.json'].data);
-		_normalizeBrowserSupport();
-	}
-
-	function _normalizeBrowserSupport() {
-		// Iterate over all features that can be detected
-		iterate(_features, function(feature, data) {
-			// Iterate over all user agents
-			var maxRowCount = 0;
-			iterate(data.stats, function(agent, support) {
-				var normalized = [],
-				    current,
-				    previousItem;
-				// Iterate over each version of the user agent
-				iterate(support, function(key, value) {
-					if (current == null) {
-						current = _newSupportObject(value);
-					} else if (value.support !== current.support) {
-						current.toVersion = previousItem.version;
-						normalized.push(current);
-						current = _newSupportObject(value);
-					} else {
-						current.eras.push(value.era);
-					}
-					previousItem = value;
-				});
-				current.eras.push(previousItem.era);
-				current.toVersion = previousItem.version;
-				normalized.push(current);
-
-				data.stats[agent] = normalized;
-				if (normalized.length > maxRowCount) {
-					maxRowCount = normalized.length;
-				}
-			});
-			_features[feature].maxRowCount = maxRowCount;
-		});
-	}
-
-	function _newSupportObject(versionInfo) {
-		var result = {};
-		result.eras = [];
-
-		result.fromVersion = versionInfo.version;
-		result.eras.push(versionInfo.version);
-		result.containsCurrentVersion = versionInfo.era === 0;
-		result.support = versionInfo.support;
-
-		return result;
-	}
-
-	function _initAgentVisibilty(agents) {
-		iterate(agents, function(agent, agentData) {
-			agentData.showByDefault = (agentData.usage_global[agentData.current_version] > 0.5);
-		});
-		return agents;
-	}
-
-	function _normalizeNotes(categoryKey, note, notesByNum) {
-		// notesByNum is an object so we can't query how many childeren it has,
-		// by creating the list object and iterating over the notesByNum object
-		// we can create the list that should be shown for the category and
-		// later we can check if the list has children.
-		var list = document.createElement('ol');
-		iterate(notesByNum, function(key, value) {
-			var item = document.createElement('li');
-			item.innerHTML = _md2html(value);
-			item.setAttribute('id', 'note_' + categoryKey + '_' + key);
-			list.appendChild(item);
-		});
-
-		// Check if there are notes by number or if there is a single note
-		if (list.children.length === 0 && note === '') {
-			// No notes of any kind, return null
-			return null;
-		}
-
-		// There is some sort of note, create a section to hold it and give it a
-		// title
-		var section = document.createElement('section'),
-			noteTitle = document.createElement('h4');
-
-		// Give the title a text to display
-		noteTitle.textContent = 'Notes';
-		// Add the title to the section
-		section.appendChild(noteTitle);
-		// Check if the note property has a string
-		if (note !== '') {
-			var paragraphs = note.match(/(^(.*?)(?:\n|\r))|((?:\n|\r)(.*?)(?:\n|\r)|(?:\n|\r)(.*?)$|^(.*?)$)/g);
-			for (var index = 0, ubound = paragraphs.length; index < ubound; index++) {
-				if (paragraphs[index] != null && paragraphs[index] !== '' && paragraphs[index].replace(/\s/g, '').length !== 0) {
-					var p = document.createElement('p');
-					p.innerHTML = _md2html(paragraphs[index]);
-					section.appendChild(p);
-				}
-			}
-		}
-		// Check if the list has children
-		if (list.children.length > 0) {
-			// The list has items, add the list to the section
-			section.appendChild(list);
-		}
-		// Return the innerHTML of the section, this will be the content to be
-		// shown in the report
-		return section.innerHTML;
-	}
-
 	function _processAdditionalData(data) {
 		iterate(data, function(key, value) {
 			if (_rules[key] != null) {
 				_caseCount++;
 				_features[key] = value;
 				_features[key].key = key;
+				if (key === 'obj-defineproperty') {
+					console.log(value);
+				}
 				_features[key].notes = _normalizeNotes(key, value.notes, value.notes_by_num);
 				_features[key].stats = _normalizeVersions(_features[key], _agents);
 				_features[key].tests = _rules[key];
@@ -420,38 +436,10 @@
 					_caseCount++;
 					_features[key] = values;
 					_features[key].key = key;
-					/*
-					if (key === 'webgl') {
-						console.log(values);
-					}
-					*/
 					_features[key].notes = _normalizeNotes(key, values.notes, values.notes_by_num);
 					_features[key].stats = _normalizeVersions(_features[key]);
 					_features[key].tests = _rules[key];
 				}
-			}
-		});
-	}
-
-	/**
-	 * Load the JSON files containing the compatibility data.
-	 */
-	function _loadData() {
-		_isReady = false;
-		_attempts++;
-		iterate(_sources, function(key) {
-			if (_sources[key] == null) {
-				_callCount++;
-				var ajax = new Ajax({
-					callbackOnSuccess : _onAjaxSuccess,
-					callbackOnError   : _onAjaxError
-				});
-				Intermediary.publish('notification:info', {
-					level   : 9,
-					message : 'Downloading compatibility data from "' + key + '" (attempt ' + _attempts + ').'
-				});
-
-				ajax.makeRequest(key);
 			}
 		});
 	}
