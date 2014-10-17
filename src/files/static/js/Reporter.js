@@ -248,6 +248,7 @@
 		if (category.spec !== '') {
 			var link = document.createElement('a');
 			link.textContent = category.title;
+			link.setAttribute('title', 'Go to specification');
 			link.setAttribute('href', category.spec);
 			title.appendChild(link);
 		} else {

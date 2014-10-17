@@ -39,7 +39,7 @@
 		flex-wrap: wrap;
 		justify-content: space-between;
 		list-style: none;
-		margin: .5em 0 0;
+		margin: .5em 0 .75em;
 		padding: 0;
 
 		&:after {
@@ -52,20 +52,10 @@
 	li {
 		display: block;
 		float: left;
-		margin-bottom: 1em;
+		margin-bottom: .5em;
 
 		input {
 			display: none;
 		}
 	}
-
-	/*
-	.filters {
-		display: flex;
-
-		div + div {
-			margin-left: 4em;
-		}
-	}
-	*/
 }
