@@ -122,8 +122,6 @@
 		_onClickCheckbox: function(event) {
 			var target = event.target;
 			if (target.tagName.toLowerCase() === 'input') {
-				console.log('filter clicked');
-				console.log(event);
 				this._options.browsersToShow[target.getAttribute('data-browser')] = target.checked;
 				Intermediary.publish('browser-filter:changed');
 			}

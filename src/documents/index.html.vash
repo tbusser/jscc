@@ -37,8 +37,8 @@ title: JS Compatibility Checker
 						</ul>
 					</div>
 				</div>
-				<h3>Show these support categories in the report</h3>
-				<div class="filters">
+				<h3 class="hidden">Show these support categories in the report</h3>
+				<div class="hidden filters">
 					<ul>
 						<li>
 							<input type="checkbox" id="chkbox_sf_unknown">

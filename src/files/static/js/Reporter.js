@@ -311,12 +311,12 @@
 		};
 	}
 
-	function _renderBrowsers(list, browser, agents, supportObject, collate, browserFilter) {
+	function _renderBrowsers(key, list, browser, agentName, supportObject, collate, browserFilter) {
 		var item,
-		    agentName = agents[browser].browser,
 		    index,
 		    ubound,
-		    isVisible = browserFilter[browser];
+		    isVisible = browserFilter[browser],
+		    notes = {};
 
 		if (collate) {
 			item = document.createElement('li');
@@ -329,11 +329,15 @@
 			if (!isVisible) {
 				item.classList.add('hidden');
 			}
+			_addNoteLink(item, supportObject.versions, key);
+
 			list.appendChild(item);
 		} else {
 			for (index = 0, ubound = supportObject.versions.length; index < ubound; index++) {
+				var currentVersion = supportObject.versions[index];
 				item = document.createElement('li');
-				item.appendChild(document.createTextNode(agentName + ' ' + supportObject.versions[index]));
+				item.appendChild(document.createTextNode(agentName + ' ' + currentVersion.version));
+				_addNoteLink(item, [{note: currentVersion.note}], key);
 				item.setAttribute('data-browser', browser);
 				if (!isVisible) {
 					item.classList.add('hidden');
@@ -341,16 +345,24 @@
 				list.appendChild(item);
 			}
 		}
-		var usage = 0,
-		    currentAgent = agents[browser];
+	}
 
-		for (index = 0, ubound = supportObject.versions.length; index < ubound; index++) {
-			if (!isNaN(currentAgent.usage_global[supportObject.versions[index]])) {
-				usage += currentAgent.usage_global[supportObject.versions[index]];
+	function _addNoteLink(item, versions, key) {
+		var notes = {};
+		for (var index = 0, ubound = versions.length; index < ubound; index++) {
+			var currentVersion = versions[index];
+			if (currentVersion.note != null && notes[currentVersion.note] == undefined) {
+				notes[currentVersion.note] = true;
+				var anchor = document.createElement('a'),
+					sup = document.createElement('sup');
+
+				anchor.setAttribute('href', '#note_' + key + '_' + currentVersion.note);
+				anchor.setAttribute('title', 'Go to note ' + currentVersion.note);
+				anchor.appendChild(document.createTextNode(currentVersion.note));
+				sup.appendChild(anchor);
+				item.appendChild(sup);
 			}
 		}
-
-		return usage;
 	}
 
 	function _renderCategoryExt(category, target, options, agents, browserFilter) {
@@ -373,7 +385,8 @@
 
 				var list = supportSections[supportValue].list;
 
-				supportSections[supportValue].usage += _renderBrowsers(list, browser, agents, supportObject, options.groupVersions, browserFilter);
+				_renderBrowsers(category.key, list, browser, agents[browser].browser, supportObject, options.groupVersions, browserFilter);
+				supportSections[supportValue].usage += supportObject.totalGlobalUsage;
 			}
 		});
 
@@ -382,7 +395,7 @@
 			if (supportSections[value] != null) {
 				var title = supportSections[value].section.querySelector('h4');
 				if (title != null) {
-					title.appendChild(document.createTextNode(' (' + supportSections[value].usage.toFixed(1) + '% global usage)'));
+					title.appendChild(document.createTextNode(' (' + supportSections[value].usage.toFixed(1) + '% global browser share)'));
 				}
 				section.appendChild(supportSections[value].section);
 			}

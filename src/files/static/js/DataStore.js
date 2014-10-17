@@ -137,14 +137,67 @@
 		}
 	}
 
-	function _createSupportObject(versionInfo) {
+	function _calculateTotalGlobalUsage(versionList) {
+		var total = 0,
+		    index = 0,
+		    ubound = versionList.length;
+
+		for (; index < ubound; index++) {
+			total += versionList[index].globalUsage;
+		}
+
+		return total;
+	}
+
+	/**
+	 * The version list as stored in the Can I Use dataset is an array. This
+	 * makes it impossible to easily retrieve data on a specific browser
+	 * version. To make it easier to get data on a specific version the array is
+	 * converted to an object with the version as a key.
+	 *
+	 * @param {[type]} agents [description]
+	 */
+	function _convertVersionList(agents) {
+		// Agents is an object, iterate over its keys
+		iterate(agents, function(agent, agentData) {
+			// This will be the new object with version info
+			var obj = {};
+			// Loop over the versions for the current user agent
+			for (var index = 0, ubound = agentData.version_list.length; index < ubound; index++) {
+				// Store the version data in the object, use the version as a key
+				obj[agentData.version_list[index].version] = agentData.version_list[index];
+			}
+			// Assign the object with version data to its matching user agent object
+			agents[agent].version_list = obj;
+		});
+		// Return the user agents with the converted version information
+		return agents;
+	}
+
+	function _createSupportObject(versionInfo, agentInfo) {
 		var result = {};
 		result.versions = [];
 
 		result.fromVersion = versionInfo.version;
-		result.versions.push(versionInfo.version);
-		result.containsCurrentVersion = versionInfo.era === 0;
-		result.support = versionInfo.support;
+		result.versions.push(_createUAVersionObject(versionInfo, agentInfo));
+		result.support = versionInfo.support.substr(0, 1).toLowerCase();
+
+		return result;
+	}
+
+	function _createUAVersionObject(versionInfo, agentInfo) {
+		var isDisabled = /d/i,
+		    needsPrefix = /x/i,
+		    noteMatches = versionInfo.support.match(/#(\d+)/),
+		    usage = (isNaN(agentInfo.global_usage) ? 0 : agentInfo.global_usage),
+		    result = {
+			    disabled    : isDisabled.test(versionInfo.support),
+			    era         : agentInfo.era,
+			    globalUsage : usage,
+			    needsPrefix : needsPrefix.test(versionInfo.support),
+			    note        : ((noteMatches && noteMatches.length === 2) ? noteMatches[1] : null),
+			    version     : versionInfo.version
+		    };
 
 		return result;
 	}
@@ -162,6 +215,7 @@
 					callbackOnSuccess : _onAjaxSuccess,
 					callbackOnError   : _onAjaxError
 				});
+
 				Intermediary.publish('notification:info', {
 					level   : 9,
 					message : 'Downloading compatibility data from "' + key + '" (attempt ' + _attempts + ').'
@@ -196,15 +250,9 @@
 			// Initialize the object for the current agent
 			merge[agent] = {};
 			// Loop over the array with versions
-			for (var index = 0, ubound = agentData.version_list.length; index < ubound; index++) {
-				// Make sure the current index contains a version number
-				if (agentData.version_list[index] != null) {
-					// Add an entry to the merged object. If the supportObj has data for the current version we will
-					// copy that data to the merged object. If the supportObj has no data on the version we will just
-					// assume the version supports the feature
-					merge[agent][agentData.version_list[index].version] = (supportObj[agent][agentData.version_list[index].version] == null) ? 'y' : supportObj[agent][agentData.version_list[index].version];
-				}
-			}
+			iterate(agentData.version_list, function(version, versionData) {
+				merge[agent][version] = (supportObj[agent][version] == null) ? 'y' : supportObj[agent][version];
+			});
 		});
 		return merge;
 	}
@@ -212,34 +260,48 @@
 	function _normalizeBrowserSupport() {
 		// Iterate over all features that can be detected
 		iterate(_features, function(feature, data) {
-			// Iterate over all user agents
-			var maxRowCount = 0;
+
+			if (feature === 'obj-defineproperty') {
+				console.log('obj');
+			}
+			// Iterate over the user agents
 			iterate(data.stats, function(agent, support) {
 				var normalized = [],
-					current,
-					previousItem;
-				// Iterate over each version of the user agent
-				iterate(support, function(key, value) {
-					if (current == null) {
-						current = _createSupportObject(value);
-					} else if (value.support !== current.support) {
-						current.toVersion = previousItem.version;
-						normalized.push(current);
-						current = _createSupportObject(value);
-					} else {
-						current.versions.push(value.version);
+				    currentItem,
+				    previousItem;
+
+				// Loop over the versions of the current user agent
+				for (var index = 0, ubound = support.length; index < ubound; index++) {
+					// 1: Create an easy reference to the current item
+					// 2: Get the first character from the support string, this is
+					//    what will tell us what kind of support there is
+					// 3: Try to get the browser information for the version we're
+					//    processing
+					var item = support[index],									/* [1] */
+					    supportValue = item.support.substr(0, 1).toLowerCase(),	/* [2] */
+					    agentObj = _agents[agent].version_list[item.version];	/* [3] */
+
+					if (agentObj != null) {
+						if (currentItem == null) {
+							currentItem = _createSupportObject(item, agentObj);
+						} else if (supportValue !== currentItem.support) {
+							currentItem.toVersion = previousItem.version;
+							currentItem.totalGlobalUsage = _calculateTotalGlobalUsage(currentItem.versions);
+							normalized.push(currentItem);
+							currentItem = _createSupportObject(item, agentObj);
+						} else {
+							currentItem.versions.push(_createUAVersionObject(item, agentObj));
+						}
+						previousItem = item;
 					}
-					previousItem = value;
-				});
-				current.toVersion = previousItem.version;
-				normalized.push(current);
+				}
+
+				currentItem.totalGlobalUsage = _calculateTotalGlobalUsage(currentItem.versions);
+				currentItem.toVersion = previousItem.version;
+				normalized.push(currentItem);
 
 				data.stats[agent] = normalized;
-				if (normalized.length > maxRowCount) {
-					maxRowCount = normalized.length;
-				}
 			});
-			_features[feature].maxRowCount = maxRowCount;
 		});
 	}
 
@@ -249,7 +311,7 @@
 		_caseCount = 0;
 
 		// Keep the agents information
-		_agents = _sources['static/data/caniuse2.json'].agents;
+		_agents = _convertVersionList(_sources['static/data/caniuse2.json'].agents);
 		// Process the data from can I use
 		_processCanIUseData(_sources['static/data/caniuse2.json'].data);
 		// Process the data from the additional.json file
@@ -417,9 +479,6 @@
 				_caseCount++;
 				_features[key] = value;
 				_features[key].key = key;
-				if (key === 'obj-defineproperty') {
-					console.log(value);
-				}
 				_features[key].notes = _normalizeNotes(key, value.notes, value.notes_by_num);
 				_features[key].stats = _normalizeVersions(_features[key], _agents);
 				_features[key].tests = _rules[key];
