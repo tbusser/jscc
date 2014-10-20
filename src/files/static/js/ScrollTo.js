@@ -90,9 +90,10 @@
 	//    scrolled.
 	exports.options = {
 		attrIgnoreAnchor     : 'data-scrolltop-ignore',		/* [1] */
+		correction           : 0,
 		cssScrollTopDisabled : 'not-available',				/* [2] */
 		maxIterations        : 50,							/* [3] */
-		queryScrollTop      : '.scroll-to-top',			/* [4] */
+		queryScrollTop       : '.scroll-to-top',			/* [4] */
 		topThresholdRatio    : 3							/* [5] */
 	};
 
@@ -226,7 +227,7 @@
 		// will be a positive value, the number of pixels we have to scroll down
 		// to get to the target element.
 		setTimeout(function() {
-			_startAnimation(_getScrollPosition(), hrefTarget.getBoundingClientRect().top);
+			_startAnimation(_getScrollPosition(), hrefTarget.getBoundingClientRect().top + _options.correction);
 		}, 10);
 		// Prevent the default behaviour of the anchor element, otherwise IE8
 		// will perform a nasty jump to the target only to perform the scroll

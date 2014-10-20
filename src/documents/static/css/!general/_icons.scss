@@ -7,6 +7,7 @@ $icon-check         : '\f00c';
 $icon-cross         : '\f00d';
 $icon-chevron-right : '\f054';
 $icon-arrow-up      : '\f077';
+$icon-index         : '\f0cb';
 
 @mixin icon($char) {
 	content: $char;

@@ -61,6 +61,7 @@
 		this._element = element;
 		this._options = mergeOptions(overrides);
 		this._agents = agents;
+		this._index = document.getElementById('index-list');
 	};
 
 	exports.options = {
@@ -73,6 +74,17 @@
 	/* ====================================================================== *\
 		#
 	\* ====================================================================== */
+
+	function _addIndexEntry(title, key, index) {
+		var anchor = document.createElement('a'),
+		    item = document.createElement('li');
+
+		anchor.appendChild(document.createTextNode(title));
+		anchor.setAttribute('href', '#' + key);
+
+		item.appendChild(anchor);
+		index.appendChild(item);
+	}
 
 	/**
 	 * Adds links to notes to an item
@@ -168,6 +180,7 @@
 
 		// Add the elements to the section
 		section.classList.add('report-section');
+		section.setAttribute('id', category.key);
 		section.appendChild(title);
 		section.appendChild(desc);
 
@@ -286,12 +299,14 @@
 		}
 	}
 
-	function _renderCategoryExt(category, target, options, agents, browserFilter) {
+	function _renderCategoryExt(category, target, options, agents, index, browserFilter) {
 		var section = _createCategoryContainer(category),
 		    notes,
 		    supportSections = {},
 		    index,
 		    ubound;
+
+		_addIndexEntry(category.title, category.key, index);
 
 		// Iterate over the user agents for the current category
 		iterate(category.stats, function(browser, supportObjects) {
@@ -430,6 +445,10 @@
 			// Remove any existing report
 			_clearReport(this._element);
 
+			if (this._index != null) {
+				_clearReport(this._index);
+			}
+
 			// When there is no data it means no compatibility problems were found
 			if (data == null || data.length === 0) {
 				_renderNoProblems(this._element);
@@ -449,7 +468,7 @@
 			for (var index = 0, ubound = data.length; index < ubound; index++) {
 				var item = data[index];
 				// Render a report item for the feature
-				_renderCategoryExt(item, this._element, this._options, this._agents, browserFilter);
+				_renderCategoryExt(item, this._element, this._options, this._agents, this._index, browserFilter);
 			}
 		},
 

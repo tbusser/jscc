@@ -13,6 +13,7 @@
 .button {
 	@extend %base-button;
 
+	&.index,
 	&.config {
 		color: $color-border-light;
 		padding-left: 1.25em;
@@ -24,7 +25,6 @@
 		}
 
 		&:before {
-			@include icon($icon-gear);
 			bottom: 0;
 			display: block;
 			height: 1.8em;
@@ -36,7 +36,19 @@
 			top: 0;
 		}
 	}
+
+	&.config:before {
+		@include icon($icon-gear);
+	}
+
+	&.index {
+		padding-left: 1.5em;
+		&:before {
+			@include icon($icon-index);
+		}
+	}
 }
+
 
 .toggle-button {
 	background-color: darken(lightgrey, 5%);

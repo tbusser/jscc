@@ -35,6 +35,9 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 		reportController.buildReport(checker.getMatches(), activeFilter);
 		widget.classList.remove('hidden');
 
+		scrollToController = new ScrollTo({topThresholdRatio: 2, correction: -68});
+		scrollToController.init();
+
 		scrollToController.scrollToElement(document.getElementById('report'));
 	}
 
@@ -59,6 +62,12 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	function _onBrowserFilterChanged(event) {
 		activeFilter = browserFilter.getFilter();
 		reportController.filterBrowsers(activeFilter);
+	}
+
+	function _onClickHandlerIndex(event) {
+		if (event.target.nodeName.toUpperCase() === 'A') {
+			showHideController.hideDetailView('index', true);
+		}
 	}
 
 	function _onCodeInputReady(event) {
@@ -119,6 +128,11 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 
 	stickyHeaderController = new StickyHeader(document.getElementById('report'));
 	stickyHeaderController.init();
+
+	var index = document.getElementById('index-list');
+	if (index != null) {
+		index.addEventListener('click', _onClickHandlerIndex);
+	}
 
 	_logMessage('Reporting for duty');
 });

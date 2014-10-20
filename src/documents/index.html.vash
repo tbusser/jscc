@@ -15,9 +15,18 @@ title: JS Compatibility Checker
 				<h2>
 					Compatibility Report
 				</h2>
+				<button data-sh-trigger="index" class="button index" type="button"><span class="visually-hidden">Show/Hide </span>index</button>
 				<button data-sh-trigger="comprep" class="button config" type="button"><span class="visually-hidden">Show/Hide </span>config</button>
 			</div>
 			<div>
+				<div data-sh-container="index" class="report-index">
+					<nav data-sh-content="index">
+						<ol id="index-list">
+
+						</ol>
+					</nav>
+				</div>
+
 				<article data-sh-container="comprep" id="browser-filter" class="size-constraint">
 					<div data-sh-content="comprep">
 						<input type="checkbox" id="localstorage-consent">
