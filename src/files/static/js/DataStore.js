@@ -255,6 +255,45 @@
 		return markdown;
 	}
 
+	function _mergeLinks(originalLinks, supplement) {
+		var linkmap,
+		    index,
+		    ubound;
+
+		// Make sure there are supplemental links to go through
+		if (supplement == null || supplement.length === 0) {
+			return;
+		}
+
+		// Create an empty object, we will use this to try and remove duplicate links
+		linkmap = {};
+
+		// Check if the Can I Use dataset had links
+		if (originalLinks == null) {
+			// No links, create an empty array to use
+			originalLinks = [];
+		} else {
+			// Loop over the original links and for each URL we will add an entry
+			// to the object we've created using the URL as a key
+			for (index = 0, ubound = originalLinks.length; index < ubound; index++) {
+				linkmap[originalLinks.url] = true;
+			}
+		}
+
+		// Loop over the supplemental links
+		for (index = 0, ubound = supplement.length; index < ubound; index++) {
+			// Check if the link is of type poly and make sure the URL is not yet
+			// in the linkmap object
+			if (supplement[index].type === 'poly' && linkmap[supplement[index].url] == null) {
+				// Add an entry to the linkmap, not really necessary as this would only
+				// filter out duplicate links in our own additional data set
+				linkmap[supplement[index].url] = true;
+				// Add the supplemental link to the original link list
+				originalLinks.push(supplement[index]);
+			}
+		}
+	}
+
 	function _normalizeAgents(supportObj, agents) {
 		// Initialize the result var
 		var merge = {};
@@ -335,6 +374,29 @@
 		// Process the data from the additional.json file
 		_processAdditionalData(_sources['static/data/additional.json'].data);
 		_normalizeBrowserSupport();
+		_normalizeLinks();
+	}
+
+	function _normalizeLinks() {
+		var regex = /poly(?:fill)/i;
+
+		// Iterate over all features that can be detected
+		iterate(_features, function(feature, data) {
+			if (data.links != null && data.links.length > 0) {
+				var links = [];
+				for (var index = 0, ubound = data.links.length; index < ubound; index++) {
+					var currentItem = data.links[index];
+					if (currentItem.type != null) {
+						if (currentItem.type === 'poly') {
+							links.push(currentItem);
+						}
+					} else if (regex.test(currentItem.title)) {
+						links.push(currentItem);
+					}
+				}
+				data.links = links;
+			}
+		});
 	}
 
 	function _normalizeNotes(categoryKey, note, notesByNum) {
@@ -493,13 +555,23 @@
 
 	function _processAdditionalData(data) {
 		iterate(data, function(key, value) {
+			// Check if we have a rule for the current category
 			if (_rules[key] != null) {
-				_caseCount++;
-				_features[key] = value;
-				_features[key].key = key;
-				_features[key].notes = _normalizeNotes(key, value.notes, value.notes_by_num);
-				_features[key].stats = _normalizeVersions(_features[key], _agents);
-				_features[key].tests = _rules[key];
+				// Check if this feature was already present in the Can I Use data set
+				if (_features[key] != null) {
+					// Can I Use has this feature, we will just attempt to merge the links we
+					// have collected with those of Can I Use
+					_mergeLinks(_features[key].links, value.links);
+				} else {
+					// This feature is not in the Can I Use data set, we can copy it to the
+					// features to detect
+					_caseCount++;
+					_features[key] = value;
+					_features[key].key = key;
+					_features[key].notes = _normalizeNotes(key, value.notes, value.notes_by_num);
+					_features[key].stats = _normalizeVersions(_features[key], _agents);
+					_features[key].tests = _rules[key];
+				}
 			}
 		});
 	}

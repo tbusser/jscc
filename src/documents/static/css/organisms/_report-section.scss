@@ -50,6 +50,7 @@
 	}
 }
 
+.polyfills,
 .report-notes {
 	p {
 		margin: 0;
@@ -146,5 +147,17 @@
 	sup {
 		line-height: 1;
 		margin-left: .5em;
+	}
+}
+
+.polyfills {
+	ul {
+		list-style-position: inside;
+		margin: 0;
+		padding: 0;
+	}
+
+	a {
+		margin-right: .5em;
 	}
 }

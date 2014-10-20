@@ -1,5 +1,14 @@
 {
 	"data":{
+		"queryselector": {
+			"links":[
+				{
+					"url":"https://github.com/termi/CSS_selector_engine",
+					"title":"CSS Selector engine with CSS4 selector API support",
+					"type":"poly"
+				}
+			]
+		},
 		"obj-create": {
 			"title":"Object.create()",
 			"description":"The create function creates a new object with a specified prototype.",

@@ -322,6 +322,12 @@
 			}
 		}
 
+		// Check if there is a section for the polyfills and that there are links to polyfills
+		if (supportSections.p != null && category.links != null && category.links.length > 0) {
+			// Render the links to the polyfills
+			_renderPolyfillLinks(category.links, section);
+		}
+
 		// Check if there is a section with notes for the category
 		if (category.notes != null) {
 			notes = _renderNotes(category.notes);
@@ -370,6 +376,47 @@
 		section.appendChild(title);
 		section.appendChild(desc);
 
+		target.appendChild(section);
+	}
+
+	function _renderPolyfillLinks(links, target) {
+		var section = document.createElement('section'),
+		    title = document.createElement('h4'),
+		    list = document.createElement('ul'),
+		    regex = /^http(?:s)?:\/\/(\S*?)\//;
+
+		// Loop over the links
+		for (var index = 0, ubound = links.length; index < ubound; index++) {
+			// 1: This will be the link to the polyfill
+			// 2: This will be the list item which holds the anchor
+			var anchor = document.createElement('a'),		/* [1] */
+			    item = document.createElement('li');		/* [2] */
+			// Set the title of the anchor
+			anchor.appendChild(document.createTextNode(links[index].title));
+			// Set the href attribute to the URL for the polyfill
+			anchor.setAttribute('href', links[index].url);
+			// Add the anchor to the list item
+			item.appendChild(anchor);
+			// Add the domain of the URL to the list item
+			item.appendChild(document.createTextNode('[' + links[index].url.match(regex)[1] + ']'));
+			// Add the list item to the list
+			list.appendChild(item);
+		}
+
+		// Check how many polyfill links there are and make sure the text is in
+		// singular or plural according to the number of links
+		if (links.length === 1) {
+			title.appendChild(document.createTextNode('Polyfill script:'));
+		} else {
+			title.appendChild(document.createTextNode('Polyfill scripts:'));
+		}
+		// Add the title to the polyfill section
+		section.appendChild(title);
+		// Add a class to the polyfill section so we an style it
+		section.classList.add('polyfills');
+		// Add the list to the polyfill section
+		section.appendChild(list);
+		// Add the polyfill section to its parent
 		target.appendChild(section);
 	}
 
