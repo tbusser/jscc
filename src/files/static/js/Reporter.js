@@ -64,179 +64,82 @@
 	};
 
 	exports.options = {
-		groupVersions      : true,
+		groupVersions      : false,
 		showFullySupported : true,
 		supportOrder       : ['u', 'n', 'p', 'a', 'x', 'd', 'y']
 	};
 
-	function _checkBrowser(browser, versions) {
-		var result = {
-			    allVersions  : false,
-			    firstVersion : null,
-			    hasPolyfill  : false
-		    },
-		    index = 0,
-		    ubound = versions.length,
-		    count = 0;
 
-		for (; index < ubound; index++) {
-			// console.log(browser + '@' + versions[index].version + ': ' + versions[index].support);
-			if (versions[index].support === 'y') {
-				count++;
-				if (result.firstVersion == null) {
-					result.firstVersion = '>= ' + versions[index].version;
-				}
-			} else if (versions[index].support === 'p') {
-				result.hasPolyfill = true;
-				if (result.firstVersion == null) {
-					result.firstVersion = '>= ' + versions[index].version;
+	/* ====================================================================== *\
+		#
+	\* ====================================================================== */
+
+	/**
+	 * Adds links to notes to an item
+	 * @param {HTMLElement} item The HTML element which is the parent to the
+	 *                           link(s) to the note(s)
+	 * @param {Array} versions   The array with versions which need to be
+	 *                           checked for notes.
+	 */
+	function _addNoteLink(item, versions) {
+		var notes = {},
+		    insertLink = function(note) {
+			    // 1: The link to the note
+			    // 2: We will place the anchor in a super-element
+			    // 3: This regex will get the number to the note from the link
+			    // 4: This is the note number, it will be the text for the link
+			    var anchor = document.createElement('a'),		/* [1] */
+				    sup = document.createElement('sup'),		/* [2] */
+				    regex = /\d+/,								/* [3] */
+				    noteText = regex.exec(note);				/* [4] */
+
+			    anchor.setAttribute('href', note);
+			    anchor.setAttribute('title', 'Go to note ' + noteText);
+			    anchor.appendChild(document.createTextNode(noteText));
+			    sup.appendChild(anchor);
+			    item.appendChild(sup);
+		    };
+
+		// Make sure versions has a value, if not we're done
+		if (versions == null) {
+			return;
+		}
+
+		// Check if versions is an array
+		if (Array.isArray(versions)) {
+			// Loop over the items in the array
+			for (var index = 0, ubound = versions.length; index < ubound; index++) {
+				// Get an easy reference to the current item in the array
+				var currentVersion = versions[index];
+				// Check if the current version has a note and make sure the note is not
+				// yet in the object we have created to keep track of the notes we've
+				// made a link for
+				if (currentVersion.note != null && notes[currentVersion.note] == null) {
+					// Add an entry in the object, if we come across this link again the
+					// if statement above will be false and thus we prevent the same link
+					// from appearing more than once
+					notes[currentVersion.note] = true;
+					// Insert a link to note in the item
+					insertLink(currentVersion.note);
 				}
 			}
+		} else if (typeof versions === 'object') {
+			// The versions is an object, check if it has a note property
+			if (versions.note != null) {
+				// The object has a note property, use it to create a link to
+				// the to note
+				insertLink(versions.note);
+			}
+		} else if (typeof versions === 'string') {
+			// We've received a string, use it to create the link to the note
+			insertLink(versions);
 		}
-
-		if (index === count) {
-			result.allVersions = true;
-		}
-
-		return result;
 	}
 
 	function _clearReport(target) {
 		while (target.firstChild) {
 			target.removeChild(target.firstChild);
 		}
-	}
-
-	function _renderCategory(category, target, options, agents, browserFilter) {
-		var section = document.createElement('section'),
-		    title = document.createElement('h3'),
-		    desc = document.createElement('p'),
-		    table = document.createElement('table');
-
-		// Set the texts for title and the description
-		if (category.spec !== '') {
-			var link = document.createElement('a');
-			link.textContent = category.title;
-			link.setAttribute('href', category.spec);
-			title.appendChild(link);
-		} else {
-			title.textContent = category.title;
-		}
-		desc.textContent = category.description;
-
-		// Add the elements to the section
-		section.classList.add('report-section');
-		section.appendChild(title);
-		section.appendChild(desc);
-
-		var headerRow = document.createElement('tr'),
-		    valueRows = [document.createElement('tr')];
-
-		iterate(category.stats, function(browser, values) {
-			var result = _checkBrowser(browser, values),
-			    headerCell = document.createElement('th'),
-			    valueCell = document.createElement('td'),
-			    isVisible = browserFilter[browser];
-
-			if (agents) {
-				headerCell.textContent = agents[browser].browser;
-				if (!isVisible) {
-					headerCell.classList.add('hide');
-				}
-			} else {
-				headerCell.textContent = browser;
-			}
-			headerCell.setAttribute('data-browser', browser);
-			headerRow.appendChild(headerCell);
-			if (values.length === 1) {
-				valueCell.setAttribute('rowspan', category.maxRowCount);
-				if (values[0].support === 'y') {
-					valueCell.textContent = 'All';
-					valueCell.classList.add('full-support');
-				} else if (values[0].support === 'n') {
-					valueCell.textContent = 'None';
-					valueCell.classList.add('no-support');
-				} else {
-					valueCell.textContent = values[0].fromVersion + ' / ' + values[0].support;
-					if (values[0].support === 'p') {
-						valueCell.classList.add('has-polyfill');
-					}
-				}
-				valueCell.setAttribute('data-browser', browser);
-				if (!isVisible) {
-					valueCell.classList.add('hide');
-				}
-				valueRows[0].appendChild(valueCell);
-			} else {
-				for (var index = 0, ubound = values.length; index < ubound; index++) {
-					if (index >= valueRows.length) {
-						valueRows.push(document.createElement('tr'));
-					}
-					var cell = document.createElement('td');
-					if (values[index].fromVersion === values[index].toVersion) {
-						cell.textContent = values[index].fromVersion + ' / ' + values[index].support;
-					} else {
-						cell.textContent = values[index].fromVersion + ' to ' + values[index].toVersion + ' / ' + values[index].support;
-					}
-					if (values[index].support === 'n') {
-						cell.classList.add('no-support');
-					} else if (values[index].support === 'y') {
-						cell.classList.add('full-support');
-					} else if (values[index].support === 'p') {
-						cell.classList.add('has-polyfill');
-					}
-					if (index === (ubound - 1) && index < category.maxRowCount) {
-						cell.setAttribute('rowspan', category.maxRowCount - index);
-					}
-					cell.setAttribute('data-browser', browser);
-					if (!isVisible) {
-						cell.classList.add('hide');
-					}
-					valueRows[index].appendChild(cell);
-				}
-			}
-
-			/*
-			if (result.allVersions) {
-				if (options.showFullySupported) {
-					headerCell.textContent = browser;
-					headerRow.appendChild(headerCell);
-					valueCell.textContent = 'All';
-					valueCell.classList.add('full-support');
-					valueRow.appendChild(valueCell);
-				}
-			} else {
-				headerCell.textContent = browser;
-				headerRow.appendChild(headerCell);
-				if (result.firstVersion == null) {
-					valueCell.textContent = 'None';
-					valueCell.classList.add('no-support');
-				} else {
-					valueCell.textContent = result.firstVersion;
-				}
-				if (result.hasPolyfill) {
-					valueCell.classList.add('has-polyfill');
-				}
-				valueRow.appendChild(valueCell);
-			}
-			*/
-		});
-		table.appendChild(headerRow);
-		for (var j = 0, u = valueRows.length; j < u; j++) {
-			table.appendChild(valueRows[j]);
-		}
-		// table.appendChild(valueRow);
-		section.appendChild(table);
-
-		if (category.notes != null) {
-			var notes = document.createElement('section');
-			notes.classList.add('report-notes');
-			notes.innerHTML = category.notes;
-			section.appendChild(notes);
-		}
-
-		// Add the section to the review
-		target.appendChild(section);
 	}
 
 	function _createCategoryContainer(category) {
@@ -315,8 +218,7 @@
 		var item,
 		    index,
 		    ubound,
-		    isVisible = browserFilter[browser],
-		    notes = {};
+		    isVisible = browserFilter[browser];
 
 		if (collate) {
 			item = document.createElement('li');
@@ -329,7 +231,7 @@
 			if (!isVisible) {
 				item.classList.add('hidden');
 			}
-			_addNoteLink(item, supportObject.versions, key);
+			_addNoteLink(item, supportObject.versions);
 
 			list.appendChild(item);
 		} else {
@@ -337,32 +239,14 @@
 				var currentVersion = supportObject.versions[index];
 				item = document.createElement('li');
 				item.appendChild(document.createTextNode(agentName + ' ' + currentVersion.version));
-				_addNoteLink(item, [{note: currentVersion.note}], key);
+				if (currentVersion.note != null) {
+					_addNoteLink(item, currentVersion.note);
+				}
 				item.setAttribute('data-browser', browser);
 				if (!isVisible) {
 					item.classList.add('hidden');
 				}
 				list.appendChild(item);
-			}
-		}
-	}
-
-	function _addNoteLink(item, versions, key) {
-		var notes = {};
-		for (var index = 0, ubound = versions.length; index < ubound; index++) {
-			var currentVersion = versions[index];
-			if (currentVersion.note != null && notes[currentVersion.note] == null) {
-				notes[currentVersion.note] = true;
-				var anchor = document.createElement('a'),
-				    sup = document.createElement('sup'),
-				    regex = /\d+/,
-				    noteText = regex.exec(currentVersion.note);
-
-				anchor.setAttribute('href', currentVersion.note);
-				anchor.setAttribute('title', 'Go to note ' + noteText);
-				anchor.appendChild(document.createTextNode(noteText));
-				sup.appendChild(anchor);
-				item.appendChild(sup);
 			}
 		}
 	}
