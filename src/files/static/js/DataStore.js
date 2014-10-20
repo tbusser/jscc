@@ -323,13 +323,16 @@
 				// Loop over the versions of the current user agent
 				for (var index = 0, ubound = support.length; index < ubound; index++) {
 					// 1: Create an easy reference to the current item
-					// 2: Get the first character from the support string, this is
-					//    what will tell us what kind of support there is
+					// 2: Use a regex to extract the kind of support the browser
+					//    has for the feature. If no known support indicator is
+					//    found we will default to unknown support
 					// 3: Try to get the browser information for the version we're
 					//    processing
-					var item = support[index],									/* [1] */
-					    supportValue = item.support.substr(0, 1).toLowerCase(),	/* [2] */
-					    agentObj = _agents[agent].version_list[item.version];	/* [3] */
+					var item = support[index],													/* [1] */
+					    regex = /(?:a|n|p|u|y)/i,
+					    matches = regex.exec(item.support),
+					    supportValue = (matches.length > 0) ? matches[0].toLowerCase() : 'u',	/* [2] */
+					    agentObj = _agents[agent].version_list[item.version];					/* [3] */
 
 					/*
 					if (!supports[item.support]) {
