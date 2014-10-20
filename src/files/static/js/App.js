@@ -33,6 +33,8 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 		reportController = new Reporter(document.getElementById('report-output'), {showFullySupported: false}, DataStore.getAgents());
 		reportController.buildReport(checker.getMatches(), activeFilter);
 		widget.classList.remove('hidden');
+
+		scrollToController.scrollToElement(document.getElementById('report'));
 	}
 
 	/**
