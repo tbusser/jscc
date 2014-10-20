@@ -10,60 +10,64 @@ title: JS Compatibility Checker
 
 <div id="report" class="container-white">
 	<article id="widget-report" class="size-constraint hidden">
-		<header>
-			<h2>
-				Compatibility Report
-			</h2>
-			<button data-sh-trigger="comprep" class="button config" type="button"><span class="visually-hidden">Show/Hide settings</span>config <span class="visually-hidden">settings</span></button>
-		</header>
-		<article data-sh-container="comprep" id="browser-filter">
-			<div data-sh-content="comprep">
-				<input type="checkbox" id="localstorage-consent">
-				<label for="localstorage-consent">
-					Store changes made to the configuration in my local storage so they're persisted between visits.
-				</label>
-				<h3>Show the following browsers in the report</h3>
-				<div class="filters">
-					<div>
-						<h4>Desktop browsers</h4>
-						<ul id="bf-desktop">
-
-						</ul>
-					</div>
-					<div>
-						<h4>Mobile browsers</h4>
-						<ul id="bf-mobile">
-
-						</ul>
-					</div>
-				</div>
-				<h3 class="hidden">Show these support categories in the report</h3>
-				<div class="hidden filters">
-					<ul>
-						<li>
-							<input type="checkbox" id="chkbox_sf_unknown">
-							<label for="chkbox_sf_unknown" class="toggle-button">Unknown support</label>
-						</li>
-						<li>
-							<input type="checkbox" id="chkbox_sf_no">
-							<label for="chkbox_sf_no" class="toggle-button">No support</label>
-						</li>
-						<li>
-							<input type="checkbox" id="chkbox_sf_poly">
-							<label for="chkbox_sf_poly" class="toggle-button">Polyfill support</label>
-						</li>
-						<li>
-							<input type="checkbox" id="chkbox_sf_poly">
-							<label for="chkbox_sf_poly" class="toggle-button">Partial support</label>
-						</li>
-						<li>
-							<input type="checkbox" id="chkbox_sf_full">
-							<label for="chkbox_sf_full" class="toggle-button">Full support</label>
-						</li>
-					</ul>
-				</div>
+		<header id="widget-report-header">
+			<div>
+				<h2>
+					Compatibility Report
+				</h2>
+				<button data-sh-trigger="comprep" class="button config" type="button"><span class="visually-hidden">Show/Hide </span>config</button>
 			</div>
-		</article>
+			<div>
+				<article data-sh-container="comprep" id="browser-filter" class="size-constraint">
+					<div data-sh-content="comprep">
+						<input type="checkbox" id="localstorage-consent">
+						<label for="localstorage-consent">
+							Store changes made to the configuration in my local storage so they're persisted between visits.
+						</label>
+						<h3>Show the following browsers in the report</h3>
+						<div class="filters">
+							<div>
+								<h4>Desktop browsers</h4>
+								<ul id="bf-desktop">
+
+								</ul>
+							</div>
+							<div>
+								<h4>Mobile browsers</h4>
+								<ul id="bf-mobile">
+
+								</ul>
+							</div>
+						</div>
+						<h3 class="hidden">Show these support categories in the report</h3>
+						<div class="hidden filters">
+							<ul>
+								<li>
+									<input type="checkbox" id="chkbox_sf_unknown">
+									<label for="chkbox_sf_unknown" class="toggle-button">Unknown support</label>
+								</li>
+								<li>
+									<input type="checkbox" id="chkbox_sf_no">
+									<label for="chkbox_sf_no" class="toggle-button">No support</label>
+								</li>
+								<li>
+									<input type="checkbox" id="chkbox_sf_poly">
+									<label for="chkbox_sf_poly" class="toggle-button">Polyfill support</label>
+								</li>
+								<li>
+									<input type="checkbox" id="chkbox_sf_poly">
+									<label for="chkbox_sf_poly" class="toggle-button">Partial support</label>
+								</li>
+								<li>
+									<input type="checkbox" id="chkbox_sf_full">
+									<label for="chkbox_sf_full" class="toggle-button">Full support</label>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</article>
+			</div>
+		</header>
 		<div id="report-output">
 		</div>
 	</article>

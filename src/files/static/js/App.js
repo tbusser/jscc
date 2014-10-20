@@ -5,7 +5,7 @@ require.config({
 	}
 });
 
-require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', 'BrowserFilter', 'LocalStorage', 'ShowHide', 'ScrollTo'], function(Intermediary, CodeInput, CodeAnalyzer, Reporter, DataStore, BrowserFilter, LocalStorage, ShowHide, ScrollTo) {
+require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', 'BrowserFilter', 'LocalStorage', 'ShowHide', 'ScrollTo', 'StickyHeader'], function(Intermediary, CodeInput, CodeAnalyzer, Reporter, DataStore, BrowserFilter, LocalStorage, ShowHide, ScrollTo, StickyHeader) {
 	'use strict';
 
 	var codeInputWidget = document.getElementById('code-input'),
@@ -15,7 +15,8 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	    checker,
 	    browserFilter,
 	    reportController,
-	    activeFilter;
+	    activeFilter,
+	    stickyHeaderController;
 
 	function _logMessage(message) {
 		var item = document.createElement('li'),
@@ -113,8 +114,11 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	var showHideController = new ShowHide();
 	showHideController.init();
 
-	scrollToController = new ScrollTo({topThresholdRatio:2});
+	scrollToController = new ScrollTo({topThresholdRatio: 2});
 	scrollToController.init();
+
+	stickyHeaderController = new StickyHeader(document.getElementById('report'));
+	stickyHeaderController.init();
 
 	_logMessage('Reporting for duty');
 });

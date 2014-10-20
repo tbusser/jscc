@@ -3,8 +3,20 @@
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
 #widget-report {
 	@extend .widget-container;
+	padding-top: 0;
 
 	header {
+		padding-top: 1.5em;
+
+		> div {
+			@extend .size-constraint;
+			&:after {
+				clear: both;
+				content: '';
+				display: table;
+			}
+		}
+
 		h2,
 		button {
 			float: left;
@@ -15,10 +27,24 @@
 			margin-left: 1em;
 		}
 
-		&:after {
-			clear: both;
-			content: '';
-			display: table;
+		&.fixed {
+			background-color: #fff;
+			box-shadow: 0 0 5px #000;
+			left: 0;
+			padding-bottom: 1.5em;
+			position: fixed;
+			right: 0;
+			top: 0;
+			z-index: 10;
+
+			& > div {
+				padding: 0 1em ;
+			}
+
+			& + div {
+				padding-top: 68;
+			}
 		}
 	}
+
 }
