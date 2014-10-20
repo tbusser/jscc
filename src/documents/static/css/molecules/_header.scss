@@ -12,14 +12,17 @@
 		float: left;
 		font-size: 1.75em;
 		line-height: 1.25;
+		text-transform: uppercase;
 	}
 
 	.small-container {
 		display: inline-block;
 		float: left;
+		font-size: .825em;
 		line-height: 1;
 		margin-left: .5em;
 		max-width: 10em;
+		padding-top: 8px;
 	}
 
 	h1 {
