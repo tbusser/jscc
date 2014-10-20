@@ -21,7 +21,7 @@ title: JS Compatibility Checker
 			<div>
 				<div data-sh-container="index" class="report-index">
 					<nav data-sh-content="index">
-						<ol id="index-list">
+						<ol id="index-list" class="index-list">
 
 						</ol>
 					</nav>
