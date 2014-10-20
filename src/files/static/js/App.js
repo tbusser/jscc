@@ -5,12 +5,13 @@ require.config({
 	}
 });
 
-require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', 'BrowserFilter', 'LocalStorage', 'ShowHide'], function(Intermediary, CodeInput, CodeAnalyzer, Reporter, DataStore, BrowserFilter, LocalStorage, ShowHide) {
+require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', 'BrowserFilter', 'LocalStorage', 'ShowHide', 'ScrollTo'], function(Intermediary, CodeInput, CodeAnalyzer, Reporter, DataStore, BrowserFilter, LocalStorage, ShowHide, ScrollTo) {
 	'use strict';
 
 	var codeInputWidget = document.getElementById('code-input'),
 	    codeInputController = new CodeInput(codeInputWidget),
 	    notifications = document.querySelector('.notifications'),
+	    scrollToController,
 	    checker,
 	    browserFilter,
 	    reportController,
@@ -53,7 +54,7 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	}
 
 	function _onBrowserFilterChanged(event) {
-		activeFilter = browserFilter.getFilter()
+		activeFilter = browserFilter.getFilter();
 		reportController.filterBrowsers(activeFilter);
 	}
 
@@ -77,7 +78,8 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	function _renderBrowserFilter() {
 		if (browserFilter == null) {
 			var store = new LocalStorage(),
-			    overrides = {}
+			    overrides = {};
+
 			if (store.isAvailable) {
 				overrides = store.get('jscc-browser-filter');
 				if (overrides != null) {
@@ -108,6 +110,9 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 
 	var showHideController = new ShowHide();
 	showHideController.init();
+
+	scrollToController = new ScrollTo({topThresholdRatio:2});
+	scrollToController.init();
 
 	_logMessage('Reporting for duty');
 });

@@ -8,7 +8,7 @@ title: JS Compatibility Checker
 	</div>
 </div>
 
-<div class="container-white">
+<div id="report" class="container-white">
 	<article id="widget-report" class="size-constraint hidden">
 		<header>
 			<h2>

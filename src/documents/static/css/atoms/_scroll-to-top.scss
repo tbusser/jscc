@@ -1,0 +1,37 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#SCROLL-TO-TOP
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+.scroll-to-top {
+	background-color: rgba(255,255,255,.2);
+	border-radius: .25em;
+	bottom: .5em;
+	box-shadow: 0 0 3px rgba(0,0,0,.2);
+	color: rgba(0,0,0,.2);
+	display: inline-block;
+	font-size: 2em;
+	height: 1.5em;
+	line-height: 1.4em;
+	position: fixed;
+	right: .5em;
+	text-align: center;
+	transition: background-color .5s ease-out, color .5s ease-out, display .5s ease-out;
+	width: 1.5em;
+	z-index: 300;
+
+	span {
+		@extend .visually-hidden;
+	}
+
+	&.not-available {
+		display: none;
+	}
+
+	&:before {
+		@include icon($icon-arrow-up);
+	}
+
+	&:hover {
+		background-color: #fff;
+		color: #4b4b4b;
+	}
+}
