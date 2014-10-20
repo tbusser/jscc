@@ -12,9 +12,9 @@
 
 	h3 {
 		a {
+			border-bottom: none;
 			color: #002B36;
 			position: relative;
-			text-decoration: none;
 
 			&:after {
 				@include icon($icon-chain);
