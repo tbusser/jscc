@@ -164,6 +164,10 @@
 			var obj = {};
 			// Loop over the versions for the current user agent
 			for (var index = 0, ubound = agentData.version_list.length; index < ubound; index++) {
+				var data = agentData.version_list[index];
+				if (data.prefix == null || data.prefix === '') {
+					data.prefix = agentData.prefix;
+				}
 				// Store the version data in the object, use the version as a key
 				obj[agentData.version_list[index].version] = agentData.version_list[index];
 			}
@@ -188,9 +192,14 @@
 	function _createUAVersionObject(versionInfo, agentInfo, key) {
 		var isDisabled = /d/i,
 		    needsPrefix = /x/i,
+		    prefix = false,
 		    noteMatches = versionInfo.support.match(/#(\d+)/),
 		    usage = (isNaN(agentInfo.global_usage) ? 0 : agentInfo.global_usage),
 		    noteLink;
+
+		if (needsPrefix.test(versionInfo.support)) {
+			prefix = agentInfo.prefix;
+		}
 
 		if (noteMatches && noteMatches.length >= 2) {
 			noteLink = '#note_' + key + '_' + noteMatches[1];
@@ -200,7 +209,7 @@
 			disabled    : isDisabled.test(versionInfo.support),
 			era         : agentInfo.era,
 			globalUsage : usage,
-			needsPrefix : needsPrefix.test(versionInfo.support),
+			needsPrefix : prefix,
 			note        : noteLink,
 			version     : versionInfo.version
 		};
@@ -262,12 +271,10 @@
 	}
 
 	function _normalizeBrowserSupport() {
+		// var supports = {};
+
 		// Iterate over all features that can be detected
 		iterate(_features, function(feature, data) {
-
-			if (feature === 'obj-defineproperty') {
-				console.log('obj');
-			}
 			// Iterate over the user agents
 			iterate(data.stats, function(agent, support) {
 				var normalized = [],
@@ -284,6 +291,13 @@
 					var item = support[index],									/* [1] */
 					    supportValue = item.support.substr(0, 1).toLowerCase(),	/* [2] */
 					    agentObj = _agents[agent].version_list[item.version];	/* [3] */
+
+					/*
+					if (!supports[item.support]) {
+						supports[item.support] = true;
+						console.log(item.support, feature);
+					}
+					*/
 
 					if (agentObj != null) {
 						if (currentItem == null) {

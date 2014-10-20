@@ -64,7 +64,7 @@
 	};
 
 	exports.options = {
-		groupVersions      : false,
+		groupVersions      : true,
 		showFullySupported : true,
 		supportOrder       : ['u', 'n', 'p', 'a', 'x', 'd', 'y']
 	};
@@ -136,9 +136,16 @@
 		}
 	}
 
-	function _clearReport(target) {
-		while (target.firstChild) {
-			target.removeChild(target.firstChild);
+	/**
+	 * Removes all the DOM children from an element.
+	 */
+	function _clearReport(element) {
+		// As long as target has a first child we will remove the first child
+		// from the target. There is little difference between removing the
+		// first child vs removing the last child as seen in this perf test:
+		// http://jsperf.com/innerhtml-vs-removechild/15
+		while (element.firstChild) {
+			element.removeChild(element.firstChild);
 		}
 	}
 
@@ -167,25 +174,22 @@
 		return section;
 	}
 
-	function _createNotes(notes) {
-		if (notes == null) {
-			return;
-		}
-
-		var section = document.createElement('section');
-		section.classList.add('report-notes');
-		section.innerHTML = notes;
-
-		return section;
-	}
-
+	/**
+	 * Creates a section with a title and list which can be used to represent a
+	 * single support section.
+	 */
 	function _createSupportSection(supportValue) {
-		var section = document.createElement('section'),
-		    list = document.createElement('ol'),
-		    title = document.createElement('h4');
+		// Create the DOM elements we need to for the support section, it is the
+		// section itself [1], a list to place the browsers in [2] and a title
+		// element to show the support category [3]
+		var section = document.createElement('section'),	/* [1] */
+		    list = document.createElement('ol'),			/* [2] */
+		    title = document.createElement('h4');			/* [3] */
 
+		// Add a class to the section so it can be styled the way we want to
 		section.classList.add('support-section');
 
+		// Check what kind of support section we're creating
 		switch (supportValue) {
 		case 'n':
 			title.appendChild(document.createTextNode('No support'));
@@ -199,18 +203,28 @@
 		case 'u':
 			title.appendChild(document.createTextNode('Unknown support'));
 			break;
+		case 'a':
+			title.appendChild(document.createTextNode('Partial support'));
+			break;
 		default:
 			title.appendChild(document.createTextNode('SUPPORT VALUE:' + supportValue));
 		}
+		// Set the data-support attribute so we can use this to filter out
+		// certain categories the visitor doesn't want to see
 		section.setAttribute('data-support', supportValue);
+		// Add the title to the section
 		section.appendChild(title);
+		// Add the list to the section
 		section.appendChild(list);
 
+		// Return the result object with a reference to the section [1], the
+		// list for the browsers [2], then number of items in the list [3] and
+		// the global browser share [4]
 		return {
-			section : section,
-			list    : list,
-			count   : 0,
-			usage   : 0
+			section : section,	/* [1] */
+			list    : list,		/* [2] */
+			count   : 0,		/* [3] */
+			usage   : 0			/* [4] */
 		};
 	}
 
@@ -218,6 +232,7 @@
 		var item,
 		    index,
 		    ubound,
+		    currentVersion,
 		    isVisible = browserFilter[browser];
 
 		if (collate) {
@@ -233,14 +248,34 @@
 			}
 			_addNoteLink(item, supportObject.versions);
 
+			for (index = 0, ubound = supportObject.versions.length; index < ubound; index++) {
+				currentVersion = supportObject.versions[index];
+				if (currentVersion.disabled) {
+					item.classList.add('disabled');
+					item.setAttribute('title', 'Feature disabled by default, needs to be enabled through a flag or similar action');
+				}
+				if (currentVersion.needsPrefix) {
+					item.classList.add('prefix');
+					item.setAttribute('title', 'The prefix "' + currentVersion.needsPrefix + '" is required to use this feature');
+				}
+			}
+
 			list.appendChild(item);
 		} else {
 			for (index = 0, ubound = supportObject.versions.length; index < ubound; index++) {
-				var currentVersion = supportObject.versions[index];
+				currentVersion = supportObject.versions[index];
 				item = document.createElement('li');
 				item.appendChild(document.createTextNode(agentName + ' ' + currentVersion.version));
 				if (currentVersion.note != null) {
 					_addNoteLink(item, currentVersion.note);
+				}
+				if (currentVersion.disabled) {
+					item.classList.add('disabled');
+					item.setAttribute('title', 'Feature disabled by default, needs to be enabled through a flag or similar action');
+				}
+				if (currentVersion.needsPrefix) {
+					item.classList.add('prefix');
+					item.setAttribute('title', 'The prefix "' + currentVersion.needsPrefix + '" is required to use this feature');
 				}
 				item.setAttribute('data-browser', browser);
 				if (!isVisible) {
@@ -253,7 +288,7 @@
 
 	function _renderCategoryExt(category, target, options, agents, browserFilter) {
 		var section = _createCategoryContainer(category),
-		    notes = _createNotes(category.notes),
+		    notes,
 		    supportSections = {},
 		    index,
 		    ubound;
@@ -288,13 +323,40 @@
 		}
 
 		// Check if there is a section with notes for the category
-		if (notes != null) {
+		if (category.notes != null) {
+			notes = _renderNotes(category.notes);
 			// Add the notes section to the category section
 			section.appendChild(notes);
 		}
 		// Add the category section to the document
 		target.appendChild(section);
 	}
+
+	/**
+	 * Creates a section and adds the notes to it.
+	 * @param {[type]} notes [description]
+	 */
+	function _renderNotes(notes) {
+		var section;
+
+		// Make sure there are notes to display before we create the section
+		if (notes == null) {
+			return;
+		}
+
+		// Create a section
+		section = document.createElement('section');
+		// Add the CSS class report-notes so we can style it as we want
+		section.classList.add('report-notes');
+		// Add the notes to the innerHTML as the notes is a string containing
+		// HTML tags. This way the string will be parsed to HTML and all the
+		// elements in the string will get created
+		section.innerHTML = notes;
+
+		// Return the section
+		return section;
+	}
+
 
 	function _renderNoProblems(target) {
 		var section = document.createElement('section'),

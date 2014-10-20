@@ -101,13 +101,46 @@
 	}
 
 	li {
-		border: 1px solid #ccc;
+		background-color: #ccc;
+		//border: 1px solid #ccc;
 		float: left;
 		font-size: .825em;
 		margin-bottom: .5em;
 		margin-right: .5em;
 		min-width: 16em;
 		padding: .25em .5em;
+		position: relative;
+	}
+
+	.disabled {
+		border-right: 2em solid dimgrey;
+	}
+
+	.prefix {
+		border-right: 2em solid darkblue;
+	}
+
+	.disabled:after,
+	.prefix:after {
+		bottom: 0;
+		color: #fff;
+		display: block;
+		height: 1em;
+		line-height: 1;
+		margin: auto 0;
+		position: absolute;
+		right: -2em;
+		text-align: center;
+		top: 0;
+		width: 2em;
+	}
+
+	.disabled:after {
+		content: 'D';
+	}
+
+	.prefix:after {
+		content: 'P';
 	}
 
 	sup {
