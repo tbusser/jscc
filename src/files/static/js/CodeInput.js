@@ -16,6 +16,7 @@
 	    _options,
 	    _file,
 	    _fileReader,
+	    _directLoad = false,
 	    exports = function(element, overrides) {
 		    _element = element;
 		    _options = overrides;
@@ -24,7 +25,7 @@
 	function _checkTextArea() {
 		var element = _element.querySelector('textarea');
 		if (element == null) {
-			return;
+			return false;
 		}
 
 		if (element.value === '') {
@@ -32,8 +33,10 @@
 				level   : 1,
 				message : 'There is no text in the textarea'
 			});
+			return false;
 		} else {
 			_publishCode(element.value);
+			return true;
 		}
 	}
 
@@ -51,22 +54,55 @@
 	}
 
 	function _onChangeFileInput(event) {
+		var regex = /javascript/i;
+
+		// Check if a file was selected
 		if (event.target.files.length > 0) {
+			// Get the first file from the selection
 			var item = event.target.files[0];
 
-			if ((/javascript/gi).test(item.type)) {
+			// Check if the file is of the type JavaScript
+			if (regex.test(item.type)) {
+				// Show the current selected file
 				_setSelectedFile(item);
 			} else {
+				// Show that no file has been selected
 				_setSelectedFile(null);
 			}
+
+			// Check if the direct load flag has been set, if so we will
+			// automatically start loading the flag
+			if (_directLoad) {
+				_loadFile(_file);
+			}
 		}
+		// Reset the direct load flag
+		_directLoad = false;
 	}
 
 	function _onClickButton(event) {
 		Intermediary.publish('notification:clear', {});
+		// Check if a file has been selected
 		if (_file == null) {
-			_checkTextArea();
+			// There is no file, check if the textarea contains something we
+			// can analyse
+			if (!_checkTextArea()) {
+				// There is nothing in the textarea, we will trigger the file
+				// dialog of the input element via code and set the flag to
+				// immediately load the file after a file has been selected
+
+				// Get the input element
+				var fileinput = _element.querySelector('input[type="file"]');
+				// Make sure we have the input element before we continue
+				if (fileinput != null) {
+					// Set the direct load flag
+					_directLoad = true;
+					// Trigger the file dialog
+					fileinput.click();
+				}
+			}
 		} else {
+			// A file has been selected, load it
 			_loadFile(_file);
 		}
 	}
