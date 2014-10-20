@@ -174,32 +174,36 @@
 		return agents;
 	}
 
-	function _createSupportObject(versionInfo, agentInfo) {
+	function _createSupportObject(versionInfo, agentInfo, key) {
 		var result = {};
 		result.versions = [];
 
 		result.fromVersion = versionInfo.version;
-		result.versions.push(_createUAVersionObject(versionInfo, agentInfo));
+		result.versions.push(_createUAVersionObject(versionInfo, agentInfo, key));
 		result.support = versionInfo.support.substr(0, 1).toLowerCase();
 
 		return result;
 	}
 
-	function _createUAVersionObject(versionInfo, agentInfo) {
+	function _createUAVersionObject(versionInfo, agentInfo, key) {
 		var isDisabled = /d/i,
 		    needsPrefix = /x/i,
 		    noteMatches = versionInfo.support.match(/#(\d+)/),
 		    usage = (isNaN(agentInfo.global_usage) ? 0 : agentInfo.global_usage),
-		    result = {
-			    disabled    : isDisabled.test(versionInfo.support),
-			    era         : agentInfo.era,
-			    globalUsage : usage,
-			    needsPrefix : needsPrefix.test(versionInfo.support),
-			    note        : ((noteMatches && noteMatches.length === 2) ? noteMatches[1] : null),
-			    version     : versionInfo.version
-		    };
+		    noteLink;
 
-		return result;
+		if (noteMatches && noteMatches.length >= 2) {
+			noteLink = '#note_' + key + '_' + noteMatches[1];
+		}
+
+		return {
+			disabled    : isDisabled.test(versionInfo.support),
+			era         : agentInfo.era,
+			globalUsage : usage,
+			needsPrefix : needsPrefix.test(versionInfo.support),
+			note        : noteLink,
+			version     : versionInfo.version
+		};
 	}
 
 	/**
@@ -283,14 +287,14 @@
 
 					if (agentObj != null) {
 						if (currentItem == null) {
-							currentItem = _createSupportObject(item, agentObj);
+							currentItem = _createSupportObject(item, agentObj, feature);
 						} else if (supportValue !== currentItem.support) {
 							currentItem.toVersion = previousItem.version;
 							currentItem.totalGlobalUsage = _calculateTotalGlobalUsage(currentItem.versions);
 							normalized.push(currentItem);
-							currentItem = _createSupportObject(item, agentObj);
+							currentItem = _createSupportObject(item, agentObj, feature);
 						} else {
-							currentItem.versions.push(_createUAVersionObject(item, agentObj));
+							currentItem.versions.push(_createUAVersionObject(item, agentObj, feature));
 						}
 						previousItem = item;
 					}

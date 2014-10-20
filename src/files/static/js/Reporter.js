@@ -351,14 +351,16 @@
 		var notes = {};
 		for (var index = 0, ubound = versions.length; index < ubound; index++) {
 			var currentVersion = versions[index];
-			if (currentVersion.note != null && notes[currentVersion.note] == undefined) {
+			if (currentVersion.note != null && notes[currentVersion.note] == null) {
 				notes[currentVersion.note] = true;
 				var anchor = document.createElement('a'),
-					sup = document.createElement('sup');
+				    sup = document.createElement('sup'),
+				    regex = /\d+/,
+				    noteText = regex.exec(currentVersion.note);
 
-				anchor.setAttribute('href', '#note_' + key + '_' + currentVersion.note);
-				anchor.setAttribute('title', 'Go to note ' + currentVersion.note);
-				anchor.appendChild(document.createTextNode(currentVersion.note));
+				anchor.setAttribute('href', currentVersion.note);
+				anchor.setAttribute('title', 'Go to note ' + noteText);
+				anchor.appendChild(document.createTextNode(noteText));
 				sup.appendChild(anchor);
 				item.appendChild(sup);
 			}
