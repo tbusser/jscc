@@ -1,21 +1,5 @@
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="ROBOTS" content="NOINDEX, NOFOLLOW"
-
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"/>
-
-		<title>@document.title</title>
-
-		<link rel="stylesheet" href="static/css/site.css">
-		<link rel="stylesheet" href="static/css/codemirror.css">
-		<style media="screen">
-			.cm-compatibility {
-				color: #ff9200;
-			}
-		</style>
-	</head>
+	@partial('document/head')
 	<body>
 		@partial('components/header')
 		<main>
