@@ -123,7 +123,7 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	var showHideController = new ShowHide();
 	showHideController.init();
 
-	scrollToController = new ScrollTo({topThresholdRatio: 2});
+	scrollToController = new ScrollTo({topThresholdRatio: 2, correction: -88});
 	scrollToController.init();
 
 	stickyHeaderController = new StickyHeader(document.getElementById('report'));

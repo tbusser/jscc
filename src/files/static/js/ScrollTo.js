@@ -190,7 +190,7 @@
 	 * @return {Number} The height of the viewport in pixels.
 	 */
 	function _getViewportHeight() {
-		return document.body.clientHeight;
+		return (document.documentElement || document.body).clientHeight;
 	}
 
 	/*
@@ -249,7 +249,7 @@
 		// safe than sorry)
 		if (scrollToTopButton) {
 			// Get the viewport size
-			var clientHeight = document.body.clientHeight;
+			var clientHeight = _getViewportHeight();
 			// Check if the user scrolled more than a third of the height of the
 			// viewport
 			if (_getScrollPosition() > clientHeight / _options.topThresholdRatio) {
