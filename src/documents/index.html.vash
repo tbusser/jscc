@@ -18,6 +18,7 @@ title: JS Compatibility Checker
 				</h2>
 				<button data-sh-trigger="index" class="button index" type="button"><span class="visually-hidden">Show/Hide </span>index</button>
 				<button data-sh-trigger="comprep" class="button config" type="button"><span class="visually-hidden">Show/Hide </span>browsers</button>
+				<button data-sh-trigger="compsup" class="button filter" type="button"><span class="visually-hidden">Show/Hide </span>filters</button>
 			</div>
 			<div>
 				<div data-sh-container="index" class="report-index">
@@ -50,8 +51,13 @@ title: JS Compatibility Checker
 								</ul>
 							</div>
 						</div>
-						<h3 class="hidden">Show these support categories in the report</h3>
-						<div class="hidden filters">
+					</div>
+				</article>
+
+				<article data-sh-container="compsup" id="browser-filter" class="size-constraint">
+					<div data-sh-content="compsup">
+						<h3>Show these support categories in the report</h3>
+						<div class="filters">
 							<ul>
 								<li>
 									<input type="checkbox" id="chkbox_sf_unknown">
@@ -62,12 +68,12 @@ title: JS Compatibility Checker
 									<label for="chkbox_sf_no" class="toggle-button">No support</label>
 								</li>
 								<li>
-									<input type="checkbox" id="chkbox_sf_poly">
-									<label for="chkbox_sf_poly" class="toggle-button">Polyfill support</label>
+									<input type="checkbox" id="chkbox_sf_partial">
+									<label for="chkbox_sf_partial" class="toggle-button">Partial support</label>
 								</li>
 								<li>
 									<input type="checkbox" id="chkbox_sf_poly">
-									<label for="chkbox_sf_poly" class="toggle-button">Partial support</label>
+									<label for="chkbox_sf_poly" class="toggle-button">Polyfill support</label>
 								</li>
 								<li>
 									<input type="checkbox" id="chkbox_sf_full">
