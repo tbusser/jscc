@@ -17,11 +17,12 @@ title: JS Compatibility Checker
 					Compatibility Report
 				</h2>
 				<button data-sh-trigger="index" class="button index" type="button"><span class="visually-hidden">Show/Hide </span>index</button>
-				<button data-sh-trigger="comprep" class="button config" type="button"><span class="visually-hidden">Show/Hide </span>config</button>
+				<button data-sh-trigger="comprep" class="button config" type="button"><span class="visually-hidden">Show/Hide </span>browsers</button>
 			</div>
 			<div>
 				<div data-sh-container="index" class="report-index">
 					<nav data-sh-content="index">
+						<h3 class="visually-hidden">Index of detected techniques</h3>
 						<ol id="index-list" class="index-list">
 
 						</ol>
