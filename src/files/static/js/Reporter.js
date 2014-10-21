@@ -57,10 +57,34 @@
 		return result;
 	}
 
+	function _convertAgentsToArray(agents) {
+		var result = [];
+
+		iterate(agents, function(agent, agentData) {
+			result.push({
+				key   : agent,
+				title : agentData.browser.toLowerCase()
+			});
+		});
+
+		result.sort(function(a, b) {
+			if (a.title < b.title) {
+				return -1;
+			} else if (a.title > b.title) {
+				return 1;
+			}
+			return 0;
+		});
+
+		return result;
+	}
+
+
 	var exports = function(element, overrides, agents) {
 		this._element = element;
 		this._options = mergeOptions(overrides);
 		this._agents = agents;
+		this._agentsArray = _convertAgentsToArray(agents);
 		this._index = document.getElementById('index-list');
 	};
 
@@ -271,6 +295,10 @@
 			}
 			_addNoteLink(item, supportObject.versions);
 
+			if (supportObject.isMobileBrowser) {
+				item.classList.add('mobile-browser');
+			}
+
 			for (index = 0, ubound = supportObject.versions.length; index < ubound; index++) {
 				setDataTitle(supportObject.versions[index], item);
 			}
@@ -284,6 +312,9 @@
 				if (currentVersion.note != null) {
 					_addNoteLink(item, currentVersion.note);
 				}
+				if (supportObject.isMobileBrowser) {
+					item.classList.add('mobile-browser');
+				}
 				setDataTitle(currentVersion, item);
 				item.setAttribute('data-browser', browser);
 				if (!isVisible) {
@@ -292,60 +323,6 @@
 				list.appendChild(item);
 			}
 		}
-	}
-
-	function _renderCategoryExt(category, target, options, agents, indexElement, browserFilter) {
-		var section = _createCategoryContainer(category),
-		    notes,
-		    supportSections = {},
-		    index,
-		    ubound;
-
-		_addIndexEntry(category.title, category.key, indexElement);
-
-		// Iterate over the user agents for the current category
-		iterate(category.stats, function(browser, supportObjects) {
-			// Loop over the support blocks
-			for (index = 0, ubound = supportObjects.length; index < ubound; index++) {
-				var supportObject = supportObjects[index],
-				    supportValue = supportObject.support.substr(0, 1).toLowerCase();
-
-				if (supportSections[supportValue] == null) {
-					supportSections[supportValue] = _createSupportSection(supportValue);
-				}
-
-				var list = supportSections[supportValue].list;
-
-				_renderBrowsers(category.key, list, browser, agents[browser].browser, supportObject, options.groupVersions, browserFilter);
-				supportSections[supportValue].usage += supportObject.totalGlobalUsage;
-			}
-		});
-
-		for (index = 0, ubound = options.supportOrder.length; index < ubound; index++) {
-			var value = options.supportOrder[index];
-			if (supportSections[value] != null) {
-				var title = supportSections[value].section.querySelector('h4');
-				if (title != null) {
-					title.appendChild(document.createTextNode(' (' + supportSections[value].usage.toFixed(1) + '% global browser share)'));
-				}
-				section.appendChild(supportSections[value].section);
-			}
-		}
-
-		// Check if there is a section for the polyfills and that there are links to polyfills
-		if (supportSections.p != null && category.links != null && category.links.length > 0) {
-			// Render the links to the polyfills
-			_renderPolyfillLinks(category.links, section);
-		}
-
-		// Check if there is a section with notes for the category
-		if (category.notes != null) {
-			notes = _renderNotes(category.notes);
-			// Add the notes section to the category section
-			section.appendChild(notes);
-		}
-		// Add the category section to the document
-		target.appendChild(section);
 	}
 
 	/**
@@ -431,6 +408,83 @@
 	}
 
 	exports.prototype = {
+		_renderCategoryExt: function(category, browserFilter) {
+			var section = _createCategoryContainer(category),
+				notes,
+				supportSections = {},
+				index,
+				ubound,
+				agents = this._agents,
+				options = this._options;
+
+			_addIndexEntry(category.title, category.key, this._index);
+
+			for (index = 0, ubound = this._agentsArray.length; index < ubound; index++) {
+				var browser = this._agentsArray[index].key,
+				    supportObjects = category.stats[browser];
+
+				for (var index2 = 0, ubound2 = supportObjects.length; index2 < ubound2; index2++) {
+					var supportObject = supportObjects[index2],
+						supportValue = supportObject.support.substr(0, 1).toLowerCase();
+
+					if (supportSections[supportValue] == null) {
+						supportSections[supportValue] = _createSupportSection(supportValue);
+					}
+
+					var list = supportSections[supportValue].list;
+
+					_renderBrowsers(category.key, list, browser, agents[browser].browser, supportObject, options.groupVersions, browserFilter);
+					supportSections[supportValue].usage += supportObject.totalGlobalUsage;
+				}
+			}
+
+			// Iterate over the user agents for the current category
+			/*
+			iterate(category.stats, function(browser, supportObjects) {
+				// Loop over the support blocks
+				for (index = 0, ubound = supportObjects.length; index < ubound; index++) {
+					var supportObject = supportObjects[index],
+						supportValue = supportObject.support.substr(0, 1).toLowerCase();
+
+					if (supportSections[supportValue] == null) {
+						supportSections[supportValue] = _createSupportSection(supportValue);
+					}
+
+					var list = supportSections[supportValue].list;
+
+					_renderBrowsers(category.key, list, browser, agents[browser].browser, supportObject, options.groupVersions, browserFilter);
+					supportSections[supportValue].usage += supportObject.totalGlobalUsage;
+				}
+			});
+			*/
+
+			for (index = 0, ubound = this._options.supportOrder.length; index < ubound; index++) {
+				var value = this._options.supportOrder[index];
+				if (supportSections[value] != null) {
+					var title = supportSections[value].section.querySelector('h4');
+					if (title != null) {
+						title.appendChild(document.createTextNode(' (' + supportSections[value].usage.toFixed(1) + '% global browser share)'));
+					}
+					section.appendChild(supportSections[value].section);
+				}
+			}
+
+			// Check if there is a section for the polyfills and that there are links to polyfills
+			if (supportSections.p != null && category.links != null && category.links.length > 0) {
+				// Render the links to the polyfills
+				_renderPolyfillLinks(category.links, section);
+			}
+
+			// Check if there is a section with notes for the category
+			if (category.notes != null) {
+				notes = _renderNotes(category.notes);
+				// Add the notes section to the category section
+				section.appendChild(notes);
+			}
+			// Add the category section to the document
+			this._element.appendChild(section);
+		},
+
 		buildReport: function(data, browserFilter) {
 			// Make sure there is an element specified to render the report in
 			if (this._element == null) {
@@ -463,7 +517,7 @@
 			for (var index = 0, ubound = data.length; index < ubound; index++) {
 				var item = data[index];
 				// Render a report item for the feature
-				_renderCategoryExt(item, this._element, this._options, this._agents, this._index, browserFilter);
+				this._renderCategoryExt(item, browserFilter);
 			}
 		},
 

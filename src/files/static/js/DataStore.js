@@ -185,6 +185,7 @@
 		result.fromVersion = versionInfo.version;
 		result.versions.push(_createUAVersionObject(versionInfo, agentInfo, key));
 		result.support = versionInfo.support.substr(0, 1).toLowerCase();
+		result.isMobileBrowser = agentInfo.isMobileBrowser;
 
 		return result;
 	}
@@ -342,6 +343,7 @@
 					*/
 
 					if (agentObj != null) {
+						agentObj.isMobileBrowser = (_agents[agent].type === 'mobile');
 						if (currentItem == null) {
 							currentItem = _createSupportObject(item, agentObj, feature);
 						} else if (supportValue !== currentItem.support) {
