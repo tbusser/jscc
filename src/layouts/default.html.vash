@@ -7,7 +7,7 @@
 		</main>
 		@partial('components/footer')
 		@partial('document/behaviour')
-		<a class="scroll-to-top not-available" href="#report" title="Back to top">
+		<a class="scroll-to-top not-available" data-no-correction href="#report" title="Back to top">
 			<span class="visually-hidden">Go back to top</span>
 		</a>
 	</body>

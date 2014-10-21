@@ -219,6 +219,11 @@
 		if (hrefTarget == null) {
 			return;
 		}
+
+		var correction = 0;
+		if (!target.hasAttribute('data-no-correction')) {
+			correction = _options.correction;
+		}
 		// Start the animation, as a starting point we will use the current
 		// position. We want to animate the document to the position of the
 		// element which is the target of the anchor, we can get the distance
@@ -227,7 +232,7 @@
 		// will be a positive value, the number of pixels we have to scroll down
 		// to get to the target element.
 		setTimeout(function() {
-			_startAnimation(_getScrollPosition(), hrefTarget.getBoundingClientRect().top + _options.correction);
+			_startAnimation(_getScrollPosition(), hrefTarget.getBoundingClientRect().top + correction);
 		}, 10);
 		// Prevent the default behaviour of the anchor element, otherwise IE8
 		// will perform a nasty jump to the target only to perform the scroll
