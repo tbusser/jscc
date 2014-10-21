@@ -30,16 +30,8 @@ main {
 		color: #333;
 	}
 }
-
-
-.container-light {
-	background-color: #e4e9eb; //$color-background-light;
-}
 .container-medium {
 	background-color: $color-background-medium;
-}
-.container-base {
-	background-color: slategrey // $color-accent-blue;
 }
 
 .size-constraint {
