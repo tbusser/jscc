@@ -1,0 +1,98 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#BUTTONS
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+%base-button {
+	background: #fff;
+	border: none;
+	cursor: pointer;
+	font: inherit;
+	text-decoration: none;
+	padding: 0;
+}
+
+.button {
+	@extend %base-button;
+
+	&.index,
+	&.config {
+		color: $color-border-light;
+		padding-left: 1.25em;
+		position: relative;
+		transition: color .3s ease-out;
+
+		&:hover {
+			color: inherit;
+		}
+
+		&:before {
+			bottom: 0;
+			display: block;
+			height: 1.8em;
+			font-size: 1.25em;
+			left: 0;
+			line-height: 1.8;
+			margin: auto 0;
+			position: absolute;
+			top: 0;
+		}
+	}
+
+	&.config:before {
+		@include icon($icon-gear);
+	}
+
+	&.index {
+		padding-left: 1.5em;
+
+		&:before {
+			@include icon($icon-index);
+		}
+	}
+}
+
+
+.toggle-button {
+	background-color: darken(lightgrey, 5%);
+	box-shadow: 0 0 1px #000;
+	color: #333;
+	cursor: pointer;
+	display: block;
+	font: inherit;
+	font-weight: bold;
+	min-width: 16em;
+	padding: .25em 1em .25em 3em;
+	position: relative;
+	transition: box-shadow .2s ease-out, background-color .2s ease-out;
+
+
+	&:before {
+		@include icon($icon-cross);
+		bottom: 0;
+		color: red;
+		display: block;
+		font-size: 1.5em;
+		height: 1em;
+		left: .5em;
+		line-height: 1;
+		margin: auto 0;
+		position: absolute;
+		text-shadow: 0 -1px 0 #fff, 0 1px 0 #000;
+		top: 0;
+	}
+
+	&:hover {
+		background-color: lighten(lightgrey, 5%);
+		box-shadow: 0 0 5px #000;
+	}
+}
+
+input:checked + .toggle-button {
+	background-color: #e4e9eb; //$color-accent-blue;
+	box-shadow: inset 0 0 3px #000;
+
+	&:before {
+		@include icon($icon-check);
+		color: green;
+		text-shadow: 0 1px 0 #fff, 0 -1px 0 #000;
+	}
+}

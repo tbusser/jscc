@@ -2,64 +2,40 @@
 	#MAIN
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
 body {
-	background-color: lightgrey;
+	background-color: #585858; //dimgrey; // #fff; // $color-base-light;
 	color: #4b4b4b;
 	font: 16px/1.5 Arial, sans-serif;
 	margin: 0;
-	padding-bottom: 4.5em;
-	position: relative;
+	//position: relative;
 }
 
 main {
-	margin: 4em 4em 0;
-	max-width: 80em;
 }
 
-footer {
-	bottom: 1.5em;
-	padding-left: 4em;
-	position: absolute;
+.container-blue {
+	background-color: #DFEAEE;
+	border-bottom: 1px solid #999;
+	color: #333;
+
+	h2 {
+		color: inherit;
+	}
 }
 
-%container {
+.container-white {
 	background-color: #fff;
-	padding: 2em;
-}
+	color: #4b4b4b;
 
-.bottom-container,
-.middle-container,
-.top-container {
-	@extend %container;
-}
-
-.bottom-container {
-	border-color: darkgrey;
-	border-radius: 0 0 1em 1em;
-	border-style: solid;
-	border-width: .5em 1px 1px;
-	box-shadow: 0 .5em 1em rgba(0,0,0,.2), .5em .5em 1em rgba(0,0,0,.2), -.5em .5em 1em rgba(0,0,0,.2);
-}
-
-.middle-container {
-	border-color: darkgrey;
-	border-style: solid;
-	border-width: .5em 1px;
-	box-shadow: .5em 0 1em rgba(0,0,0,.2), -.5em 0 1em rgba(0,0,0,.2);
-
-	& + .bottom-container {
-		margin-top: 1em;
+	h2 {
+		color: #333;
 	}
 }
+.container-medium {
+	background-color: $color-background-medium;
+}
 
-
-.top-container {
-	border-color: darkgrey;
-	border-radius: 1em 1em 0 0;
-	border-style: solid;
-	border-width: 1px 1px .5em;
-	box-shadow: 0 -.5em 1em rgba(0,0,0,.2), .5em -.5em 1em rgba(0,0,0,.2), -.5em -.5em 1em rgba(0,0,0,.2);
-
-	& + .middle-container {
-		margin-top: 1em;
-	}
+.size-constraint {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: $size-max-width;
 }

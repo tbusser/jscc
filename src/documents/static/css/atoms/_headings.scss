@@ -4,11 +4,11 @@
 h1 {
 	color: #333;
 	margin: 0 0 1em;
-	text-align: center;
+
 
 	& > span {
-		border-bottom: 3px solid #4b4b4b;
-		padding-bottom: .25em;
+		//border-bottom: 3px solid #4b4b4b;
+		//padding-bottom: .25em;
 	}
 }
 
@@ -17,7 +17,9 @@ h2 {
 	margin-top: 0;
 }
 
-h3 {
+h3,
+h4 {
+	color: #333;
 	margin-bottom: 0;
 
 	& + p {

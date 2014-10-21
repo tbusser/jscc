@@ -1,0 +1,17 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#COLUMNS
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+.two-column {
+	.column {
+		float: left;
+		padding-left: 1em;
+		padding-right: 1em;
+		width: 50%;
+	}
+
+	&:after {
+		clear: both;
+		content: '';
+		display: table;
+	}
+}

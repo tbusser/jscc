@@ -1,0 +1,10 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#LOGGER
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+.logging-widget {
+	@extend .widget-container;
+
+	.notifications {
+		background-color: #fff;
+	}
+}

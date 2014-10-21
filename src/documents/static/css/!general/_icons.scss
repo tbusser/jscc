@@ -1,0 +1,20 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#ICONS
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+$icon-chain         : '\f08e';
+$icon-gear          : '\f013';
+$icon-check         : '\f00c';
+$icon-cross         : '\f00d';
+$icon-chevron-right : '\f054';
+$icon-arrow-up      : '\f077';
+$icon-index         : '\f0cb';
+
+@mixin icon($char) {
+	content: $char;
+	font-family: $font-icons;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	speak: none;
+	text-transform: none;
+}

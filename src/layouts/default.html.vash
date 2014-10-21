@@ -1,28 +1,15 @@
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="ROBOTS" content="NOINDEX, NOFOLLOW"
-
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"/>
-
-		<title>@document.title</title>
-
-		<link rel="stylesheet" href="static/css/site.css">
-		<link rel="stylesheet" href="static/css/codemirror.css">
-		<style media="screen">
-			.cm-compatibility {
-				color: #ff9200;
-			}
-		</style>
-	</head>
+<!DOCTYPE html>
+<html lang="en">
+	@partial('document/head')
 	<body>
+		@partial('components/header')
 		<main>
 			@html.raw(content)
 		</main>
-		<footer>
-			Compatibility data from <a href="http://caniuse.com">Can I Use</a>.
-		</footer>
+		@partial('components/footer')
 		@partial('document/behaviour')
+		<a class="scroll-to-top not-available" data-no-correction href="#report" title="Back to top">
+			<span class="visually-hidden">Go back to top</span>
+		</a>
 	</body>
 </html>

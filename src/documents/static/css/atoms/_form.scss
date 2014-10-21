@@ -3,16 +3,18 @@
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
 form {
 	button {
-		background-color: lightblue;
+		background-color: $color-accent-blue;
 		border: 3px solid #fff;
 		box-shadow: 0 0 1px #000;
+		color: #fff;
 		cursor: pointer;
 		font: inherit;
+		font-weight: bold;
 		padding: .5em 1em;
 		transition: box-shadow .2s ease-out, background-color .2s ease-out;
 
 		&:hover {
-			background-color: darken(lightblue, 10%);
+			background-color: lighten($color-accent-blue, 10%);
 			box-shadow: 0 0 3px #000;
 		}
 
@@ -28,7 +30,7 @@ form {
 	}
 
 	textarea {
-		border: 3px solid lightgrey;
+		border: 3px solid $color-border;
 		display: block;
 		font: 14px/1.2 Monaco, Consolas, "Lucida Console", monospace;
 		resize: vertical;
@@ -51,10 +53,6 @@ form {
 
 	label {
 		display: block;
-
-		.underline {
-			border-bottom: 2px solid lightgrey;
-		}
 	}
 
 	fieldset + button,

@@ -1,32 +1,50 @@
 /*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
 	#CODE-INPUT
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
-#code-input {
-	position: relative;
+.input-widget {
+	@extend .widget-container;
 
 	.drop-target {
-		border: 3px dashed lightgrey;
+		border: 3px dashed $color-border; // lightgrey;
+		background-color: #fff;
 		padding: 1.5em 0;
 		text-align: center;
+		transition: background-color .3s ease-out, border-color .3s ease-out, color .3s ease-out;
 
-		&:hover {
+		&:hover,
+		&.ondrag {
+			background-color: $color-base-light;
+			border-color: $color-border-dark;
+			color: $color-border-dark;
 			text-decoration: underline;
-		}
-
-		&.on-drag {
-			background-color: lightyellow;
-			text-decoration: none;
-		}
-
-		& + label {
-			margin-top: 1em;
 		}
 	}
 
 	button {
+		background-color: $color-grey-light;
+		color: inherit;
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
 		min-width: 10em;
+		padding-right: 3em;
+		position: relative;
+
+		&:after {
+			@include icon($icon-chevron-right);
+			bottom: 0;
+			font-size: 1.25em;
+			height: 1em;
+			line-height: 1;
+			margin: auto 0;
+			position: absolute;
+			right: .75em;
+			text-shadow: 0 1px 0 #fff, 0 -1px 0 #000;
+			top: 0;
+		}
+
+		&:hover {
+			background-color: darken($color-grey-light, 10%);
+		}
 	}
 }

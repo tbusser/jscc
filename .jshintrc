@@ -1,7 +1,7 @@
 {
     // Enforcing options
     "bitwise"       : true,         // Warn when using bitwise operators, most of the time it is a typo
-    "camelcase"     : true,         // Force all variable names to use either camelCase style or UPPER_CASE with underscores.
+    "camelcase"     : false,        // This is a style issue and should be checked by JSCS
     "curly"         : true,         // Always put curly braces around blocks in loops and conditionals
     "eqeqeq"        : true,         // Always compare using === and !==
     "forin"         : true,         // Force the use of hasOwnProperty() checks when iterating object properties

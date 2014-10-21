@@ -1,8 +1,18 @@
 {
 	"data":{
+		"queryselector": {
+			"links":[
+				{
+					"url":"https://github.com/termi/CSS_selector_engine",
+					"title":"CSS Selector engine with CSS4 selector API support",
+					"type":"poly"
+				}
+			]
+		},
 		"obj-create": {
 			"title":"Object.create()",
 			"description":"The create function creates a new object with a specified prototype.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.5",
 			"links":[
 				{
 					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create",
@@ -10,8 +20,9 @@
 					"type":"poly"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
-				"ie":{"5.5":"n","6":"n","7":"n","8":"y"},
+				"ie":{"5.5":"n","6":"n","7":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
 				"chrome":{"4":"n"},
 				"safari":{"3.1":"n","3.2":"n","4":"n","5":"y"},
@@ -32,6 +43,7 @@
 		"obj-defineproperty": {
 			"title":"Object.defineProperty",
 			"description":"The defineProperty function is used to add an own property and/or update the attributes of an existing own property of an object.",
+			"spec": "http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.6",
 			"links":[
 				{
 					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty",
@@ -39,6 +51,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"y #1"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -64,6 +77,7 @@
 		"obj-defineproperties": {
 			"title":"Object.defineProperties",
 			"description":"The defineProperties function is used to add own properties and/or update the attributes of existing own properties of an object.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.7",
 			"links":[
 				{
 					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties",
@@ -71,6 +85,7 @@
 					"type":"info"
 				}
 			],
+			"categories":["ECMAScript"],
 			"stats":{
 				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
 				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
@@ -88,6 +103,833 @@
 				"and_uc":{"9.9":"u"}
 			},
 			"notes":"",
+			"notes_by_num":{}
+		},
+		"obj-getprototypeof": {
+			"title":"Object.getPrototypeOf",
+			"description":"The Object.getPrototypeOf() method returns the prototype (i.e. the value of the internal [[Prototype]] property) of the specified object.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.2",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf",
+					"title":"Object.getPrototypeOf() reference",
+					"type":"info"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
+				"firefox":{"2":"n","3":"n"},
+				"chrome":{"4":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n","11.6":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"obj-keys": {
+			"title":"Object.keys",
+			"description":"The Object.keys() method returns an array of a given object's own enumerable properties, in the same order as that provided by a for...in loop (the difference being that a for-in loop enumerates properties in the prototype chain as well).",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.14",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys",
+					"title":"Object.keys reference",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{"2":"p","3":"p","3.5":"p","3.6":"p"},
+				"chrome":{"4":"p"},
+				"safari":{"3.1":"p","3.2":"p","4":"p"},
+				"opera":{"9":"p","9.5-9.6":"p","10.0-10.1":"p","10.5":"p","10.6":"p","11":"p","11.1":"p","11.5":"p","11.6":"p"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"In ES5, if the argument to this method is not an object (a primitive), then it will cause a TypeError. In ES6, a non-object argument will be coerced to an object.",
+			"notes_by_num":{}
+		},
+		"obj-seal": {
+			"title":"Object.seal",
+			"description":"The Object.seal() method seals an object, preventing new properties from being added to it and marking all existing properties as non-configurable. Values of present properties can still be changed as long as they are writable.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.8",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/seal",
+					"title":"Object.seal reference",
+					"type":"info"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n","5":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n","5":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n","11.6":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"In ES5, if the argument to this method is not an object (a primitive), then it will cause a TypeError. In ES6, a non-object argument will be treated as if it was a sealed ordinary object, simply return it.",
+			"notes_by_num":{}
+		},
+		"obj-freeze": {
+			"title":"Object.freeze",
+			"description":"The Object.freeze() method freezes an object: that is, prevents new properties from being added to it; prevents existing properties from being removed; and prevents existing properties, or their enumerability, configurability, or writability, from being changed. In essence the object is made effectively immutable. The method returns the object being frozen.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.9",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze",
+					"title":"Object.freeze reference",
+					"type":"info"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n","5":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n","5":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n","11.6":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"In ES5, if the argument to this method is not an object (a primitive), then it will cause a TypeError. In ES6, a non-object argument will be treated as if it was a  frozen ordinary object, simply return it.",
+			"notes_by_num":{}
+		},
+		"obj-preventextensions": {
+			"title":"Object.preventExtensions",
+			"description":"The Object.preventExtensions() method prevents new properties from ever being added to an object (i.e. prevents future extensions to the object).",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.10",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/preventExtensions",
+					"title":"Object.preventExtensions reference",
+					"type":"info"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n","5":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n","5":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n","11.6":"n","12":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"In ES5, if the argument to this method is not an object (a primitive), then it will cause a TypeError. In ES6, a non-object argument will be treated as if it was a non-extensible ordinary object, simply return it.",
+			"notes_by_num":{}
+		},
+		"obj-issealed": {
+			"title":"Object.isSealed",
+			"description":"The Object.isSealed() method determines if an object is sealed.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.11",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/issealed",
+					"title":"Object.isSealed reference",
+					"type":"info"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n","5":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n","5":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n","11.6":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"In ES5, if the argument to this method is not an object (a primitive), then it will cause a TypeError. In ES6, a non-object argument will be treated as if it was a frozen ordinary object, simply return true.",
+			"notes_by_num":{}
+		},
+		"obj-isfrozen": {
+			"title":"Object.isFrozen",
+			"description":"The Object.isFrozen() determines if an object is frozen.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.12",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isfrozen",
+					"title":"Object.isFrozen reference",
+					"type":"info"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n","5":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n","5":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n","11.6":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"In ES5, if the argument to this method is not an object (a primitive), then it will cause a TypeError. In ES6, a non-object argument will be treated as if it was a frozen ordinary object, simply return true.",
+			"notes_by_num":{}
+		},
+		"obj-isextensible": {
+			"title":"Object.isExtensible",
+			"description":"The Object.isExtensible() method determines if an object is extensible (whether it can have new properties added to it).",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.13",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isextensible",
+					"title":"Object.isExtensible reference",
+					"type":"info"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"n"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n","5":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n","5":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n","11.6":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"In ES5, if the argument to this method is not an object (a primitive), then it will cause a TypeError. In ES6, a non-object argument will be treated as if it was a non-extensible ordinary object, simply return false.",
+			"notes_by_num":{}
+		},
+		"obj-getownpropertydesc": {
+			"title":"Object.getOwnPropertyDescriptor",
+			"description":"The Object.getOwnPropertyDescriptor() method returns a property descriptor for an own property (that is, one directly present on an object, not present by dint of being along an object's prototype chain) of a given object.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.3",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor",
+					"title":"Object.getOwnPropertyDescriptor reference",
+					"type":"info"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"y #1"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n","11.6":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"In ES5, if the argument to this method is not an object (a primitive), then it will cause a TypeError. In ES6, a non-object argument will be treated as if it was a non-extensible ordinary object, simply return false.",
+			"notes_by_num":{
+				"1":"In Internet Explorer 8 Object.getOwnPropertyDescriptor only accepts DOM objects"
+			}
+		},
+		"obj-getownpropertynames": {
+			"title":"Object.getOwnPropertyNames",
+			"description":"The Object.getOwnPropertyNames() method returns an array of all properties (enumerable or not) found directly upon a given object.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.4",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames",
+					"title":"Object.getOwnPropertyNames reference",
+					"type":"info"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n","11.6":"n"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"In ES5, if the argument to this method is not an object (a primitive), then it will cause a TypeError. In ES6, a non-object argument will be treated as if it was a non-extensible ordinary object, simply return false.",
+			"notes_by_num":{}
+		},
+		"date-toisostring": {
+			"title":"Date.prototype.toISOString",
+			"description":"The toISOString() method returns a string in ISO format (ISO 8601 Extended Format), which can be described as follows: YYYY-MM-DDTHH:mm:ss.sssZ. The timezone is always UTC as denoted by the suffix \"Z\".",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.9.5.43",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString",
+					"title":"Date.prototype.toISOString reference",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{"2":"p"},
+				"chrome":{"4":"p"},
+				"safari":{"3.1":"p","3.2":"p"},
+				"opera":{"9":"p","9.5-9.6":"p","10.0-10.1":"p"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"date-now": {
+			"title":"Date.now",
+			"description":"The Date.now() method returns the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.9.4.4",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now",
+					"title":"Date.now reference",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{"2":"p"},
+				"chrome":{"4":"p"},
+				"safari":{"3.1":"p","3.2":"p"},
+				"opera":{"9":"p","9.5-9.6":"p","10.0-10.1":"p"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"array-isarray": {
+			"title":"Array.isArray",
+			"description":"The Array.isArray() method returns true if an object is an array, false if it is not.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.3.2",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray",
+					"title":"Array.isArray reference",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{"2":"p","3":"p","3.5":"p","3.6":"p"},
+				"chrome":{"4":"p"},
+				"safari":{"3.1":"p","3.2":"p","4":"p"},
+				"opera":{"9":"p","9.5-9.6":"p","10.0-10.1":"p"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"function-bind": {
+			"title":"Function.prototype.bind",
+			"description":"The bind() method creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.3.4.5",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind",
+					"title":"Function.prototype.bind reference",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{"2":"p","3":"p","3.5":"p","3.6":"p"},
+				"chrome":{"4":"p","5":"p","6":"p"},
+				"safari":{"3.1":"p","3.2":"p","4":"p","5":"p"},
+				"opera":{"9":"p","9.5-9.6":"p","10.0-10.1":"p","10.5":"p","10.6":"p","11":"p","11.1":"p","11.5":"p"},
+				"ios_saf":{"3.2":"p","4.0-4.1":"p","4.2-4.3":"p","5.0-5.1":"p"},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"p","2.2":"p","2.3":"p","3":"p"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"p","11":"p","11.1":"p"},
+				"and_chr":{},
+				"and_ff":{"32":"y"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"The polyfil on the MDN page only provides partial support for `bind`. See the link to the MDN page for the polyfill and its limitations.\r\n\rThis is not supported by Phantom.",
+			"notes_by_num":{}
+		},
+		"string-trim": {
+			"title":"String.prototype.trim",
+			"description":"The trim() method removes whitespace from both ends of the string.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.5.4.20",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim",
+					"title":"String.prototype.trim reference",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{"2":"p","3":"p"},
+				"chrome":{},
+				"safari":{"3.1":"p","3.2":"p","4":"p"},
+				"opera":{"9":"p","9.5-9.6":"p","10.0-10.1":"p"},
+				"ios_saf":{"3.2":"p","4.0-4.1":"p","4.2-4.3":"p","5.0-5.1":"p"},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"p","11":"p","11.1":"p"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"array-indexof": {
+			"title":"Array.prototype.indexOf",
+			"description":"The indexOf() method returns the first index at which a given element can be found in the array, or -1 if it is not present.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.14",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf",
+					"title":"Array.prototype.indexOf reference",
+					"type":"poly"
+				},
+				{
+					"url":"https://github.com/plusdude/array-generics",
+					"title":"Polyfill for JavaScript 1.8.5 Array Generics and ECMAScript 5 Array Extras",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{},
+				"chrome":{},
+				"safari":{},
+				"opera":{},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"array-lastindexof": {
+			"title":"Array.prototype.lastIndexOf",
+			"description":"The lastIndexOf() method returns the last index at which a given element can be found in the array, or -1 if it is not present. The array is searched backwards, starting at fromIndex.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.15",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf",
+					"title":"Array.prototype.lastIndexOf reference",
+					"type":"poly"
+				},
+				{
+					"url":"https://github.com/plusdude/array-generics",
+					"title":"Polyfill for JavaScript 1.8.5 Array Generics and ECMAScript 5 Array Extras",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{},
+				"chrome":{},
+				"safari":{},
+				"opera":{},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"array-every": {
+			"title":"Array.prototype.every",
+			"description":"The every() method tests whether all elements in the array pass the test implemented by the provided function.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.16",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every",
+					"title":"Array.prototype.every reference",
+					"type":"poly"
+				},
+				{
+					"url":"https://github.com/plusdude/array-generics",
+					"title":"Polyfill for JavaScript 1.8.5 Array Generics and ECMAScript 5 Array Extras",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{},
+				"chrome":{},
+				"safari":{},
+				"opera":{},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"array-some": {
+			"title":"Array.prototype.some",
+			"description":"The some() method tests whether some element in the array passes the test implemented by the provided function.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.17",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some",
+					"title":"Array.prototype.some reference",
+					"type":"poly"
+				},
+				{
+					"url":"https://github.com/plusdude/array-generics",
+					"title":"Polyfill for JavaScript 1.8.5 Array Generics and ECMAScript 5 Array Extras",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{},
+				"chrome":{},
+				"safari":{},
+				"opera":{},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"array-foreach": {
+			"title":"Array.prototype.forEach",
+			"description":"The forEach() method executes a provided function once per array element.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.18",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach",
+					"title":"Array.prototype.forEach reference",
+					"type":"poly"
+				},
+				{
+					"url":"https://github.com/plusdude/array-generics",
+					"title":"Polyfill for JavaScript 1.8.5 Array Generics and ECMAScript 5 Array Extras",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{},
+				"chrome":{},
+				"safari":{},
+				"opera":{},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"array-map": {
+			"title":"Array.prototype.map",
+			"description":"The map() method creates a new array with the results of calling a provided function on every element in this array.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.19",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map",
+					"title":"Array.prototype.map reference",
+					"type":"poly"
+				},
+				{
+					"url":"https://github.com/plusdude/array-generics",
+					"title":"Polyfill for JavaScript 1.8.5 Array Generics and ECMAScript 5 Array Extras",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{},
+				"chrome":{},
+				"safari":{},
+				"opera":{},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"array-filter": {
+			"title":"Array.prototype.filter",
+			"description":"The filter() method creates a new array with all elements that pass the test implemented by the provided function.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.20",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter",
+					"title":"Array.prototype.filter reference",
+					"type":"poly"
+				},
+				{
+					"url":"https://github.com/plusdude/array-generics",
+					"title":"Polyfill for JavaScript 1.8.5 Array Generics and ECMAScript 5 Array Extras",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{},
+				"chrome":{},
+				"safari":{},
+				"opera":{},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"array-reduce": {
+			"title":"Array.prototype.reduce",
+			"description":"The reduce() method applies a function against an accumulator and each value of the array (from left-to-right) has to reduce it to a single value.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.21",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce",
+					"title":"Array.prototype.reduce reference",
+					"type":"poly"
+				},
+				{
+					"url":"https://github.com/plusdude/array-generics",
+					"title":"Polyfill for JavaScript 1.8.5 Array Generics and ECMAScript 5 Array Extras",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{},
+				"chrome":{},
+				"safari":{"3.1":"p","3.2":"p"},
+				"opera":{"9":"p","9.5-9.6":"p","10.0-10.1":"p"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"array-reduceright": {
+			"title":"Array.prototype.reduceRight",
+			"description":"The reduceRight() method applies a function against an accumulator and each value of the array (from right-to-left) has to reduce it to a single value.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.22",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight",
+					"title":"Array.prototype.reduceRight reference",
+					"type":"poly"
+				},
+				{
+					"url":"https://github.com/plusdude/array-generics",
+					"title":"Polyfill for JavaScript 1.8.5 Array Generics and ECMAScript 5 Array Extras",
+					"type":"poly"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"p","6":"p","7":"p","8":"p"},
+				"firefox":{},
+				"chrome":{},
+				"safari":{"3.1":"p","3.2":"p"},
+				"opera":{"9":"p","9.5-9.6":"p","10.0-10.1":"p"},
+				"ios_saf":{},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"",
+			"notes_by_num":{}
+		},
+		"strict-mode": {
+			"title":"Strict mode",
+			"description":"ECMAScript 5's strict mode is a way to opt in to a restricted variant of JavaScript.",
+			"spec":"http://www.ecma-international.org/ecma-262/5.1/#sec-10.1.1",
+			"links":[
+				{
+					"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode",
+					"title":"Strict mode reference",
+					"type":"Info"
+				},
+				{
+					"url":"http://msdn.microsoft.com/en-us/library/br230269(v=vs.94).aspx",
+					"title":"Strict mode restrictions",
+					"type":"info"
+				}
+			],
+			"categories":["ECMAScript"],
+			"stats":{
+				"ie":{"5.5":"n","6":"n","7":"n","8":"n","9":"n"},
+				"firefox":{"2":"n","3":"n","3.5":"n","3.6":"n"},
+				"chrome":{"4":"n","5":"n","6":"n","7":"n","8":"n","9":"n","10":"n","11":"n","12":"n"},
+				"safari":{"3.1":"n","3.2":"n","4":"n","5":"n"},
+				"opera":{"9":"n","9.5-9.6":"n","10.0-10.1":"n","10.5":"n","10.6":"n","11":"n","11.1":"n","11.5":"n","11.6":"n"},
+				"ios_saf":{"3.2":"u","4.0-4.1":"u","4.2-4.3":"u","5.0-5.1":"u","6.0-6.1":"u"},
+				"op_mini":{"5.0-7.0":"u"},
+				"android":{"2.1":"u","2.2":"u","2.3":"u","3":"u","4":"u","4.1":"u","4.2-4.3":"u","4.4":"u","4.4.3":"u"},
+				"bb":{"7":"u","10":"u"},
+				"op_mob":{"10":"u","11":"u","11.1":"u","11.5":"u","12":"u","12.1":"u","22":"u"},
+				"and_chr":{"37":"u"},
+				"and_ff":{"32":"u"},
+				"ie_mob":{"10":"u"},
+				"and_uc":{"9.9":"u"}
+			},
+			"notes":"Using strict mode in browsers that don't support it should not cause any problems. There are a few constructs that will fail outside of strict mode like using reserved words as object properties. For example: `obj.break=true;` works in strict mode but fails outside of strict mode.",
 			"notes_by_num":{}
 		}
 	}

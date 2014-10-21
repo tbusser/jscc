@@ -1,0 +1,27 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#FOOTER
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+.site-footer {
+	//bottom: 0;
+	color: #fff;
+	//height: 4.5em;
+	//left: 0;
+	padding: 1.5em 0;
+	//position: absolute;
+	//right: 0;
+
+	h2 {
+		color: #CFA31A;
+		font-size: 1.25em;
+	}
+
+	p {
+		font-size: .825em;
+		margin: 0;
+		max-width: 75%;
+	}
+
+	a {
+		color: inherit;
+	}
+}

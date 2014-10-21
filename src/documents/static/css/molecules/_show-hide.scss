@@ -1,0 +1,10 @@
+/*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*\
+	#SHOW-HIDE
+\*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
+[data-sh-container] {
+	overflow: hidden;
+
+	&.transition {
+		transition: all .3s ease-out;
+	}
+}

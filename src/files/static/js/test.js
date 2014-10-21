@@ -29,6 +29,8 @@
 		wgl.createShadowRoot();
 		= new  WebSocket  ()    ;
 
+		.querySelectorAll('link[rel="import"]');
+
 		elem.classList.add('test');
 	});
 });

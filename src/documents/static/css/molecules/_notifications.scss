@@ -2,8 +2,8 @@
 	#NOTIFICATIONS
 \*-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -*/
 .notifications {
-	border: 1px solid lightgrey;
-	font: 14px/1.2 Monaco, Consolas, "Lucida Console", monospace;
+	border: 1px solid $color-border-light;
+	font: 14px/1.2 $font-code;
 	list-style: none;
 	padding: .5em;
 	margin: 0;
