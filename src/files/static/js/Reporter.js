@@ -246,7 +246,17 @@
 		    index,
 		    ubound,
 		    currentVersion,
-		    isVisible = browserFilter[browser];
+		    isVisible = browserFilter[browser],
+		    setDataTitle = function(version, item) {
+			    if (version.disabled) {
+				    item.classList.add('disabled');
+				    item.setAttribute('data-title', 'Feature disabled by default, needs to be enabled through a flag or similar action');
+			    }
+			    if (version.needsPrefix) {
+				    item.classList.add('prefix');
+				    item.setAttribute('data-title', 'The prefix "' + version.needsPrefix + '" is required to use this feature');
+			    }
+		    };
 
 		if (collate) {
 			item = document.createElement('li');
@@ -262,15 +272,7 @@
 			_addNoteLink(item, supportObject.versions);
 
 			for (index = 0, ubound = supportObject.versions.length; index < ubound; index++) {
-				currentVersion = supportObject.versions[index];
-				if (currentVersion.disabled) {
-					item.classList.add('disabled');
-					item.setAttribute('title', 'Feature disabled by default, needs to be enabled through a flag or similar action');
-				}
-				if (currentVersion.needsPrefix) {
-					item.classList.add('prefix');
-					item.setAttribute('title', 'The prefix "' + currentVersion.needsPrefix + '" is required to use this feature');
-				}
+				setDataTitle(supportObject.versions[index], item);
 			}
 
 			list.appendChild(item);
@@ -282,14 +284,7 @@
 				if (currentVersion.note != null) {
 					_addNoteLink(item, currentVersion.note);
 				}
-				if (currentVersion.disabled) {
-					item.classList.add('disabled');
-					item.setAttribute('title', 'Feature disabled by default, needs to be enabled through a flag or similar action');
-				}
-				if (currentVersion.needsPrefix) {
-					item.classList.add('prefix');
-					item.setAttribute('title', 'The prefix "' + currentVersion.needsPrefix + '" is required to use this feature');
-				}
+				setDataTitle(currentVersion, item);
 				item.setAttribute('data-browser', browser);
 				if (!isVisible) {
 					item.classList.add('hidden');
@@ -299,14 +294,14 @@
 		}
 	}
 
-	function _renderCategoryExt(category, target, options, agents, index, browserFilter) {
+	function _renderCategoryExt(category, target, options, agents, indexElement, browserFilter) {
 		var section = _createCategoryContainer(category),
 		    notes,
 		    supportSections = {},
 		    index,
 		    ubound;
 
-		_addIndexEntry(category.title, category.key, index);
+		_addIndexEntry(category.title, category.key, indexElement);
 
 		// Iterate over the user agents for the current category
 		iterate(category.stats, function(browser, supportObjects) {

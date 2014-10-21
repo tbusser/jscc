@@ -90,7 +90,7 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		//justify-content: space-between;
+		list-style-type: none;
 		margin: 0;
 		padding: 0;
 
@@ -122,6 +122,20 @@
 		border-right: 2em solid darkblue;
 	}
 
+	.prefix:hover:before,
+	.disabled:hover:before {
+		background-color: #ffffe0;
+		border-radius: .5em;
+		bottom: 2.5em;
+		box-shadow: 0 0 5px #000;
+		content: attr(data-title);
+		padding: .5em 1em;
+		position: absolute;
+		right: -2em;
+		width: 16em;
+		z-index: 30;
+	}
+
 	.disabled:after,
 	.prefix:after {
 		bottom: 0;
@@ -133,6 +147,7 @@
 		position: absolute;
 		right: -2em;
 		text-align: center;
+
 		top: 0;
 		width: 2em;
 	}
