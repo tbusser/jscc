@@ -1,5 +1,6 @@
 ---
 layout: default
+metaDescription: A tool to check your JavaScript code for browser compatibility issues
 title: JS Compatibility Checker
 ---
 <div class="container-blue">
