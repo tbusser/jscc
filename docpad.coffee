@@ -37,6 +37,11 @@ docpadConfig = {
 				baseUrl: ''
 				staticTarget: 1
 
+	plugins:
+		ghpages:
+			deployBranch: 'gh-pages'
+			deployRemote: 'ghpages'
+
 	port: 1339
 
 	regenerateDelay: 0
