@@ -12,6 +12,29 @@
 }(this, function(Intermediary) {
 	'use strict';
 
+	function _convertAgentsToArray(agents) {
+		var result = [];
+
+		iterate(agents, function(agent, agentData) {
+			result.push({
+				key   : agent,
+				title : agentData.browser.toLowerCase()
+			});
+		});
+
+		result.sort(function(a, b) {
+			if (a.title < b.title) {
+				return -1;
+			} else if (a.title > b.title) {
+				return 1;
+			}
+			return 0;
+		});
+
+		return result;
+	}
+
+
 	/**
 	* Iterates over the keys of an object and calls a callback function when the
 	* key belongs to he object itself and not to its prototype.
@@ -74,6 +97,13 @@
 			op_mini : true,
 			opera   : true,
 			safari  : true
+		},
+		supportToShow  : {
+			u : true,
+			n : true,
+			a : true,
+			p : true,
+			y : true
 		}
 	};
 
@@ -83,7 +113,7 @@
 		}
 	}
 
-	function _renderFilter(target, agents, options) {
+	function _renderFilter(target, agents, agentArray, options) {
 		var listDesktop = document.getElementById('bf-desktop'),
 		    listMobile = document.getElementById('bf-mobile');
 
@@ -91,8 +121,10 @@
 		_emptyElement(listDesktop);
 		_emptyElement(listMobile);
 
-		iterate(agents, function(agent, agentData) {
-			var item = document.createElement('li'),
+		for (var index = 0, ubound = agentArray.length; index < ubound; index++) {
+			var agent = agentArray[index].key,
+			    agentData = agents[agent],
+			    item = document.createElement('li'),
 			    checkBox = document.createElement('input'),
 			    label = document.createElement('label'),
 			    textNode = document.createTextNode(agentData.browser);
@@ -115,7 +147,7 @@
 			} else {
 				listDesktop.appendChild(item);
 			}
-		});
+		}
 	}
 
 	exports.prototype = {
@@ -135,8 +167,8 @@
 			if (this._element == null || agents == null) {
 				return;
 			}
-
-			_renderFilter(this._element, agents, this._options);
+			var agentarray = _convertAgentsToArray(agents);
+			_renderFilter(this._element, agents, agentarray, this._options);
 			this._element.addEventListener('click', this._onClickCheckbox.bind(this));
 		}
 	};
