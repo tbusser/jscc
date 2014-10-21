@@ -5,7 +5,7 @@ require.config({
 	}
 });
 
-require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', 'BrowserFilter', 'LocalStorage', 'ShowHide', 'ScrollTo', 'StickyHeader'], function(Intermediary, CodeInput, CodeAnalyzer, Reporter, DataStore, BrowserFilter, LocalStorage, ShowHide, ScrollTo, StickyHeader) {
+require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', 'BrowserFilter', 'ShowHide', 'ScrollTo', 'StickyHeader'], function(Intermediary, CodeInput, CodeAnalyzer, Reporter, DataStore, BrowserFilter, ShowHide, ScrollTo, StickyHeader) {
 	'use strict';
 
 	var codeInputWidget = document.getElementById('code-input'),
@@ -41,24 +41,6 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 		scrollToController.scrollToElement(document.getElementById('report'));
 	}
 
-	/**
-	 * Handles the event fired just before the tab/window in which the page is
-	 * shown is closed.
-	 */
-	function _onBeforeUnloadWindow(event) {
-		var consent = document.getElementById('localstorage-consent'),
-		    store = new LocalStorage();
-		if (consent != null && consent.checked) {
-			if (store.isAvailable) {
-				store.set('jscc-browser-filter', activeFilter);
-			}
-		} else {
-			if (store.isAvailable) {
-				store.remove('jscc-browser-filter');
-			}
-		}
-	}
-
 	function _onBrowserFilterChanged(event) {
 		activeFilter = browserFilter.getFilter();
 		reportController.filterBrowsers(activeFilter);
@@ -89,20 +71,7 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 
 	function _renderBrowserFilter() {
 		if (browserFilter == null) {
-			var store = new LocalStorage(),
-			    overrides = {};
-
-			if (store.isAvailable) {
-				overrides = store.get('jscc-browser-filter');
-				if (overrides != null) {
-					overrides = {browsersToShow: overrides};
-					var consent = document.getElementById('localstorage-consent');
-					if (consent != null) {
-						consent.checked = true;
-					}
-				}
-			}
-			browserFilter = new BrowserFilter(document.getElementById('browser-filter'), overrides);
+			browserFilter = new BrowserFilter(document.getElementById('browser-filter'));
 			browserFilter.init(DataStore.getAgents());
 			activeFilter = browserFilter.getFilter();
 		}
@@ -115,10 +84,6 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	}
 	Intermediary.subscribe('codeAnalyzed', _onCodeAnalyzed);
 	Intermediary.subscribe('browser-filter:changed', _onBrowserFilterChanged);
-
-	// Add an event listener for the beforeunload event, this should be fire
-	// when the user navigates away from the page
-	window.addEventListener('beforeunload', _onBeforeUnloadWindow);
 
 	var showHideController = new ShowHide();
 	showHideController.init();
