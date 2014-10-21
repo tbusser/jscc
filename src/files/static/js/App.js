@@ -35,7 +35,7 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 		reportController.buildReport(checker.getMatches(), activeFilter);
 		widget.classList.remove('hidden');
 
-		scrollToController = new ScrollTo({topThresholdRatio: 2, correction: -68});
+		scrollToController = new ScrollTo({topThresholdRatio: 2, correction: -88});
 		scrollToController.init();
 
 		scrollToController.scrollToElement(document.getElementById('report'));
