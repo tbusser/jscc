@@ -5,7 +5,7 @@ require.config({
 	}
 });
 
-require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', 'BrowserFilter', 'ShowHide', 'ScrollTo', 'StickyHeader'], function(Intermediary, CodeInput, CodeAnalyzer, Reporter, DataStore, BrowserFilter, ShowHide, ScrollTo, StickyHeader) {
+require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', 'BrowserFilter', 'ShowHide', 'ScrollTo', 'StickyHeader', 'SupportFilter'], function(Intermediary, CodeInput, CodeAnalyzer, Reporter, DataStore, BrowserFilter, ShowHide, ScrollTo, StickyHeader, SupportFilter) {
 	'use strict';
 
 	var codeInputWidget = document.getElementById('code-input'),
@@ -33,6 +33,7 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 		var widget = document.getElementById('widget-report');
 		reportController = new Reporter(document.getElementById('report-output'), {showFullySupported: false}, DataStore.getAgents());
 		reportController.buildReport(checker.getMatches(), activeFilter);
+		reportController.filterSupportSections(supportFilterController.getFilter());
 		widget.classList.remove('hidden');
 
 		scrollToController = new ScrollTo({topThresholdRatio: 2, correction: -88});
@@ -41,9 +42,15 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 		scrollToController.scrollToElement(document.getElementById('report'));
 	}
 
-	function _onBrowserFilterChanged(event) {
-		activeFilter = browserFilter.getFilter();
-		reportController.filterBrowsers(activeFilter);
+	function _onFilterChanged(event) {
+		switch (event.sender) {
+		case 'jscc-browser-filter':
+			reportController.filterBrowsers(browserFilter.getFilter());
+			break;
+		case 'jscc-support-filter':
+			reportController.filterSupportSections(supportFilterController.getFilter());
+			break;
+		}
 	}
 
 	function _onClickHandlerIndex(event) {
@@ -83,7 +90,7 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 		Intermediary.subscribe('notification', _onNotification);
 	}
 	Intermediary.subscribe('codeAnalyzed', _onCodeAnalyzed);
-	Intermediary.subscribe('browser-filter:changed', _onBrowserFilterChanged);
+	Intermediary.subscribe('filter:filter-changed', _onFilterChanged);
 
 	var showHideController = new ShowHide();
 	showHideController.init();
@@ -98,6 +105,9 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	if (index != null) {
 		index.addEventListener('click', _onClickHandlerIndex);
 	}
+
+	var supportFilterController = new SupportFilter(document.getElementById('support-filter'));
+	supportFilterController.init();
 
 	_logMessage('Reporting for duty');
 });

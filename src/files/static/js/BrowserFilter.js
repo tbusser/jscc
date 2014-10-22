@@ -3,15 +3,14 @@
 
 	if (typeof define === 'function' && define.amd) {
 		// AMD
-		define(['Intermediary', 'LocalStorage'], factory);
+		define(['Filter'], factory);
 	} else if (typeof exports === 'object') {
-		module.exports = factory(require('Intermediary', 'LocalStorage'));
+		module.exports = factory(require('Filter'));
 	} else {
-		root.BrowserFilter = factory(root.Intermediary, root.LocalStorage);
+		root.BrowserFilter = factory(root.Filter);
 	}
-}(this, function(Intermediary, LocalStorage) {
+}(this, function(Filter) {
 	'use strict';
-
 
 	/**
 	* Iterates over the keys of an object and calls a callback function when the
@@ -47,83 +46,14 @@
 		return result;
 	}
 
-	function getLocalStorageData() {
-		var store = new LocalStorage(),
-		    result,
-		    value;
-
-		// Check if the store is available
-		if (store.isAvailable) {
-			// Get the data from the local storage
-			value = store.get('jscc-browser-filter');
-			if (value != null) {
-				if (result == null) {
-					result = {};
-				}
-				result.browsersToShow = value;
-			}
-
-			value = store.get('jscc-support-filter');
-			if (value != null) {
-				if (result == null) {
-					result = {};
-				}
-				result.supportToShow = value;
-			}
-		}
-		// Return the result
-		return result;
-	}
-
-	/**
-	* Helper method to merge the default options with the overrides passed
-	* along to the constructor.
-	*
-	* @param {object} overrides The overrides for the default options. These
-	*                           values will take precedence over the default
-	*                           values.
-	*
-	* @returns {object} The method returns an object containing the default
-	*                   options with the values override by those of the
-	*                   overrides object.
-	*/
-	function mergeOptions(overrides) {
-		var result = {};
-
-		// Copy the default options to the result object
-		iterate(exports.options, function(key, value) {
-			result[key] = value;
-		});
-
-		// Iterate over the keys in the overrides object
-		iterate(overrides, function(key, value) {
-			// Check if the key for an existing configuration property
-			if (result[key] !== undefined) {
-				// Override the default value
-				result[key] = value;
-			}
-		});
-
-		// Return the merge result
-		return result;
-	}
-
 	var exports = function(element, overrides) {
-		this._element = element;
-		this._consent = false;
-
-		if (overrides == null) {
-			overrides = getLocalStorageData();
-		}
-
-		if (overrides != null) {
-			this._consent = true;
-		}
-		this._options = mergeOptions(overrides);
+		Filter.call(this, element, exports.options, overrides);
 	};
 
+	exports.prototype = Object.create(Filter.prototype);
+
 	exports.options = {
-		browsersToShow : {
+		filter     : {
 			and_ch  : true,
 			and_ff  : true,
 			and_uc  : true,
@@ -135,13 +65,7 @@
 			opera   : true,
 			safari  : true
 		},
-		supportToShow  : {
-			u : true,
-			n : true,
-			a : true,
-			p : true,
-			y : true
-		}
+		storageKey : 'jscc-browser-filter'
 	};
 
 	function _emptyElement(element) {
@@ -152,7 +76,7 @@
 
 	function _renderFilter(target, agents, agentArray, options) {
 		var listDesktop = document.getElementById('bf-desktop'),
-		    listMobile = document.getElementById('bf-mobile');
+			listMobile = document.getElementById('bf-mobile');
 
 		// Make sure we found the two lists we need to show the user agents
 		if (listDesktop == null || listMobile == null) {
@@ -167,20 +91,20 @@
 		// alphabetical order
 		for (var index = 0, ubound = agentArray.length; index < ubound; index++) {
 			var agent = agentArray[index].key,
-			    agentData = agents[agent],
-			    item = document.createElement('li'),
-			    checkBox = document.createElement('input'),
-			    label = document.createElement('label'),
-			    textNode = document.createTextNode(agentData.browser);
+				agentData = agents[agent],
+				item = document.createElement('li'),
+				checkBox = document.createElement('input'),
+				label = document.createElement('label'),
+				textNode = document.createTextNode(agentData.browser);
 
 			checkBox.setAttribute('id', 'chkbox_bf_' + agent);
 			checkBox.setAttribute('type', 'checkbox');
-			checkBox.setAttribute('data-browser', agent);
+			checkBox.setAttribute('data-filter-value', agent);
 
-			if (options.browsersToShow[agent]) {
+			if (options.filter[agent]) {
 				checkBox.checked = true;
-			} else if (options.browsersToShow[agent === undefined]) {
-				options.browsersToShow[agent] = false;
+			} else if (options.filter[agent === undefined]) {
+				options.filter[agent] = false;
 			}
 
 			label.setAttribute('for', 'chkbox_bf_' + agent);
@@ -196,72 +120,19 @@
 		}
 	}
 
-	exports.prototype = {
-		_onBeforeUnload: function(event) {
-			var consent = document.getElementById('localstorage-consent'),
-				store = new LocalStorage();
-			if (consent != null && consent.checked) {
-				if (store.isAvailable) {
-					store.set('jscc-browser-filter', this.getFilter(true));
-				}
-			} else {
-				if (store.isAvailable) {
-					store.remove('jscc-browser-filter');
-				}
-			}
-		},
-
-		_onClickCheckbox: function(event) {
-			var target = event.target;
-			if (target.tagName.toLowerCase() === 'input' && target.hasAttribute('data-browser')) {
-				this._options.browsersToShow[target.getAttribute('data-browser')] = target.checked;
-				Intermediary.publish('browser-filter:changed');
-			}
-		},
-
-		getFilter: function(onlyEnabled) {
-			if (onlyEnabled) {
-				var result = {};
-				iterate(this._options.browsersToShow, function (browser, isEnabled) {
-					if (isEnabled) {
-						result[browser] = true;
-					}
-				});
-				return result;
-			} else {
-				return this._options.browsersToShow;
-			}
-		},
-
-		init: function(agents) {
-			// Make sure we have the information we need to be able to continue
-			if (this._element == null || agents == null) {
-				return;
-			}
-
-			if (this._consent) {
-				var elem = document.getElementById('localstorage-consent');
-				if (elem != null) {
-					elem.checked =  true;
-				}
-			}
-
-			var temp = this.getFilter(true);
-
-			// Take the agents object and create an array with the user agents
-			// sorted alphabetically
-			var agentarray = _convertAgentsToArray(agents);
-			// Render the browser filters
-			_renderFilter(this._element, agents, agentarray, this._options);
-
-			// Attach an event handler to the filter container, this way we only
-			// need a single event listener instead of one per checkbox
-			this._element.addEventListener('click', this._onClickCheckbox.bind(this));
-
-			// Add an event listener for the beforeunload event, this should be fire
-			// when the user navigates away from the page
-			window.addEventListener('beforeunload', this._onBeforeUnload.bind(this));
+	exports.prototype.init = function(agents) {
+		if (this._element == null) {
+			return;
 		}
+		this.attachOnBeforeUnload();
+		this.attachClickHandler();
+		this.getFilterFromStorage();
+
+		// Take the agents object and create an array with the user agents
+		// sorted alphabetically
+		var agentarray = _convertAgentsToArray(agents);
+		// Render the browser filters
+		_renderFilter(this._element, agents, agentarray, this._options);
 	};
 
 	return exports;
