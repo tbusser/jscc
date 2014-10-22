@@ -172,6 +172,23 @@
 		}
 	}
 
+	function _applyFilter(filter, query) {
+		iterate(filter, function(value, isVisible) {
+			var elements = document.querySelectorAll('[' + query + '="' + value + '"]');
+
+			// Loop over the returned elements
+			for (var index = 0, ubound = elements.length; index < ubound; index++) {
+				// Check if this user agent should be visible and set/remove
+				// the hide class accordingly
+				if (isVisible) {
+					elements[index].classList.remove('hidden');
+				} else {
+					elements[index].classList.add('hidden');
+				}
+			}
+		});
+	}
+
 	/**
 	 * Removes all the DOM children from an element.
 	 */
@@ -438,26 +455,6 @@
 				}
 			}
 
-			// Iterate over the user agents for the current category
-			/*
-			iterate(category.stats, function(browser, supportObjects) {
-				// Loop over the support blocks
-				for (index = 0, ubound = supportObjects.length; index < ubound; index++) {
-					var supportObject = supportObjects[index],
-						supportValue = supportObject.support.substr(0, 1).toLowerCase();
-
-					if (supportSections[supportValue] == null) {
-						supportSections[supportValue] = _createSupportSection(supportValue);
-					}
-
-					var list = supportSections[supportValue].list;
-
-					_renderBrowsers(category.key, list, browser, agents[browser].browser, supportObject, options.groupVersions, browserFilter);
-					supportSections[supportValue].usage += supportObject.totalGlobalUsage;
-				}
-			});
-			*/
-
 			for (index = 0, ubound = this._options.supportOrder.length; index < ubound; index++) {
 				var value = this._options.supportOrder[index];
 				if (supportSections[value] != null) {
@@ -522,23 +519,11 @@
 		},
 
 		filterBrowsers: function(browserFilter) {
-			// Iterate over the objects in the filter. Each should be a key which
-			// is the name of the user agent and a boolean value.
-			iterate(browserFilter, function(agent, isVisible) {
-				// Get all the elements for the current user agent
-				var elements = document.querySelectorAll('[data-browser="' + agent + '"]');
+			_applyFilter(browserFilter, 'data-browser');
+		},
 
-				// Loop over the returned elements
-				for (var index = 0, ubound = elements.length; index < ubound; index++) {
-					// Check if this user agent should be visible and set/remove
-					// the hide class accordingly
-					if (isVisible) {
-						elements[index].classList.remove('hidden');
-					} else {
-						elements[index].classList.add('hidden');
-					}
-				}
-			});
+		filterSupportSections: function(supportFilter) {
+			_applyFilter(supportFilter, 'data-support');
 		}
 	};
 

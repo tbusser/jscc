@@ -13,6 +13,7 @@
 .button {
 	@extend %base-button;
 
+	&.filter,
 	&.index,
 	&.config {
 		color: $color-border-light;
@@ -20,8 +21,17 @@
 		position: relative;
 		transition: color .3s ease-out;
 
+		&.active-trigger {
+			border-bottom: 3px solid #CFA31A;
+			color: #4b4b4b;
+		}
+
 		&:hover {
 			color: inherit;
+		}
+
+		&:focus {
+			outline: none;
 		}
 
 		&:before {
@@ -35,6 +45,10 @@
 			position: absolute;
 			top: 0;
 		}
+	}
+
+	&.filter:before {
+		@include icon($icon-filter);
 	}
 
 	&.config:before {

@@ -123,13 +123,14 @@
 	// overriden by calling the module constructor with an object that has the
 	// new value for the property
 	exports.options = {
-		attrContent    : 'data-sh-content',
-		attrContainer  : 'data-sh-container',
-		attrOpenOnInit : 'data-sh-open',
-		attrTrigger    : 'data-sh-trigger',
-		cssClosed      : 'closed',
-		cssOpened      : 'opened',
-		cssTransition  : 'transition'
+		attrContent      : 'data-sh-content',
+		attrContainer    : 'data-sh-container',
+		attrOpenOnInit   : 'data-sh-open',
+		attrTrigger      : 'data-sh-trigger',
+		cssActiveTrigger : 'active-trigger',
+		cssClosed        : 'closed',
+		cssOpened        : 'opened',
+		cssTransition    : 'transition'
 	};
 
 	function _closeItem(id, skipTransition) {
@@ -148,6 +149,8 @@
 			var text = document.createTextNode(trigger.getAttribute('data-sh-text-closed'));
 			trigger.textContent = text.textContent;
 		}
+
+		trigger.classList.remove(options.cssActiveTrigger);
 
 		// Remove the transition class as the first style change we do should not be animated
 		container.classList.remove(options.cssTransition);
@@ -227,6 +230,20 @@
 
 		if (container.classList.contains(options.cssClosed)) {
 			_openItem(itemId);
+
+			if (trigger.hasAttribute('data-sh-group')) {
+				var grouptriggers = document.querySelectorAll('[data-sh-group="' + trigger.getAttribute('data-sh-group') + '"]');
+				for (var index = 0, ubound = grouptriggers.length; index < ubound; index++) {
+					var currentTrigger = grouptriggers[index];
+					if (currentTrigger != trigger) {
+						var currentContainer = document.querySelector('[' + options.attrContainer + '="' + currentTrigger.getAttribute(options.attrTrigger) + '"]');
+						if (currentContainer.classList.contains(options.cssOpened)) {
+							_closeItem(currentTrigger.getAttribute(options.attrTrigger));
+							break;
+						}
+					}
+				}
+			}
 		} else {
 			_closeItem(itemId);
 		}
@@ -270,6 +287,8 @@
 			var text = document.createTextNode(trigger.getAttribute('data-sh-text-opened'));
 			trigger.textContent = text.textContent;
 		}
+
+		trigger.classList.add(options.cssActiveTrigger);
 
 		// We need to set the max height for the filter item. We do this by taking the height of the
 		// div which contains all the content of the filter item plus the height of the element
