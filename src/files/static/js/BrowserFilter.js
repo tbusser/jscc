@@ -3,13 +3,13 @@
 
 	if (typeof define === 'function' && define.amd) {
 		// AMD
-		define(['Intermediary'], factory);
+		define(['Filter'], factory);
 	} else if (typeof exports === 'object') {
-		module.exports = factory(require('Intermediary'));
+		module.exports = factory(require('Filter'));
 	} else {
-		root.BrowserFilter = factory(root.Intermediary);
+		root.BrowserFilter = factory(root.Filter);
 	}
-}(this, function(Intermediary) {
+}(this, function(Filter) {
 	'use strict';
 
 	/**
@@ -24,46 +24,36 @@
 		}
 	}
 
-	/**
-	* Helper method to merge the default options with the overrides passed
-	* along to the constructor.
-	*
-	* @param {object} overrides The overrides for the default options. These
-	*                           values will take precedence over the default
-	*                           values.
-	*
-	* @returns {object} The method returns an object containing the default
-	*                   options with the values override by those of the
-	*                   overrides object.
-	*/
-	function mergeOptions(overrides) {
-		var result = {};
+	function _convertAgentsToArray(agents) {
+		var result = [];
 
-		// Copy the default options to the result object
-		iterate(exports.options, function(key, value) {
-			result[key] = value;
+		iterate(agents, function(agent, agentData) {
+			result.push({
+				key   : agent,
+				title : agentData.browser.toLowerCase()
+			});
 		});
 
-		// Iterate over the keys in the overrides object
-		iterate(overrides, function(key, value) {
-			// Check if the key for an existing configuration property
-			if (result[key] !== undefined) {
-				// Override the default value
-				result[key] = value;
+		result.sort(function(a, b) {
+			if (a.title < b.title) {
+				return -1;
+			} else if (a.title > b.title) {
+				return 1;
 			}
+			return 0;
 		});
 
-		// Return the merge result
 		return result;
 	}
 
 	var exports = function(element, overrides) {
-		this._element = element;
-		this._options = mergeOptions(overrides);
+		Filter.call(this, element, exports.options, overrides);
 	};
 
+	exports.prototype = Object.create(Filter.prototype);
+
 	exports.options = {
-		browsersToShow : {
+		filter     : {
 			and_ch  : true,
 			and_ff  : true,
 			and_uc  : true,
@@ -74,7 +64,8 @@
 			op_mini : true,
 			opera   : true,
 			safari  : true
-		}
+		},
+		storageKey : 'jscc-browser-filter'
 	};
 
 	function _emptyElement(element) {
@@ -83,28 +74,39 @@
 		}
 	}
 
-	function _renderFilter(target, agents, options) {
+	function _renderFilter(target, agents, agentArray, options) {
 		var listDesktop = document.getElementById('bf-desktop'),
-		    listMobile = document.getElementById('bf-mobile');
+			listMobile = document.getElementById('bf-mobile');
+
+		// Make sure we found the two lists we need to show the user agents
+		if (listDesktop == null || listMobile == null) {
+			return;
+		}
 
 		// Empty the container
 		_emptyElement(listDesktop);
 		_emptyElement(listMobile);
 
-		iterate(agents, function(agent, agentData) {
-			var item = document.createElement('li'),
-			    checkBox = document.createElement('input'),
-			    label = document.createElement('label'),
-			    textNode = document.createTextNode(agentData.browser);
+		// Loop over the user agents, this way the user agents will be shown in
+		// alphabetical order
+		for (var index = 0, ubound = agentArray.length; index < ubound; index++) {
+			var agent = agentArray[index].key,
+				agentData = agents[agent],
+				item = document.createElement('li'),
+				checkBox = document.createElement('input'),
+				label = document.createElement('label'),
+				textNode = document.createTextNode(agentData.browser);
 
 			checkBox.setAttribute('id', 'chkbox_bf_' + agent);
 			checkBox.setAttribute('type', 'checkbox');
-			checkBox.setAttribute('data-browser', agent);
-			if (options.browsersToShow[agent]) {
+			checkBox.setAttribute('data-filter-value', agent);
+
+			if (options.filter[agent]) {
 				checkBox.checked = true;
-			} else if (options.browsersToShow[agent === undefined]) {
-				options.browsersToShow[agent] = false;
+			} else if (options.filter[agent === undefined]) {
+				options.filter[agent] = false;
 			}
+
 			label.setAttribute('for', 'chkbox_bf_' + agent);
 			label.classList.add('toggle-button');
 			item.appendChild(checkBox);
@@ -115,30 +117,22 @@
 			} else {
 				listDesktop.appendChild(item);
 			}
-		});
+		}
 	}
 
-	exports.prototype = {
-		_onClickCheckbox: function(event) {
-			var target = event.target;
-			if (target.tagName.toLowerCase() === 'input') {
-				this._options.browsersToShow[target.getAttribute('data-browser')] = target.checked;
-				Intermediary.publish('browser-filter:changed');
-			}
-		},
-
-		getFilter: function() {
-			return this._options.browsersToShow;
-		},
-
-		init: function(agents) {
-			if (this._element == null || agents == null) {
-				return;
-			}
-
-			_renderFilter(this._element, agents, this._options);
-			this._element.addEventListener('click', this._onClickCheckbox.bind(this));
+	exports.prototype.init = function(agents) {
+		if (this._element == null) {
+			return;
 		}
+		this.attachOnBeforeUnload();
+		this.attachClickHandler();
+		this.getFilterFromStorage();
+
+		// Take the agents object and create an array with the user agents
+		// sorted alphabetically
+		var agentarray = _convertAgentsToArray(agents);
+		// Render the browser filters
+		_renderFilter(this._element, agents, agentarray, this._options);
 	};
 
 	return exports;

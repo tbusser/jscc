@@ -8,6 +8,7 @@ $icon-cross         : '\f00d';
 $icon-chevron-right : '\f054';
 $icon-arrow-up      : '\f077';
 $icon-index         : '\f0cb';
+$icon-filter        : '\f0b0';
 
 @mixin icon($char) {
 	content: $char;
