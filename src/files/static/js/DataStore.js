@@ -383,7 +383,8 @@
 	}
 
 	function _normalizeLinks() {
-		var regex = /poly(?:fill)/i;
+		var regex = /poly(?:fill)/i,
+		    regexurl = /code.google.com/i;
 
 		// Iterate over all features that can be detected
 		iterate(_features, function(feature, data) {
@@ -395,7 +396,7 @@
 						if (currentItem.type === 'poly') {
 							links.push(currentItem);
 						}
-					} else if (regex.test(currentItem.title)) {
+					} else if (regex.test(currentItem.title) || regexurl.test(currentItem.url)) {
 						links.push(currentItem);
 					}
 				}
@@ -587,6 +588,9 @@
 			// Check if this item is something we would be interested in
 			if (values.categories.indexOf('JS API') > -1 || (values.categories.indexOf('DOM') > -1) || (values.categories.indexOf('Canvas') > -1)) {
 				if (_rules[key] != null) {
+					if (key === 'geolocation') {
+						console.log(values);
+					}
 					_caseCount++;
 					_features[key] = values;
 					_features[key].key = key;

@@ -1,5 +1,14 @@
 {
 	"data":{
+		"geolocation": {
+			"links":[
+				{
+					"url":"https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills#geo-location",
+					"title":"Geolocation polyfills",
+					"type":"poly"
+				}
+			]
+		},
 		"queryselector": {
 			"links":[
 				{
