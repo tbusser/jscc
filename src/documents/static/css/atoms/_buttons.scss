@@ -21,6 +21,11 @@
 		position: relative;
 		transition: color .3s ease-out;
 
+		&.active-trigger {
+			border-bottom: 3px solid #CFA31A;
+			color: #4b4b4b;
+		}
+
 		&:hover {
 			color: inherit;
 		}
