@@ -30,9 +30,9 @@ title: JS Compatibility Checker
 					</nav>
 				</div>
 
-				<article data-sh-container="comprep" id="browser-filter" class="size-constraint">
+				<article data-sh-container="comprep" id="browser-filter" class="filter-widget size-constraint">
 					<div data-sh-content="comprep">
-						<input type="checkbox" id="localstorage-consent">
+						<input type="checkbox" id="localstorage-consent" data-consent>
 						<label for="localstorage-consent">
 							Store changes made to the configuration in my local storage so they're persisted between visits.
 						</label>
@@ -54,29 +54,33 @@ title: JS Compatibility Checker
 					</div>
 				</article>
 
-				<article data-sh-container="compsup" id="browser-filter" class="size-constraint">
+				<article data-sh-container="compsup" id="support-filter" class="filter-widget size-constraint">
 					<div data-sh-content="compsup">
+						<input type="checkbox" id="localstorage-consentsupport" data-consent>
+						<label for="localstorage-consentsupport">
+							Store changes made to the configuration in my local storage so they're persisted between visits.
+						</label>
 						<h3>Show these support categories in the report</h3>
 						<div class="filters">
-							<ul>
+							<ul id="support-filter">
 								<li>
-									<input type="checkbox" id="chkbox_sf_unknown">
+									<input type="checkbox" id="chkbox_sf_unknown" data-filter-value="u">
 									<label for="chkbox_sf_unknown" class="toggle-button">Unknown support</label>
 								</li>
 								<li>
-									<input type="checkbox" id="chkbox_sf_no">
+									<input type="checkbox" id="chkbox_sf_no" data-filter-value="n">
 									<label for="chkbox_sf_no" class="toggle-button">No support</label>
 								</li>
 								<li>
-									<input type="checkbox" id="chkbox_sf_partial">
+									<input type="checkbox" id="chkbox_sf_partial" data-filter-value="a">
 									<label for="chkbox_sf_partial" class="toggle-button">Partial support</label>
 								</li>
 								<li>
-									<input type="checkbox" id="chkbox_sf_poly">
+									<input type="checkbox" id="chkbox_sf_poly" data-filter-value="p">
 									<label for="chkbox_sf_poly" class="toggle-button">Polyfill support</label>
 								</li>
 								<li>
-									<input type="checkbox" id="chkbox_sf_full">
+									<input type="checkbox" id="chkbox_sf_full" data-filter-value="y">
 									<label for="chkbox_sf_full" class="toggle-button">Full support</label>
 								</li>
 							</ul>
