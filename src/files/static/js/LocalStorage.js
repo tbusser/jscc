@@ -60,7 +60,7 @@
 	function deserialize(data) {
 		try {
 			return JSON.parse(data);
-		} catch(error) {
+		} catch (error) {
 			return data;
 		}
 	}
@@ -81,7 +81,7 @@
 				// Clear the local storage
 				try {
 					localStorage.clear();
-				} catch(error) {
+				} catch (error) {
 					this._initialized = false;
 				}
 			}
@@ -106,7 +106,7 @@
 			try {
 				// Return the deserialized value for the specified key
 				return deserialize(localStorage.getItem(key));
-			} catch(error) {
+			} catch (error) {
 				this._initialized = false;
 				return null;
 			}
@@ -123,7 +123,7 @@
 				// Local storage is available, remove the specified key
 				try {
 					localStorage.removeItem(key);
-				} catch(error) {
+				} catch (error) {
 					this._initialized = false;
 				}
 			}
@@ -153,7 +153,7 @@
 				// Store the value under the provided key after we first serialize the value
 				try {
 					localStorage.setItem(key, serialize(value));
-				} catch(error) {
+				} catch (error) {
 					this._initialized = false;
 				}
 			}
@@ -175,7 +175,7 @@
 				this._initialized = (localStorage.getItem(testKey) === testKey);
 				// Remove our test key
 				localStorage.removeItem(testKey);
-			} catch(error) {
+			} catch (error) {
 				// On error occured, the local storage is not available
 				this._initialized = false;
 			}

@@ -118,7 +118,7 @@
 		    'array-reduce'            : [/\.reduce\s*\(\s*(?:function|\S*?(?:,\s*\S*?)?\s*\))/],
 		    'array-reduceRight'       : [/\.reduceRight\s*\(\s*(?:function|\S*?(?:,\s*\S*?)?\s*\))/],
 		    'strict-mode'             : [/(?:\'|")use strict(?:\'|")/],
-		    'eventtarget'             : [/\.(?:addEventListener|removeEventListener|dispatchEvent)/]
+		    eventtarget               : [/\.(?:addEventListener|removeEventListener|dispatchEvent)/]
 	    },
 	    _sources = {
 		    '/static/data/additional.json' : null,
@@ -389,9 +389,6 @@
 
 		// Iterate over all features that can be detected
 		iterate(_features, function(feature, data) {
-			if (feature === 'eventtarget') {
-				console.log(data);
-			}
 			if (data.links != null && data.links.length > 0) {
 				var links = [];
 				for (var index = 0, ubound = data.links.length; index < ubound; index++) {

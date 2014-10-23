@@ -35,6 +35,7 @@
 			});
 			return false;
 		} else {
+			_trackEvent('textarea');
 			_publishCode(element.value);
 			return true;
 		}
@@ -179,6 +180,7 @@
 		});
 
 		var fileContent = _fileReader.result;
+		_trackEvent('file');
 		_publishCode(fileContent);
 	}
 
@@ -201,6 +203,12 @@
 			element.textContent = 'Selected file does not appear to be a javascript file. Click to select another file or try dropping another file.';
 		} else {
 			element.textContent = '"' + _file.name + '" selected. Click to select another file or try dropping another file.';
+		}
+	}
+
+	function _trackEvent(value) {
+		if (window.ga != null) {
+			ga('send', 'event', 'code-input', 'code-submit', value);
 		}
 	}
 
