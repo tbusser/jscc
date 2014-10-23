@@ -91,7 +91,7 @@
 			    OTransition      : 'otransitionend',  // oTransitionEnd in very old Opera
 			    MozTransition    : 'transitionend',
 			    transition       : 'transitionend'
-			};
+		    };
 
 		// Loop over the keys in the transition object
 		for (key in transitions) {
@@ -235,7 +235,7 @@
 				var grouptriggers = document.querySelectorAll('[data-sh-group="' + trigger.getAttribute('data-sh-group') + '"]');
 				for (var index = 0, ubound = grouptriggers.length; index < ubound; index++) {
 					var currentTrigger = grouptriggers[index];
-					if (currentTrigger != trigger) {
+					if (currentTrigger !== trigger) {
 						var currentContainer = document.querySelector('[' + options.attrContainer + '="' + currentTrigger.getAttribute(options.attrTrigger) + '"]');
 						if (currentContainer.classList.contains(options.cssOpened)) {
 							_closeItem(currentTrigger.getAttribute(options.attrTrigger));

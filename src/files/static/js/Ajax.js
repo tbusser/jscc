@@ -98,7 +98,7 @@
 					var type = this._request.getResponseHeader('Content-Type'),
 						regex = /json/gi;
 
-					if ((/json/gi).test(type)) {
+					if (regex.test(type)) {
 						try {
 							result = JSON.parse(this._request.response);
 						} catch (e) {
