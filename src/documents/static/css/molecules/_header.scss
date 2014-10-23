@@ -7,6 +7,10 @@
 	position: relative;
 	z-index: 1;
 
+	.size-constraint {
+		position: relative;
+	}
+
 	.large-text {
 		display: block;
 		float: left;
@@ -35,5 +39,20 @@
 			content: '';
 			display: table;
 		}
+	}
+	nav {
+		bottom: 1em;
+		position: absolute;
+		right: 1em;
+
+		a {
+			&:hover {
+				border-bottom: 1px solid $color-attention;
+			}
+		}
+	}
+
+	.active {
+		border-bottom: 3px solid $color-attention;
 	}
 }

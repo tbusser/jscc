@@ -588,9 +588,6 @@
 			// Check if this item is something we would be interested in
 			if (values.categories.indexOf('JS API') > -1 || (values.categories.indexOf('DOM') > -1) || (values.categories.indexOf('Canvas') > -1)) {
 				if (_rules[key] != null) {
-					if (key === 'geolocation') {
-						console.log(values);
-					}
 					_caseCount++;
 					_features[key] = values;
 					_features[key].key = key;

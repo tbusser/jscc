@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+	@partial('document/head')
+	<body id="scroll-top-target">
+		@partial('components/header')
+		<main>
+			@html.raw(content)
+		</main>
+		@partial('components/footer')
+		@partial('document/about-behaviour')
+		<a class="scroll-to-top not-available" data-no-correction href="#scroll-top-target" title="Back to top">
+			<span class="visually-hidden">Go back to top</span>
+		</a>
+	</body>
+</html>
