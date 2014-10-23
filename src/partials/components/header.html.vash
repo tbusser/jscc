@@ -12,7 +12,7 @@
 			@if (document.url == '/about') {
 				<span class="active">Info</span>
 			} else {
-				<a href="/about.html">Info</a>
+				<a href="/about">Info</a>
 			}
 		</nav>
 	</div>

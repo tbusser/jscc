@@ -26,5 +26,5 @@
 
 	<title>@document.title</title>
 
-	<link rel="stylesheet" href="static/css/site.css">
+	<link rel="stylesheet" href="/static/css/site.css">
 </head>
