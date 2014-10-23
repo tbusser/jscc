@@ -89,7 +89,7 @@
 		    filesystem                : [/\.(?:r|webkitR)equestFileSystem/],
 		    fileapi                   : [/(?:\.dataTransfer|\.files(?:\[\d*?]|\.item|\.length|\s*;))/],
 		    promises                  : [/=\s*new\s*Promise\s*\(/],
-		    // xhr2                      : [/=\s*new\s*FormData\s*\(|\.responseType\s*=\s*(?:\'|")(?:arraybuffer|blob|document|json|text)(?:\'|")/],
+		    xhr2                      : [/(?:=\s*new\s*FormData\s*\()|(?:\.responseType\s*=\s*(?:\'|")(?:arraybuffer|blob|document|json|text)(?:\'|"))/],
 		    'obj-create'              : [/Object\.create\s*\(/],
 		    'obj-defineproperty'      : [/Object\.defineProperty\s*\(/],
 		    'obj-defineproperties'    : [/Object\.defineProperties\s*\(/],
