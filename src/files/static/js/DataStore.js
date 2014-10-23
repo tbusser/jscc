@@ -83,7 +83,7 @@
 		    'atob-btoa'               : [/\.(?:atob|btoa)\s*\(/],
 		    imports                   : [/\.querySelector(?:All)?\s*\((?:\'|")link\[rel=(?:\'|")import(?:\'|")](?:\'|")/],
 		    'resource-timing'         : [/\.getEntriesByType\s*\(\s*(?:\'|")resource(?:\'|")\s*\)/],
-		    'web-animation'           : [/(?:\S*?)\.animate\s*\(\s*/],
+		    'web-animation'           : [/\S*\.animate\s*\(\s*(?:(?:\[(?:\s|\n|\r|\S|)*?\]|\S*)\s*,)(?:\s|\S|\r|\n)*?\)/],
 		    'custom-elements'         : [/(?:\S*?)\.registerElement\s*\(\s*(?:\'|")\S*?(?:\'|")/],
 		    filereader                : [/=\s*new\s*FileReader\s*\(\s*\)/],
 		    filesystem                : [/\.(?:r|webkitR)equestFileSystem/],
