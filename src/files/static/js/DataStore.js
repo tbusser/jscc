@@ -89,7 +89,7 @@
 		    filesystem                : [/\.(?:r|webkitR)equestFileSystem/],
 		    fileapi                   : [/(?:\.dataTransfer|\.files(?:\[\d*?]|\.item|\.length|\s*;))/],
 		    promises                  : [/=\s*new\s*Promise\s*\(/],
-		    // xhr2                      : [/=\s*new\s*FormData\s*\(|\.responseType\s*=\s*(?:\'|")(?:arraybuffer|blob|document|json|text)(?:\'|")/],
+		    xhr2                      : [/(?:=\s*new\s*FormData\s*\()|(?:\.responseType\s*=\s*(?:\'|")(?:arraybuffer|blob|document|json|text)(?:\'|"))/],
 		    'obj-create'              : [/Object\.create\s*\(/],
 		    'obj-defineproperty'      : [/Object\.defineProperty\s*\(/],
 		    'obj-defineproperties'    : [/Object\.defineProperties\s*\(/],
@@ -120,8 +120,8 @@
 		    'strict-mode'             : [/(?:\'|")use strict(?:\'|")/]
 	    },
 	    _sources = {
-		    'static/data/additional.json' : null,
-		    'static/data/caniuse2.json'   : null
+		    '/static/data/additional.json' : null,
+		    '/static/data/caniuse2.json'   : null
 	    },
 	    _callCount = 0;
 
@@ -373,11 +373,11 @@
 		_caseCount = 0;
 
 		// Keep the agents information
-		_agents = _convertVersionList(_sources['static/data/caniuse2.json'].agents);
+		_agents = _convertVersionList(_sources['/static/data/caniuse2.json'].agents);
 		// Process the data from can I use
-		_processCanIUseData(_sources['static/data/caniuse2.json'].data);
+		_processCanIUseData(_sources['/static/data/caniuse2.json'].data);
 		// Process the data from the additional.json file
-		_processAdditionalData(_sources['static/data/additional.json'].data);
+		_processAdditionalData(_sources['/static/data/additional.json'].data);
 		_normalizeBrowserSupport();
 		_normalizeLinks();
 	}
