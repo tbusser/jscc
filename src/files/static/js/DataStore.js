@@ -6,13 +6,13 @@
 
 	if (typeof define === 'function' && define.amd) {
 		// AMD
-		define(['Ajax', 'Intermediary'], factory);
+		define(['Intermediary'], factory);
 	} else if (typeof exports === 'object') {
-		module.exports = factory(require('Ajax', 'Intermediary'));
+		module.exports = factory(require('Intermediary'));
 	} else {
-		root.DataStore = factory(root.Ajax, root.Intermediary);
+		root.DataStore = factory(root.Intermediary);
 	}
-}(this, function(Ajax, Intermediary) {
+}(this, function(Intermediary) {
 	'use strict';
 
 	var _agents,

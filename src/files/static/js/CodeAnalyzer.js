@@ -11,7 +11,7 @@ TODO:
 		// AMD
 		define(['DataStore', 'Intermediary'], factory);
 	} else if (typeof exports === 'object') {
-		module.exports = factory(require('DataStore', 'Intermediary'));
+		module.exports = factory(require('DataStore'), require('Intermediary'));
 	} else {
 		root.CodeAnalyzer = factory(root.DataStore, root.Intermediary);
 	}

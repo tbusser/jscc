@@ -510,6 +510,9 @@
 
 			// Get the arguments that were passed along to the method
 			var args = Array.prototype.slice.call(arguments, 1);
+			if (args.length === 0) {
+				args.push(null);
+			}
 			// Push the channel in the array
 			args.push(namespace);
 			// Call the publish method of the channel to actually publish the event

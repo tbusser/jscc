@@ -124,6 +124,8 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	 * Handles the messages received from the loader.
 	 */
 	function _onDataLoaderMessage(message, channel) {
+		var cleanUp = false;
+
 		// Check the channel on which the message was posted
 		switch (channel) {
 		case 'dataloader:download-completed':
@@ -132,6 +134,11 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 			DataStore.init(ajaxLoader.getData());
 			analyzer.check(jsCode);
 			jsCode = null;
+			cleanUp = true;
+			break;
+		case 'dataloader:too-many-attempts':
+			_logMessage('Exhausted compatibility data download attempts. (' + channel + ')');
+			cleanUp = true;
 			break;
 		default:
 			// The compatibility data didn't get downloaded, this needs some
@@ -141,11 +148,13 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 			break;
 		}
 
-		// Unsubscribe from message from the data loader
-		Intermediary.unsubscribe('dataloader', dataLoaderHandler);
-		// Relaease the data loader and its handler
-		dataLoaderHandler = null;
-		ajaxLoader = null;
+		if (cleanUp) {
+			// Unsubscribe from message from the data loader
+			Intermediary.unsubscribe('dataloader', dataLoaderHandler);
+			// Relaease the data loader and its handler
+			dataLoaderHandler = null;
+			ajaxLoader = null;
+		}
 	}
 
 	/**
