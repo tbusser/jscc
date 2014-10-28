@@ -84,7 +84,7 @@ TODO:
 				this._matches = _runRules(code);
 				Intermediary.publish('codeAnalyzed');
 			} else {
-				Intermediary.puslish('notification:error', {
+				Intermediary.publish('notification:error', {
 					level   : 1,
 					message : 'Make sure compatibility data is loaded before running the CodeAnalyzer'
 				});

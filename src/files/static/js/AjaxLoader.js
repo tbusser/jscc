@@ -28,6 +28,7 @@
 		this._options = overrides;
 
 		this._attempts = 0;
+		this._callCount = 0;
 		this._isReady = false;
 	};
 
@@ -36,19 +37,21 @@
 		* Load the JSON files containing the compatibility data.
 		*/
 		_loadData: function() {
+			var ref = this;
+
 			this._isReady = false;
 			this._attempts++;
 			iterate(this._sources, function(key) {
-				if (this._sources[key] == null) {
-					this._callCount++;
+				if (ref._sources[key] == null) {
+					ref._callCount++;
 					var ajax = new Ajax({
-						callbackOnSuccess : this._onAjaxSuccess.bind(this),
-						callbackOnError   : this._onAjaxError.bind(this)
+						callbackOnSuccess : ref._onAjaxSuccess.bind(ref),
+						callbackOnError   : ref._onAjaxError.bind(ref)
 					});
 
 					Intermediary.publish('notification:info', {
 						level   : 9,
-						message : 'Downloading compatibility data from "' + key + '" (attempt ' + this._attempts + ').'
+						message : 'Downloading compatibility data from "' + key + '" (attempt ' + ref._attempts + ').'
 					});
 
 					ajax.makeRequest(key);
@@ -88,6 +91,7 @@
 		},
 
 		_onCallCompleted: function() {
+			var ref = this;
 			// Check if the call count is 0, if not we need to wait for more data to
 			// arrive
 			if (this._callCount !== 0) {
@@ -95,8 +99,8 @@
 			}
 
 			var retry = false;
-			iterate(this._sources, function(key) {
-				if (this._sources[key] == null) {
+			iterate(this._sources, function(key, data) {
+				if (data == null) {
 					retry = true;
 				}
 			});

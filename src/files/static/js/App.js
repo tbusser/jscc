@@ -77,7 +77,7 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 
 		// If the data store is ready we're good to go, we can immediately
 		// analyze the code the visitor has provided us with
-		if (DataStore.isReady) {
+		if (DataStore.isReady()) {
 			// Check the code that was passed on from the CodeInput module
 			analyzer.check(message.jsCode);
 		} else {
@@ -88,7 +88,7 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 			// Listen to messages from the data loader
 			dataLoaderHandler = Intermediary.subscribe('dataloader', _onDataLoaderMessage);
 			// Try to load the compatibility data
-			AjaxLoader.loadData(sources);
+			ajaxLoader.loadData(sources);
 		}
 	}
 
