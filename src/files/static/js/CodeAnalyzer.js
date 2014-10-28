@@ -77,29 +77,6 @@ TODO:
 	}
 
 	exports.prototype = {
-		_downloadRules: function() {
-			this._subscriptionId = Intermediary.subscribe('datastore', this._onDataStoreMessage.bind(this));
-			DataStore.loadData();
-		},
-
-		_onDataStoreMessage: function(event, channel) {
-			Intermediary.unsubscribe('datastore', this._subscriptionId);
-			switch (channel) {
-				case 'datastore:download-completed':
-					this._matches = _runRules(this._code);
-					Intermediary.publish('codeAnalyzed');
-					break;
-				case 'datastore:download-failed':
-				case 'datastore:too-many-attempts':
-					Intermediary.publish('notification:error', {
-						level   : 1,
-						message : 'Unable to download necessary data for analysis',
-						error   : event.error
-					});
-					break;
-			}
-		},
-
 		check: function(code) {
 			this._code = code;
 
@@ -107,7 +84,10 @@ TODO:
 				this._matches = _runRules(code);
 				Intermediary.publish('codeAnalyzed');
 			} else {
-				this._downloadRules();
+				Intermediary.puslish('notification:error', {
+					level   : 1,
+					message : 'Make sure compatibility data is loaded before running the CodeAnalyzer'
+				});
 			}
 		},
 
