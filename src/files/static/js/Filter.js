@@ -5,7 +5,7 @@
 		// AMD
 		define(['Intermediary', 'LocalStorage'], factory);
 	} else if (typeof exports === 'object') {
-		module.exports = factory(require('Intermediary', 'LocalStorage'));
+		module.exports = factory(require('Intermediary'), require('LocalStorage'));
 	} else {
 		root.BrowserFilter = factory(root.Intermediary, root.LocalStorage);
 	}

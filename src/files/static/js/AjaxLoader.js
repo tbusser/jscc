@@ -5,7 +5,7 @@
 		// AMD
 		define(['Intermediary', 'Ajax'], factory);
 	} else if (typeof exports === 'object') {
-		module.exports = factory(require('Intermediary', 'Ajax'));
+		module.exports = factory(require('Intermediary'), require('Ajax'));
 	} else {
 		root.AjaxLoader = factory(root.Intermediary, root.Ajax);
 	}

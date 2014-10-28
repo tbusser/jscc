@@ -10,7 +10,7 @@
 	} else if (typeof exports === 'object') {
 		module.exports = factory(require('Intermediary'));
 	} else {
-		root.DataStore = factory(root.Ajax, root.Intermediary);
+		root.DataStore = factory(root.Intermediary);
 	}
 }(this, function(Intermediary) {
 	'use strict';
