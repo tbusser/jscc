@@ -200,6 +200,21 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	/* ====================================================================== *\
 		INITIALIZATION
 	\* ====================================================================== */
+	function initInputLabels() {
+		// Create an input element to check if it has a placeholder property, if
+		// it does it means the browser supports placeholders and we can hide
+		// the label text in order to win some vertical space
+		if (document.createElement('input').placeholder != null) {
+			// Get all the spans inside label elements
+			var spans = document.querySelectorAll('label > span');
+			// Loop over all the elements we found and apply the visually-hidden
+			// class so the label text will be hidden from view
+			for (var index = 0, ubound = spans.length; index < ubound; index++) {
+				spans[index].classList.add('visually-hidden');
+			}
+		}
+	}
+
 	function init() {
 		// Initialize the module responsible for letting the user select some JS code
 		codeInputController.init();
@@ -229,6 +244,8 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 		// Subscribe to the message indicating a filter has changed and needs to
 		// be applied on the report
 		Intermediary.subscribe('filter:filter-changed', _onFilterChanged);
+
+		initInputLabels();
 
 		_logMessage('Reporting for duty');
 	}

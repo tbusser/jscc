@@ -12,14 +12,3 @@
 } else {
 	<script charset="utf-8" data-main="static/js/App.js" src="static/js/vendor/require.js"></script>
 }
-
-<script>
-	(function() {
-		if (document.createElement('input').placeholder != null) {
-			var spans = document.querySelectorAll('label > span');
-			for (var index=0, ubound=spans.length; index<ubound; index++) {
-				spans[index].classList.add('visually-hidden');
-			}
-		}
-	})();
-</script>
