@@ -5,8 +5,29 @@ require.config({
 	}
 });
 
-require(['Intermediary', 'DataStore', 'ScrollTo'], function(Intermediary, DataStore, ScrollTo) {
+require(['Intermediary', 'DataStore', 'ScrollTo', 'AjaxLoader'], function(Intermediary, DataStore, ScrollTo, AjaxLoader) {
 	'use strict';
+
+	/**
+	* Handles the messages received from the loader.
+	*/
+	function _onDataLoaderMessage(message, channel) {
+		// Check the channel on which the message was posted
+		switch (channel) {
+		case 'dataloader:download-completed':
+			// The loader was able to download all the data we need, we can proceed
+			// with intializing the data store and analyzing the code
+			DataStore.init(ajaxLoader.getData());
+			_listApis();
+			break;
+		}
+
+		// Unsubscribe from message from the data loader
+		Intermediary.unsubscribe('dataloader', dataLoaderHandler);
+		// Relaease the data loader and its handler
+		dataLoaderHandler = null;
+		ajaxLoader = null;
+	}
 
 	function _listApis() {
 		var features = DataStore.getData(),
@@ -41,28 +62,17 @@ require(['Intermediary', 'DataStore', 'ScrollTo'], function(Intermediary, DataSt
 		outputElem.appendChild(list);
 	}
 
-	function _onDataStoreMessage(event, channel) {
-		Intermediary.unsubscribe('datastore', _subscriptionId);
-		switch (channel) {
-			case 'datastore:download-completed':
-				_listApis();
-				break;
-			case 'datastore:download-failed':
-			case 'datastore:too-many-attempts':
-				Intermediary.publish('notification:error', {
-					level   : 1,
-					message : 'Unable to download necessary data for analysis',
-					error   : event.error
-				});
-				break;
-		}
-	}
-
 	var scrollToController = new ScrollTo(),
-		_subscriptionId = Intermediary.subscribe('datastore', _onDataStoreMessage),
-		outputElem = document.getElementById('api-list');
+	    outputElem = document.getElementById('api-list'),
+	    ajaxLoader = new AjaxLoader(),
+	    dataLoaderHandler = Intermediary.subscribe('dataloader', _onDataLoaderMessage),
+	    sources = {
+		    '/static/data/additional.json' : null,
+		    '/static/data/caniuse2.json'   : null
+	    };
 
-	DataStore.loadData();
+	// Try to load the compatibility data
+	ajaxLoader.loadData(sources);
 
 	scrollToController.init();
 });

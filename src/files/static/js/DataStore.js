@@ -18,7 +18,6 @@
 	var _agents,
 	    _features,
 	    _caseCount,
-	    _attempts = 0,
 	    _isReady = false,
 	    _rules = {
 		    queryselector             : [/\.querySelector\s*(?:All)*\(/],
@@ -120,11 +119,7 @@
 		    'strict-mode'             : [/(?:\'|")use strict(?:\'|")/],
 		    eventtarget               : [/\.(?:addEventListener|removeEventListener|dispatchEvent)/]
 	    },
-	    _sources = {
-		    '/static/data/additional.json' : null,
-		    '/static/data/caniuse2.json'   : null
-	    },
-	    _callCount = 0;
+	    _sources;
 
 	/**
 	* Iterates over the keys of an object and calls a callback function when the
@@ -215,30 +210,6 @@
 			note        : noteLink,
 			version     : versionInfo.version
 		};
-	}
-
-	/**
-	* Load the JSON files containing the compatibility data.
-	*/
-	function _loadData() {
-		_isReady = false;
-		_attempts++;
-		iterate(_sources, function(key) {
-			if (_sources[key] == null) {
-				_callCount++;
-				var ajax = new Ajax({
-					callbackOnSuccess : _onAjaxSuccess,
-					callbackOnError   : _onAjaxError
-				});
-
-				Intermediary.publish('notification:info', {
-					level   : 9,
-					message : 'Downloading compatibility data from "' + key + '" (attempt ' + _attempts + ').'
-				});
-
-				ajax.makeRequest(key);
-			}
-		});
 	}
 
 	function _md2html(markdown) {
@@ -489,77 +460,6 @@
 		return browsers;
 	}
 
-	function _onAjaxError(result) {
-		// Decrease the number of outstanding calls
-		_callCount--;
-
-		// Send out a message about the failed attempt
-		Intermediary.publish('datastore:download-failed', {
-			level   : 1,
-			message : 'Unable to download compatibility data from (' + event.url + ')',
-			error   : result
-		});
-
-		// Call the call completed method for some housekeeping
-		_onCallCompleted();
-	}
-
-	function _onAjaxSuccess(event) {
-		Intermediary.publish('notification:info', {
-			level   : 9,
-			message : 'Compatibility data from "' + event.url + '" downloaded.'
-		});
-
-		// Decrease the number of outstanding calls
-		_callCount--;
-
-		// Store the raw data
-		_sources[event.url] = event.result;
-
-		// Call the call completed method for some housekeeping
-		_onCallCompleted();
-	}
-
-	function _onCallCompleted() {
-		// Check if the call count is 0, if not we need to wait for more data to
-		// arrive
-		if (_callCount !== 0) {
-			return;
-		}
-
-		var retry = false;
-		iterate(_sources, function(key) {
-			if (_sources[key] == null) {
-				retry = true;
-			}
-		});
-
-		if (retry) {
-			if (_attempts < 5) {
-				_loadData();
-			} else {
-				Intermediary.publish('datastore:too-many-attempts');
-			}
-		} else {
-			// Normalize the data
-			_normalizeData();
-
-			// Clear up the raw downloaded data
-			iterate(_sources, function(key) {
-				_sources[key] = null;
-			});
-
-			// Set the ready flag
-			_isReady = true;
-
-			// Inform subscribers of the fact that the data has been downloaded
-			Intermediary.publish('datastore:download-completed', {
-				level   : 9,
-				message : 'Compatibility data successfully downloaded'
-			});
-		}
-	}
-
 	function _processAdditionalData(data) {
 		iterate(data, function(key, value) {
 			// Check if we have a rule for the current category
@@ -617,16 +517,17 @@
 			return _isReady;
 		},
 
-		loadData: function() {
-			if (this.isReady()) {
-				Intermediary.publish('datastore:download-completed', {
-					level   : 9,
-					message : 'Compatibility data successfully downloaded'
-				});
-			} else {
-				_attempts = 0;
-				_loadData();
-			}
+		/**
+		 * The sources passed along need to be refactored as the current
+		 * solution is way too brittle. The CanIUse data is now recognized by
+		 * its URL. The DataStore now needs too much knowledge of the data
+		 * sources.
+		 */
+		init: function(sources) {
+			//
+			_sources = sources;
+			_normalizeData();
+			_isReady = true;
 		}
 	};
 }));
