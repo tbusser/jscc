@@ -202,15 +202,15 @@ require(['Intermediary', 'CodeInput', 'CodeAnalyzer', 'Reporter', 'DataStore', '
 	\* ====================================================================== */
 	function initInputLabels() {
 		// Create an input element to check if it has a placeholder property, if
-		// it does it means the browser supports placeholders and we can hide
-		// the label text in order to win some vertical space
-		if (document.createElement('input').placeholder != null) {
+		// it does not it means the browser does not support placeholders and we
+		// need to show the label text
+		if (document.createElement('input').placeholder == null) {
 			// Get all the spans inside label elements
 			var spans = document.querySelectorAll('label > span');
-			// Loop over all the elements we found and apply the visually-hidden
-			// class so the label text will be hidden from view
+			// Loop over all the elements we found and remove the visually-hidden
+			// class so the label text will be visible to the visitor
 			for (var index = 0, ubound = spans.length; index < ubound; index++) {
-				spans[index].classList.add('visually-hidden');
+				spans[index].classList.remove('visually-hidden');
 			}
 		}
 	}
