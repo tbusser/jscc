@@ -33,6 +33,7 @@ TODO:
 	var exports = function(options) {
 		this._options = options;
 		this._code = null;
+		this._fileName = null;
 		this._matches = [];
 	};
 
@@ -77,18 +78,25 @@ TODO:
 	}
 
 	exports.prototype = {
-		check: function(code) {
+		check: function(code, fileName) {
 			this._code = code;
+			this._fileName = fileName;
 
 			if (DataStore.isReady()) {
 				this._matches = _runRules(code);
-				Intermediary.publish('codeAnalyzed');
+				Intermediary.publish('codeAnalyzed', {
+					sender : this
+				});
 			} else {
 				Intermediary.publish('notification:error', {
 					level   : 1,
 					message : 'Make sure compatibility data is loaded before running the CodeAnalyzer'
 				});
 			}
+		},
+
+		getFileName: function() {
+			return this._fileName;
 		},
 
 		getMatches: function() {
