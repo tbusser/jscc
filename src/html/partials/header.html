@@ -1,0 +1,20 @@
+<header class="site-header">
+	<div class="size-constraint">
+		<h1>
+			<a href="/">
+				<span class="large-text">JavaScript</span>
+				<span class="small-container">
+					compatibility checker
+				</span>
+			</a>
+		</h1>
+		<nav>
+			@@if (isAbout === true) {
+				<span class="active">Info</span>
+			}
+			@@if (isAbout === false) {
+				<a href="/about.html">Info</a>
+			}
+		</nav>
+	</div>
+</header>
