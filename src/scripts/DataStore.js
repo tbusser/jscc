@@ -16,10 +16,10 @@
 	'use strict';
 
 	var _agents,
-	    																																																		_features,
-	    																																																		_caseCount,
-	    																																																		_isReady = false,
-	    																																																		_rules = {
+	    																																																																																																														_features,
+	    																																																																																																														_caseCount,
+	    																																																																																																														_isReady = false,
+	    																																																																																																														_rules = {
 		    queryselector             : [/\.querySelector\s*(?:All)*\(/],
 		    getelementsbyclassname    : [/\.getElementsByClassName\s*\(/],
 		    webworkers                : [/new\s*Worker\s*\(/],
@@ -117,9 +117,10 @@
 		    'array-reduce'            : [/\.reduce\s*\(\s*(?:function|\S*?(?:,\s*\S*?)?\s*\))/],
 		    'array-reduceRight'       : [/\.reduceRight\s*\(\s*(?:function|\S*?(?:,\s*\S*?)?\s*\))/],
 		    'strict-mode'             : [/(?:\'|")use strict(?:\'|")/],
-		    eventtarget               : [/\.(?:addEventListener|removeEventListener|dispatchEvent)/]
+		    eventtarget               : [/\.(?:addEventListener|removeEventListener|dispatchEvent)/],
+		let                       : [/(?:\s+|^)let\s+/]
 	    },
-	    																																																		_sources;
+		_sources;
 
 	/**
 	* Iterates over the keys of an object and calls a callback function when the
@@ -135,8 +136,8 @@
 
 	function _calculateTotalGlobalUsage(versionList) {
 		var total = 0,
-		    																																																		index = 0,
-		    																																																		ubound = versionList.length;
+		    																																																																																																														index = 0,
+		    																																																																																																														ubound = versionList.length;
 
 		for (; index < ubound; index++) {
 			total += versionList[index].globalUsage;
@@ -188,11 +189,11 @@
 
 	function _createUAVersionObject(versionInfo, agentInfo, key) {
 		var isDisabled = /d/i,
-		    																																																		needsPrefix = /x/i,
-		    																																																		prefix = false,
-		    																																																		noteMatches = versionInfo.support.match(/#(\d+)/),
-		    																																																		usage = (isNaN(agentInfo.global_usage) ? 0 : agentInfo.global_usage),
-		    																																																		noteLink;
+		    																																																																																																														needsPrefix = /x/i,
+		    																																																																																																														prefix = false,
+		    																																																																																																														noteMatches = versionInfo.support.match(/#(\d+)/),
+		    																																																																																																														usage = (isNaN(agentInfo.global_usage) ? 0 : agentInfo.global_usage),
+		    																																																																																																														noteLink;
 
 		if (needsPrefix.test(versionInfo.support)) {
 			prefix = agentInfo.prefix;
@@ -230,8 +231,8 @@
 
 	function _mergeLinks(originalLinks, supplement) {
 		var linkmap,
-		    																																																		index,
-		    																																																		ubound;
+		    																																																																																																														index,
+		    																																																																																																														ubound;
 
 		// Make sure there are supplemental links to go through
 		if (supplement == null || supplement.length === 0) {
@@ -294,8 +295,8 @@
 			// Iterate over the user agents
 			iterate(data.stats, function(agent, support) {
 				var normalized = [],
-				    																																																		currentItem,
-				    																																																		previousItem;
+				    																																																																																																														currentItem,
+				    																																																																																																														previousItem;
 
 				// Loop over the versions of the current user agent
 				for (var index = 0, ubound = support.length; index < ubound; index++) {
@@ -306,10 +307,10 @@
 					// 3: Try to get the browser information for the version we're
 					//    processing
 					var item = support[index],													/* [1] */
-					    																																																		regex = /(?:a|n|p|u|y)/i,
-					    																																																		matches = regex.exec(item.support),
-					    																																																		supportValue = (matches.length > 0) ? matches[0].toLowerCase() : 'u',	/* [2] */
-					    																																																		agentObj = _agents[agent].version_list[item.version];					/* [3] */
+					    																																																																																																														regex = /(?:a|n|p|u|y)/i,
+					    																																																																																																														matches = regex.exec(item.support),
+					    																																																																																																														supportValue = (matches.length > 0) ? matches[0].toLowerCase() : 'u',	/* [2] */
+					    																																																																																																														agentObj = _agents[agent].version_list[item.version];					/* [3] */
 
 					/*
 					if (!supports[item.support]) {
@@ -360,7 +361,7 @@
 
 	function _normalizeLinks() {
 		var regex = /poly(?:fill)/i,
-		    																																																		regexurl = /code.google.com/i;
+		    																																																																																																														regexurl = /code.google.com/i;
 
 		// Iterate over all features that can be detected
 		iterate(_features, function(feature, data) {
