@@ -28,7 +28,7 @@
 
 	<title>JS Compatibility Checker</title>
 
-	<link rel="stylesheet" href="/static/css/site.css">
+	<link rel="stylesheet" href="/styles/site.css">
 </head>
 
 	<body>
@@ -43,15 +43,18 @@
 			</a>
 		</h1>
 		<nav>
-			<a href="/about">Info</a>
-		</nav>
+
+
+										<a href="/about.html">Info</a>
+
+					</nav>
 	</div>
 </header>
 
 		<main>
 			<div class="container-blue">
-	<div class="size-constraint">
-		<article id="code-input" class="input-widget">
+				<div class="size-constraint">
+					<article id="code-input" class="input-widget">
 	<h2>Please provide some JavaScript to check</h2>
 	<form id="form_id" action="index.html" method="post">
 		<label for="txaCode">
@@ -69,102 +72,102 @@
 	</form>
 </article>
 
-	</div>
-</div>
-
-<div id="report" class="container-white">
-	<article id="widget-report" class="size-constraint hidden">
-		<header id="widget-report-header">
-			<div>
-				<h2>
-					Compatibility Report
-				</h2>
-				<button data-sh-group="report-filters" data-sh-trigger="index" class="button index" type="button"><span class="visually-hidden">Show/Hide </span>index</button>
-				<button data-sh-group="report-filters" data-sh-trigger="comprep" class="button config" type="button"><span class="visually-hidden">Show/Hide </span>browsers</button>
-				<button data-sh-group="report-filters" data-sh-trigger="compsup" class="button filter" type="button"><span class="visually-hidden">Show/Hide </span>filters</button>
-			</div>
-			<div>
-				<div data-sh-container="index" class="report-index">
-					<nav data-sh-content="index">
-						<h3 class="visually-hidden">Index of detected techniques</h3>
-						<ol id="index-list" class="index-list">
-
-						</ol>
-					</nav>
 				</div>
+			</div>
 
-				<article data-sh-container="comprep" id="browser-filter" class="filter-widget size-constraint">
-					<div data-sh-content="comprep">
-						<input type="checkbox" id="localstorage-consent" data-consent>
-						<label for="localstorage-consent">
-							Store changes made to the configuration in my local storage so they're persisted between visits.
-						</label>
-						<h3>Show the following browsers in the report</h3>
-						<div class="filters">
-							<div>
-								<h4>Desktop browsers</h4>
-								<ul id="bf-desktop">
-
-								</ul>
-							</div>
-							<div>
-								<h4>Mobile browsers</h4>
-								<ul id="bf-mobile">
-
-								</ul>
-							</div>
+			<div id="report" class="container-white">
+				<article id="widget-report" class="size-constraint hidden">
+					<header id="widget-report-header">
+						<div>
+							<h2>
+								Compatibility Report
+							</h2>
+							<button data-sh-group="report-filters" data-sh-trigger="index" class="button index" type="button"><span class="visually-hidden">Show/Hide </span>index</button>
+							<button data-sh-group="report-filters" data-sh-trigger="comprep" class="button config" type="button"><span class="visually-hidden">Show/Hide </span>browsers</button>
+							<button data-sh-group="report-filters" data-sh-trigger="compsup" class="button filter" type="button"><span class="visually-hidden">Show/Hide </span>filters</button>
 						</div>
-					</div>
-				</article>
+						<div>
+							<div data-sh-container="index" class="report-index">
+								<nav data-sh-content="index">
+									<h3 class="visually-hidden">Index of detected techniques</h3>
+									<ol id="index-list" class="index-list">
 
-				<article data-sh-container="compsup" id="support-filter" class="filter-widget size-constraint">
-					<div data-sh-content="compsup">
-						<input type="checkbox" id="localstorage-consentsupport" data-consent>
-						<label for="localstorage-consentsupport">
-							Store changes made to the configuration in my local storage so they're persisted between visits.
-						</label>
-						<h3>Show these support categories in the report</h3>
-						<div class="filters">
-							<ul id="support-filter">
-								<li>
-									<input type="checkbox" id="chkbox_sf_unknown" data-filter-value="u">
-									<label for="chkbox_sf_unknown" class="toggle-button">Unknown support</label>
-								</li>
-								<li>
-									<input type="checkbox" id="chkbox_sf_no" data-filter-value="n">
-									<label for="chkbox_sf_no" class="toggle-button">No support</label>
-								</li>
-								<li>
-									<input type="checkbox" id="chkbox_sf_partial" data-filter-value="a">
-									<label for="chkbox_sf_partial" class="toggle-button">Partial support</label>
-								</li>
-								<li>
-									<input type="checkbox" id="chkbox_sf_poly" data-filter-value="p">
-									<label for="chkbox_sf_poly" class="toggle-button">Polyfill support</label>
-								</li>
-								<li>
-									<input type="checkbox" id="chkbox_sf_full" data-filter-value="y">
-									<label for="chkbox_sf_full" class="toggle-button">Full support</label>
-								</li>
-							</ul>
+									</ol>
+								</nav>
+							</div>
+
+							<article data-sh-container="comprep" id="browser-filter" class="filter-widget size-constraint">
+								<div data-sh-content="comprep">
+									<input type="checkbox" id="localstorage-consent" data-consent>
+									<label for="localstorage-consent">
+										Store changes made to the configuration in my local storage so they're persisted between visits.
+									</label>
+									<h3>Show the following browsers in the report</h3>
+									<div class="filters">
+										<div>
+											<h4>Desktop browsers</h4>
+											<ul id="bf-desktop">
+
+											</ul>
+										</div>
+										<div>
+											<h4>Mobile browsers</h4>
+											<ul id="bf-mobile">
+
+											</ul>
+										</div>
+									</div>
+								</div>
+							</article>
+
+							<article data-sh-container="compsup" id="support-filter" class="filter-widget size-constraint">
+								<div data-sh-content="compsup">
+									<input type="checkbox" id="localstorage-consentsupport" data-consent>
+									<label for="localstorage-consentsupport">
+										Store changes made to the configuration in my local storage so they're persisted between visits.
+									</label>
+									<h3>Show these support categories in the report</h3>
+									<div class="filters">
+										<ul id="support-filter">
+											<li>
+												<input type="checkbox" id="chkbox_sf_unknown" data-filter-value="u">
+												<label for="chkbox_sf_unknown" class="toggle-button">Unknown support</label>
+											</li>
+											<li>
+												<input type="checkbox" id="chkbox_sf_no" data-filter-value="n">
+												<label for="chkbox_sf_no" class="toggle-button">No support</label>
+											</li>
+											<li>
+												<input type="checkbox" id="chkbox_sf_partial" data-filter-value="a">
+												<label for="chkbox_sf_partial" class="toggle-button">Partial support</label>
+											</li>
+											<li>
+												<input type="checkbox" id="chkbox_sf_poly" data-filter-value="p">
+												<label for="chkbox_sf_poly" class="toggle-button">Polyfill support</label>
+											</li>
+											<li>
+												<input type="checkbox" id="chkbox_sf_full" data-filter-value="y">
+												<label for="chkbox_sf_full" class="toggle-button">Full support</label>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</article>
 						</div>
+					</header>
+					<div id="report-output">
 					</div>
 				</article>
 			</div>
-		</header>
-		<div id="report-output">
-		</div>
-	</article>
-</div>
 
-<div class="container-medium">
-	<article class="logging-widget size-constraint" id="log-output">
+			<div class="container-medium">
+				<article class="logging-widget size-constraint" id="log-output">
 	<h2>Logging</h2>
 	<ol class="notifications">
 	</ol>
 </article>
 
-</div>
+			</div>
 		</main>
 		<footer class="site-footer">
 	<div class="size-constraint two-column">
@@ -183,7 +186,11 @@
 	</div>
 </footer>
 
-		<script charset="utf-8" data-main="static/js/App-built.js" src="static/js/vendor/require.js"></script><script>
+
+
+
+			<script charset="utf-8" src="scripts/App-built.js"></script>
+	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -192,6 +199,7 @@
 	  ga('create', 'UA-55961222-1', 'auto');
 	  ga('send', 'pageview');
 	</script>
+
 
 		<a class="scroll-to-top not-available" data-no-correction href="#report" title="Back to top">
 			<span class="visually-hidden">Go back to top</span>
