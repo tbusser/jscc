@@ -34,6 +34,11 @@ var gulp = require('gulp'),
 			out: './dist/scripts/About-built.js',
 			optimize: 'uglify2'
 		},
+		ghPages     : {
+			remoteUrl : 'https://github.com/tbusser/jscc.git',
+			origin    : 'origin',
+			branch    : 'gh-pages'
+		},
 		dev         : {
 			base   : './out/',
 			css    : './out/styles/',
@@ -65,6 +70,7 @@ plugins.rjs = require('requirejs');
 \* ========================================================================== */
 require('./gulp/clean')(gulp, config, plugins);
 require('./gulp/css')(gulp, config, plugins);
+require('./gulp/ghpages')(gulp, config, plugins);
 require('./gulp/html')(gulp, config, plugins);
 require('./gulp/js')(gulp, config, plugins);
 require('./gulp/static-assets')(gulp, config, plugins);
@@ -115,6 +121,15 @@ gulp.task('deploy', function(taskReady) {
 	runSequence(
 		'set:deploy',
 		'build',
+		taskReady
+	);
+});
+
+gulp.task('publish', function(taskReady) {
+	'use strict';
+
+	runSequence(
+		'publish',
 		taskReady
 	);
 });
